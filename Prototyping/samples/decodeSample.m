@@ -22,22 +22,15 @@
 %Author: Tinotenda Chemvura @tino1b2be
 %Created: 2015-12-02
 
-function frames = makeFrames (data, frameSize)
-	%This function makes frames each of size "frame size" and returns
-    %a matrix with each of the columns as a seperate frame for processing
+function output = decodeSample( frame, Fs )
+% Function that decodes a given frame and gives an output in the form a
+% vector with first element being the NUMBER being represented, and the
+% rest of the elements being the magnitudes of the each of the DTMF signals
+% in the frame.
+
+    output = zeros(1,9);                                                    % initialise the return value
+    f_bin = [697,770,582,941,1209,1336,1477,1633];                          % frequency bin for the Goertzel calculation
+    indices = round(f_bin/Fs * length(frame)) + 1;                          % comput indices for the Goertzel calculation
+    output(2:end) = abs(goertzel(frame,indices));                           % magnitudes are set
     
-    % must preallocate memory for the output
-    numFrames = floor(length(data)/frameSize);
-    frames = zeros(frameSize,numFrames);   % number of frames (columns)
-    frames(:,1) = data(1:frameSize);                         % slice off the first frame
-    
-    col = 2;
-    for i= frameSize+1 : frameSize : length(data)
-        new =  data(i:i+frameSize-1);
-        frames(:,col) = new;
-        if (col == numFrames) % break when all the frames have been created
-            break;
-        end
-        col = col+1;
-    end % end of for loop
-end % end of function
+end
