@@ -35,7 +35,10 @@ function rawKeys = getRawKeys( magData )
     freq_low = [697,770,582,941];
     freq_high = [1209,1336,1477,1633];
     
-    
+    %go through each vector and first determine whether it is a silence or
+    %an actual DTMF. if it is a silent, add '@' to the output. if it is not
+    %a silence, get the indicies of the two highest peaks. these two peaks
+    %must have a magnitude greater than one
 
 end
 
