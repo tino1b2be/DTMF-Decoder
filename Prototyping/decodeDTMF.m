@@ -20,19 +20,15 @@
 % @end deftypefn
 
 %Author: Tinotenda Chemvura @tino1b2be
-%Created: 2015-12-03
+%Created: 2015-12-06
 
-function output = decodeFrames( frames, Fs )
-% Function that decodes a given frame matrix and gives an output in the form a
-% matrix with each column giving the magnitudes of the each of the DTMF 
-% signals in the corresponding frame.
+function DTMFSequence = decodeDTMF( filename )
+% Function to decode an audio file with DTMF Tones and return the sequence
 
-    output = zeros(8,size(frames,2));                                            % initialise the output matrix
-    f_bin = [697,770,852,941,1209,1336,1477,1633];                          % frequency bin for the Goertzel calculation
-    %f_bin = [696:699,769:771,851:853,940:942,1208:1210,1335:1337,1476:1478,1632:16234];
-    indices = round(f_bin/Fs * length(frames)) + 1;                          % comput indices for the Goertzel calculation
-    
-    for i = 1:size(frames,2)
-        output(:,i) = abs(goertzel(frames(:,i),indices)); 
-    end                                   
+    [data,Fs] = audioread(filename);
+    frames = makeFrames(data, Fs);
+    dft_data = transformFrames(frames,Fs);
+    rawSequence = getRawKeys(dft_data);
+    DTMFSequence = getDTMFSequence(rawSequence);
 end
+

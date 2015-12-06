@@ -22,7 +22,7 @@
 %Author: Tinotenda Chemvura @tino1b2be
 %Created: 2015-12-04
 
-function rawKeys = getRawKeys( magData )
+function rawKeys = getRawKeys( dft_data  )
 % Function to decode each of the frames to get the number represented by
 % the data from the Goertzel Calculation. the argument "magData" is a
 % vector with the magnitudes of each of the DTMF Frequencies in the frame
@@ -32,7 +32,7 @@ function rawKeys = getRawKeys( magData )
 % has the numbers decoded from every frame present. frames that represent a
 % "silence" will be shows as "_" strings
 
-    rawKeys = repmat('~',[1,length(magData)]);
+    rawKeys = repmat('~',[1,length(dft_data)]);
     %freq_low = [697,770,582,941];
     %freq_high = [1209,1336,1477,1633];
     
@@ -51,10 +51,10 @@ function rawKeys = getRawKeys( magData )
     % of the average of the top 3 peaks.
     
     % get the top 3 frames from first 20
-    if (magData >= 20)
-        first20 = sort(mean(magData(:,1:20)),'descend');
+    if (length(dft_data) >= 20)
+        first20 = sort(mean(dft_data(:,1:20)),'descend');
     else
-        first20 = sort(mean(magData),'descend');
+        first20 = sort(mean(dft_data),'descend');
     end
     
     topAvg = mean(first20(1:3)); % average of the top 3
@@ -62,14 +62,14 @@ function rawKeys = getRawKeys( magData )
     % go through all the frames, decode frames with a mean greatere than
     % 10% of 'topAvg'
     
-    for j = 1 : length(magData) % for each decoded frame
+    for j = 1 : length(dft_data) % for each decoded frame
         %get index of highest DTMF high and low frequencies
-        if (mean(magData(:,j)) < (0.1 * topAvg))
+        if (mean(dft_data(:,j)) < (0.2 * topAvg))
             rawKeys(j) = '_';
             
         else
-            [mag,low] = max(magData(1:4,j));
-            [mag,high] = max(magData(5:8,j));
+            [mag,low] = max(dft_data(1:4,j));
+            [mag,high] = max(dft_data(5:8,j));
 
             % find the corresponding frequencies
             if (low == 1) %low = 697
