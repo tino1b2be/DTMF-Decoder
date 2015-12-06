@@ -30,19 +30,17 @@ function rawKeys = getRawKeys( magData )
 
 % the output "rawKeys" will be the number represented by each frame. This
 % has the numbers decoded from every frame present. frames that represent a
-% "silence" will be shows as "_" strings
+% "silence" will be shows as "@" sings
 
-    rawKeys = repmat('~',[1,length(magData)]);
-    %freq_low = [697,770,582,941];
-    %freq_high = [1209,1336,1477,1633];
+    rawKeys = blanks(length(magData));
+    freq_low = [697,770,582,941];
+    freq_high = [1209,1336,1477,1633];
     
     %go through each vector and first determine whether it is a silence or
-    %an actual DTMF. if it is a silent, add '_' to the output. if it is not
-    %a silence, get the indicies of the two highest peaks.
+    %an actual DTMF. if it is a silent, add '@' to the output. if it is not
+    %a silence, get the indicies of the two highest peaks. these two peaks
+    %must have a magnitude greater than one
 
-    % after some observation, noticed that the mean of the frames with DTMF
-    % frequencies is much higher that the mean of "silent" frames,
-    
     % find the 3 largest averages in the frames.
     % not efficient to go through the whole data set there
     % * get top 3 in the first 20 frames
@@ -64,58 +62,35 @@ function rawKeys = getRawKeys( magData )
     
     for j = 1 : length(magData) % for each decoded frame
         %get index of highest DTMF high and low frequencies
+        
         if (mean(magData(:,j)) < (0.1 * topAvg))
             rawKeys(j) = '_';
             
         else
-            [mag,low] = max(magData(1:4,j));
-            [mag,high] = max(magData(5:8,j));
+            [mag low] = max(magData(1:4,j));
+            [mag high] = max(magData(5:8,j));
 
             % find the corresponding frequencies
             if (low == 1) %low = 697
-                if (high == 1)      %high = 1209
-                    rawKeys(j) = '1';
-                elseif (high == 2) %high = 1336
-                    rawKeys(j) = '2';
-                elseif (high == 3) %high = 1477
-                    rawKeys(j) = '3';
-                elseif (high == 4) %high = 1633
-                    rawKeys(j) = 'A';
+                if (high == 5)      %high = 1209
+                    rawKeys(j) = '
+                elseif (high == 6) %high = 1336
+
+                elseif (high == 7) %high = 1477
+
+                elseif (high == 8) %high = 1633
+
                 end
             elseif (low == 2) %low = 770
-                if (high == 1)      %high = 1209
-                    rawKeys(j) = '4';
-                elseif (high == 2) %high = 1336
-                    rawKeys(j) = '5';
-                elseif (high == 3) %high = 1477
-                    rawKeys(j) = '6';
-                elseif (high == 4) %high = 1633
-                    rawKeys(j) = 'B';
-                end
+
             elseif (low == 3) %low = 852
-                if (high == 1)      %high = 1209
-                    rawKeys(j) = '7';
-                elseif (high == 2) %high = 1336
-                    rawKeys(j) = '8';
-                elseif (high == 3) %high = 1477
-                    rawKeys(j) = '9';
-                elseif (high == 4) %high = 1633
-                    rawKeys(j) = 'C';
-                end
+
             elseif (low == 4) %low = 941
-                if (high == 1)      %high = 1209
-                    rawKeys(j) = '*';
-                elseif (high == 2) %high = 1336
-                    rawKeys(j) = '0';
-                elseif (high == 3) %high = 1477
-                    rawKeys(j) = '#';
-                elseif (high == 4) %high = 1633
-                    rawKeys(j) = 'D';
-                end
+
             end
         end
         
-    end % end of loop through each frame
-    
-end % end of function
+    end
+
+end
 

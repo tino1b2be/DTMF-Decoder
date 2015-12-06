@@ -28,8 +28,8 @@ function output = decodeFrames( frames, Fs )
 % signals in the corresponding frame.
 
     output = zeros(8,size(frames,2));                                            % initialise the output matrix
-    f_bin = [697,770,582,941,1209,1336,1477,1633];                          % frequency bin for the Goertzel calculation
-    %f_bin = [696:699,769:771,581:583,940:942,1208:1210,1335:1337,1476:1478,1632:16234];
+    f_bin = [697,770,852,941,1209,1336,1477,1633];                          % frequency bin for the Goertzel calculation
+    %f_bin = [696:699,769:771,851:853,940:942,1208:1210,1335:1337,1476:1478,1632:16234];
     indices = round(f_bin/Fs * length(frames)) + 1;                          % comput indices for the Goertzel calculation
     
     for i = 1:size(frames,2)
