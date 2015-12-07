@@ -1,4 +1,4 @@
-%% Function to decode an audio file with DTMF Tones and return the sequence
+% Function to decode an audio file with DTMF Tones and return the sequence
 % 
 % Copyright (c) 2015 Tinotenda Chemvura
 % 
@@ -35,8 +35,8 @@
 %Created: 2015-12-06
 
 function DTMFSequence = decodeDTMF( filename )
-%% Function to decode an audio file with DTMF Tones and return the sequence
-
+% Function to decode an audio file with DTMF Tones and return the sequence
+    
     [data,Fs] = audioread(filename);
     frames = makeFrames(data, Fs);
     dft_data = transformFrames(frames,Fs);
