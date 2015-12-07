@@ -31,14 +31,12 @@
 %Author: Tinotenda Chemvura @tino1b2be
 %Created: 2015-12-03
 
-function out  = transformFrames( frames, Fs )
+function out  = transformFrames2( frames, Fs )
 % Function that decodes a given frame matrix and gives an output in the form a
 % matrix with each column giving the magnitudes of the each of the DTMF 
 % signals in the corresponding frame.
-    
-    % initialise the output matrix
-    dft_data = zeros(274,size(frames,2));
-    
+
+    dft_data = zeros(24,size(frames,2));                                            % initialise the output matrix
     % the frequency bin includes each DTMF frequency +/- 1Hz in case the
     % spectral peak is not exactly by the DTMF frequency. The frequency
     % with the highest spectral peak out of the 3 frequencies will be used
@@ -51,7 +49,7 @@ function out  = transformFrames( frames, Fs )
     
     f_bin = [687:707, 758:782, 839:865, 927:955, 1191:1227, 1316:1356, 1455:1499, 1609:1657];
     
-    indices = round(f_bin/Fs * length(frames)) + 1;                          
+    indices = round(f_bin/Fs * length(frames)) + 1;                          % comput indices for the Goertzel calculation
     
     for i = 1:size(frames,2)
         dft_data(:,i) = abs(goertzel(frames(:,i),indices)); 
@@ -60,14 +58,22 @@ function out  = transformFrames( frames, Fs )
     % must choose the highest spectral peak for each DTMF frequency
     out = zeros(8,size(frames,2));
     for f = 1:size(frames,2) % for each frame
-        out(1,f) = max(dft_data(1:20,f));       % 697Hz
-        out(2,f) = max(dft_data(21:46,f));      % 770Hz
-        out(3,f) = max(dft_data(47:73,f));      % 852Hz
-        out(4,f) = max(dft_data(74:102,f));     % 941Hz
-        out(5,f) = max(dft_data(103:139,f));    % 1209Hz
-        out(6,f) = max(dft_data(140:180,f));    % 1336Hz
-        out(7,f) = max(dft_data(181:225,f));    % 1477Hz
-        out(8,f) = max(dft_data(226:274,f));    % 1633Hz
+        j = 1; % frequency index in the output
+        for k = 1:3:24
+            out(j,f) = max(dft_data(k:k+2,f));
+            j = j+1;
+       end
     end
     
-end % end of function
+    % 697Hz
+    for f = 1:size(frames,2) % for each frame
+        out(1,f) = max(dft_data(1:21,f));
+        out(2,f) = max(dft_data(22:47,f));
+        out(3,f) = max(dft_data(48:74,f));
+        out(4,f) = max(dft_data(75:104,f));
+        out(5,f) = max(dft_data(105:142,f));
+        out(6,f) = max(dft_data(143:184,f));
+        out(7,f) = max(dft_data(185:230,f));
+        out(8,f) = max(dft_data(22:47,f));
+    end
+end

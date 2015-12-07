@@ -37,7 +37,7 @@ function out  = transformFrames( frames, Fs )
 % signals in the corresponding frame.
     
     % initialise the output matrix
-    dft_data = zeros(274,size(frames,2));
+    dft_data = zeros(24,size(frames,2));
     
     % the frequency bin includes each DTMF frequency +/- 1Hz in case the
     % spectral peak is not exactly by the DTMF frequency. The frequency
@@ -60,14 +60,14 @@ function out  = transformFrames( frames, Fs )
     % must choose the highest spectral peak for each DTMF frequency
     out = zeros(8,size(frames,2));
     for f = 1:size(frames,2) % for each frame
-        out(1,f) = max(dft_data(1:20,f));       % 697Hz
-        out(2,f) = max(dft_data(21:46,f));      % 770Hz
-        out(3,f) = max(dft_data(47:73,f));      % 852Hz
-        out(4,f) = max(dft_data(74:102,f));     % 941Hz
-        out(5,f) = max(dft_data(103:139,f));    % 1209Hz
-        out(6,f) = max(dft_data(140:180,f));    % 1336Hz
-        out(7,f) = max(dft_data(181:225,f));    % 1477Hz
-        out(8,f) = max(dft_data(226:274,f));    % 1633Hz
+        out(1,f) = max(dft_data(1:21,f));       % 697Hz
+        out(2,f) = max(dft_data(22:47,f));      % 770Hz
+        out(3,f) = max(dft_data(48:74,f));      % 852Hz
+        out(4,f) = max(dft_data(75:104,f));     % 941Hz
+        out(5,f) = max(dft_data(105:142,f));    % 1209Hz
+        out(6,f) = max(dft_data(143:184,f));    % 1336Hz
+        out(7,f) = max(dft_data(185:230,f));    % 1477Hz
+        out(8,f) = max(dft_data(231:280,f));    % 1633Hz
     end
     
 end % end of function
