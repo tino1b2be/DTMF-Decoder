@@ -42,7 +42,7 @@ function rawKeys = getRawKeys( dft_data  )
 % has the numbers decoded from every frame present. frames that represent a
 % "silence" will be shows as "_" strings
 
-    rawKeys = repmat('~',[1,length(dft_data)]);
+    rawKeys = repmat('~',[1,size(dft_data,2)]);
     %freq_low = [697,770,582,941];
     %freq_high = [1209,1336,1477,1633];
     
@@ -67,12 +67,16 @@ function rawKeys = getRawKeys( dft_data  )
         first20 = sort(mean(dft_data),'descend');
     end
     
-    topAvg = mean(first20(1:3)); % average of the top 3
+    if (size(first20,2))
+        topAvg = mean(first20(1));
+    else
+        topAvg = mean(first20(1:3)); % average of the top 3
+    end
     
     % go through all the frames, decode frames with a mean greatere than
     % 10% of 'topAvg'
     
-    for j = 1 : length(dft_data) % for each decoded frame
+    for j = 1 : size(dft_data,2) % for each decoded frame
         %get index of highest DTMF high and low frequencies
         if (mean(dft_data(:,j)) < (0.2 * topAvg))
             rawKeys(j) = '_';

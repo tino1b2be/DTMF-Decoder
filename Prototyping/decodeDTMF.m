@@ -36,8 +36,12 @@
 
 function DTMFSequence = decodeDTMF( filename )
 % Function to decode an audio file with DTMF Tones and return the sequence
-    
-    [data,Fs] = audioread(filename);
+    if (isstr(filename))
+        [data,Fs] = audioread(filename);
+    else 
+       data = filename;
+       Fs = 8000;
+    end
     frames = makeFrames(data, Fs);
     dft_data = transformFrames(frames,Fs);
     rawSequence = getRawKeys(dft_data);
