@@ -1,4 +1,4 @@
-function out = generateTone( DTMF_char, Fs, duration, amplitude)
+function out = genDTMFtone( DTMF_char, Fs, duration, amplitude)
 %Function to generate a DTMF tone given the low and high freq and the
 %sampling frequency. The duration (in ms) of the signal is determined by
 %the "duration" parameter. The max amplitude of the signal is determined by
