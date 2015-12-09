@@ -6,7 +6,37 @@ numFiles = input('Enter the number of files to be generated: ');
 folderName = 'Test Data';
 sprintf(strcat('Your files will be located in the folder "',folderName,'" inside the directory of this script'))
 
-for count = 1:numFiles
-    [y chars] = genDTMFtone(
+if (~exist(folderName,'dir'))
+    mkdir(folderName);
 end
+    
+
+% full power , amplitude : 0.9 to 1.0 , power = -1dbm to 0dbm
+for count = 1:numFiles
+    [y chars] = randSeq(randomInt(5,20),8000,randomInt(9000,10000)/10000);
+    name = strcat(folderName,'/',chars,'.wav');
+    audiowrite(name,y,Fs);
+end
+
+% -3dbm to -1dbm, amplitude : 0.7 - 0.9
+for count = 1:numFiles
+    [y chars] = randSeq(randomInt(5,20),8000,randomInt(7000,9000)/10000);
+    name = strcat(folderName,'/',chars,'.wav');
+    audiowrite(name,y,Fs);
+end
+
+% -10dbm to -3dbm, amplitude: 0.3 - 0.7
+for count = 1:numFiles
+    [y chars] = randSeq(randomInt(5,20),8000,randomInt(3);
+    name = strcat(folderName,'/',chars,'.wav');
+    audiowrite(name,y,Fs);
+end
+
+% -30dbm to -10dbm, amplitude: 0.045 - 0.3
+for count = 1:numFiles
+    [y chars] = randSeq(randomInt(5,20),8000,1);
+    name = strcat(folderName,'/',chars,'.wav');
+    audiowrite(name,y,Fs);
+end
+
     
