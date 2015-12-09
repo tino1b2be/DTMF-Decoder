@@ -40,25 +40,24 @@ function frames = makeFrames (data, Fs)
     %frame size must be a power of 2
     
     if (Fs > 180000)
-        frameSize = 8192; % frame size is at max 45ms long at 180000Hz ... 21ms at 384000 Hz
+        frameSize = 16384; % frame size is at max 45ms long at 180000Hz ... 21ms at 384000 Hz
     elseif (Fs > 90000)
-        frameSize = 4096;
+        frameSize = 8192;
     elseif (Fs > 45000)
-        frameSize = 2048;
+        frameSize = 4096;
     elseif (Fs > 23000)
-        frameSize = 1024;
+        frameSize = 2048;
     elseif (Fs > 11500)
-        frameSize = 512;
+        frameSize = 1024;
     else
-        frameSize = 256;
+        frameSize = 512;
     end
-
     
-    if (length(data) < 256)
+    if (length(data) < 512)
         frameSize = length(data);
         numFrames = 1;
     else
-        numFrames = floor(length(data)/frameSize);
+        numFrames = floor(length(data)/frameSize)*2 - 1;
     end
     
     % must preallocate memory for the output
@@ -66,7 +65,7 @@ function frames = makeFrames (data, Fs)
     frames(:,1) = data(1:frameSize);                         % slice off the first frame
     
     col = 2;
-    for i= frameSize+1 : frameSize : length(data)
+    for i= frameSize/2 : frameSize/2 : length(data)
         new =  data(i:i+frameSize-1);
         frames(:,col) = new;
         if (col == numFrames) % break when all the frames have been created
