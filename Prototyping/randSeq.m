@@ -25,7 +25,6 @@
 % http://opensource.org/licenses/MIT
 %
 
-
 function [out,chars] = randSeq( numTones, Fs , amplitude)
 % Funtion to generate a random sequence of DTMF tones given the number of
 % tones, sampling frequency and amplitude. The duration of the tones and
@@ -38,7 +37,7 @@ function [out,chars] = randSeq( numTones, Fs , amplitude)
         % add a random tone
         DTMF = randomInt(1,16);
         charsTemp(i) = DTMF;
-        tone = genDTMFtone(DTMF,Fs,randomInt(40,100),amplitude);
+        tone = genDTMFtone2(DTMF,Fs,randomInt(40,100),amplitude);
         % add a pause of random duration between 30 and 70
         pause = genPause(randomInt(30,100),Fs);
         % add to the output signal
