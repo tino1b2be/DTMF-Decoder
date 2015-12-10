@@ -51,3 +51,14 @@ for file = 1:numel(folderDIR) % for each .wav file inside the folder
 end
 
 disp(results);
+% TODO print the success rate
+success = 0;
+for i = 2:length(results)
+    if results(i) == '$'
+        success = success + 1;
+    end
+end
+
+rate = 100 * success/(length(results) - 1);
+disp(strcat('Success rate is: ',num2str(rate,2),'%.'));
+

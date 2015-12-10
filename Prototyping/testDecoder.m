@@ -7,12 +7,12 @@ function out = testDecoder( filename )
     data = decodeDTMF(filename);
     if (length(data) == length(seq))
         if (data ~= seq)
-            out = strcat('Failed: "',filename, '" decoded to "',data,'" instead of "',seq,'"');
+            out = strcat('**  FAILED: "',filename, '" decoded to "',data,'" instead of "',seq,'"');
         else
-            out = strcat('Passed :"',seq,'"');
+            out = strcat('$$  Passed :"',seq,'"');
         end
     else
-        out = strcat('The file "',filename, '" decoded to "',data,'" instead of "',seq,'"');
+        out = strcat('**  FAILED"',filename, '" decoded to "',data,'" instead of "',seq,'"');
     end
     
 end
