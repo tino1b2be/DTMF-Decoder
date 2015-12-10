@@ -26,60 +26,66 @@
 %
 
 
-function out = genDTMFtone( DTMF_char, Fs, duration, amplitude)
+function out = genDTMFtestTone( DTMF_char, Fs, duration, amplitude)
 %Function to generate a DTMF tone given the low and high freq and the
-%sampling frequency. The duration (in ms) of the signal is determined by
-%the "duration" parameter. The max amplitude of the signal is determined by
-%the "amplitude" parameter.
+%sampling frequency. 
+% NB: The DTMF Frequencies for the tone will be a random frequency within 
+%the tolerance recommemned by the ITU-T Q.24 (<=1.5%). 
+% NB: This method also inserts a random interrupt in the tone of a random 
+% duration <=10ms
+%The duration (in ms) of the signal is determined by the "duration" parameter. 
+%The max amplitude of the signal is determined by the "amplitude" parameter.
+
+%f_bin = [687:707, 758:782, 839:865, 927:955, 1191:1227, 1316:1356, 1455:1499, 1609:1657];
 
     if (DTMF_char == '1' || DTMF_char == 1)
-        lo = randomInt  697;
-        hi = 1209;
+        lo = randomInt(687,707);
+        hi = randomInt(1191,1227);
     elseif (DTMF_char == '2' || DTMF_char == 2)
-        lo = 697;
-        hi = 1336;
+        lo = randomInt(687,707);
+        hi = randomInt(1316,1356);
     elseif (DTMF_char == '3' || DTMF_char == 3)
-        lo = 697;
-        hi = 1477;
+        lo = randomInt(687,707);
+        hi = randomInt(1455,1499);
     elseif (DTMF_char == '4' || DTMF_char == 4)
-        lo = 770;
-        hi = 1209;
+        lo = randomInt(758,782);
+        hi = randomInt(1191,1227);
 	elseif (DTMF_char == '5' || DTMF_char == 5)
-        lo = 770;
-        hi = 1336;
+        lo = randomInt(758,782);
+        hi = randomInt(1316,1356);
 	elseif (DTMF_char == '6' || DTMF_char == 6)
-        lo = 770;
-        hi = 1477;
+        lo = randomInt(758,782);
+        hi = randomInt(1455,1499);
 	elseif (DTMF_char == '7' || DTMF_char == 7)
-        lo = 852;
-        hi = 1209;
+        lo = randomInt(839,865);
+        hi = randomInt(1191,1227);
 	elseif (DTMF_char == '8' || DTMF_char == 8)
-        lo = 852;
-        hi = 1336;
+        lo = randomInt(839,865);
+        hi = randomInt(1316,1356);
 	elseif (DTMF_char == '9' || DTMF_char == 9)
-        lo = 852;
-        hi = 1477;    
+        lo = randomInt(839,865);
+        hi = randomInt(1455,1499);   
     elseif (DTMF_char == '0' || DTMF_char == 0 || DTMF_char == 10)
-        lo = 941;
-        hi = 1336;
+        lo = randomInt(927,955);
+        hi = randomInt(1316,1356);
 	elseif (DTMF_char == '*'|| DTMF_char == 11)
-        lo = 941;
-        hi = 1209;
+        lo = randomInt(927,955);
+        hi = randomInt(1191,1227);
 	elseif (DTMF_char == '#'|| DTMF_char == 12)
-        lo = 941;
-        hi = 1477;
+        lo = randomInt(927,955);
+        hi = randomInt(1455,1499);
 	elseif (DTMF_char == 'A' || DTMF_char == 'a'|| DTMF_char == 13)
-        lo = 697;
-        hi = 1633;
+        lo = randomInt(687,707);
+        hi = randomInt(1609,1657);
 	elseif (DTMF_char == 'B' || DTMF_char == 'b'|| DTMF_char == 14)
-        lo = 770;
-        hi = 1633;
+        lo = randomInt(758,782);
+        hi = randomInt(1609,1657);
  	elseif (DTMF_char == 'C' || DTMF_char == 'c'|| DTMF_char == 15)
-        lo = 852;
-        hi = 1633;
+        lo = randomInt(839,865);
+        hi = randomInt(1609,1657);
     elseif (DTMF_char == 'D' || DTMF_char == 'd'|| DTMF_char == 16)
-        lo = 941;
-        hi = 1633;
+        lo = randomInt(927,955);
+        hi = randomInt(1609,1657);
     else
         if (isstr(DTMF_char))
             msg = strcat('"',DTMF_char,'" is not a valid DTMF character');
@@ -94,6 +100,21 @@ function out = genDTMFtone( DTMF_char, Fs, duration, amplitude)
     low = sin(2*pi*lo*t/Fs);
     high = sin(2*pi*hi*t/Fs);
     out = amplitude*(low+high)/2;
-
+    
+    % Generate a random normalised signal less than 10ms
+    len = floor(randomInt(0,1000)/100000 * Fs);
+    interr = randn(len,1);
+    % clip the signal to +/-1
+    for i = 1:len
+        if (interr(i) >= 0.999)
+            interr(i) = 1;
+        elseif (interr(i) <= -0.999)
+            interr(i) = -1;
+        end
+    end
+    
+    %insert interrupt in a random location within the signal.
+    location_Index = randomInt(1,samples);
+    out = vertcat(out(1:location_Index),interr,out(location_Index + 1:end-len)); % the "end-len" makes sure the signal maintains its original length
+    
 end
-

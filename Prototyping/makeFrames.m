@@ -62,10 +62,10 @@ function frames = makeFrames (data, Fs)
     
     % must preallocate memory for the output
     frames = zeros(frameSize,numFrames);   % number of frames (columns)
-    frames(:,1) = data(1:frameSize);                         % slice off the first frame
+    %frames(:,1) = data(1:frameSize);                         % slice off the first frame
     
-    col = 2;
-    for i= frameSize/2 : frameSize/2 : length(data)
+    col = 1;
+    for i= 1 : frameSize/2 : length(data)
         new =  data(i:i+frameSize-1);
         frames(:,col) = new;
         if (col == numFrames) % break when all the frames have been created

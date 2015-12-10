@@ -1,0 +1,16 @@
+function out = testDecoder( filename )
+% Function to test the DTMF decoder
+    
+
+    % TODO get the sequence using the filename
+    seq = '';
+    
+    
+    data = decodeDTMF(filename);
+    if (data ~= seq)
+        out = strcat('The file "',filename, '" decoded to "',data,'" instead of "',seq,'"');
+    else
+        out = strcat('Passed "',seq,'"');
+    end
+end
+
