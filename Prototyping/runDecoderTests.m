@@ -49,3 +49,5 @@ for file = 1:numel(folderDIR) % for each .wav file inside the folder
     result = testDecoder(filename);
     results = char(results,result);
 end
+
+disp(results);
