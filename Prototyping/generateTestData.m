@@ -13,6 +13,19 @@ if (~exist(folderName,'dir'))
     mkdir(folderName,'/-3dBm to -1dBm');
     mkdir(folderName,'/-10dBm to -3dBm');
     mkdir(folderName,'/-27dBm to -10dBm');
+else
+    if (~exist(strcat(folderName,'/-1dBm to 0dBm'),'dir'))
+        mkdir(folderName,'/-1dBm to 0dBm');
+    end
+    if (~exist(strcat(folderName,'/-3dBm to -1dBm'),'dir'))
+        mkdir(folderName,'/-3dBm to -1dBm');
+    end
+    if (~exist(strcat(folderName,'-10dBm to -3dBm'),'dir'))
+        mkdir(folderName,'/-10dBm to -3dBm');
+    end
+    if (~exist(strcat(folderName,'-27dBm to -10dBm'),'dir'))
+        mkdir(folderName,'/-27dBm to -10dBm');
+    end
 end
     
 

@@ -13,6 +13,8 @@ if (~exist(folderName,'dir'))
     mkdir(folderName,'/-3dBm to -1dBm');
     mkdir(folderName,'/-10dBm to -3dBm');
     mkdir(folderName,'/-27dBm to -10dBm');
+else
+    if (~exist(strcat(foldername,'/-1dBm to 0dBm'
 end
     
 
@@ -34,7 +36,7 @@ for count = 1:numFiles
     name = strcat(folderName,'/-3dBm to -1dBm/',chars,'.wav');
     audiowrite(name,y,Fs);
     if (count == floor(numFiles/2))
-        disp('Halfway through the second power range: -3 to 1dbm')
+        disp('Halfway through the second power range: -3 to 1dbm');
     end
 end
 
@@ -50,7 +52,7 @@ for count = 1:numFiles
     end
 end
 
-sprintf('Done with the third power range')
+disp('Done with the third power range');
 
 % -30dbm to -10dbm, amplitude: 0.045 - 0.3
 for count = 1:numFiles
