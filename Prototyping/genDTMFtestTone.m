@@ -106,10 +106,10 @@ function out = genDTMFtestTone( DTMF_char, Fs, duration, amplitude)
     interr = randn(len,1);
     % clip the signal to +/-1
     for i = 1:len
-        if (interr(i) >= 0.999)
-            interr(i) = 1;
-        elseif (interr(i) <= -0.999)
-            interr(i) = -1;
+        if (interr(i) >= amplitude)
+            interr(i) = amplitude;
+        elseif (interr(i) <= -amplitude)
+            interr(i) = -amplitude;
         end
     end
     
