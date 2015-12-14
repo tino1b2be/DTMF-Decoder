@@ -61,16 +61,16 @@ function rawKeys = getRawKeys( dft_data  )
     % of the average of the top 3 peaks.
     
     % get the top 3 frames from first 20
-    if (length(dft_data) >= 20)
-        first20 = sort(mean(dft_data(:,1:20)),'descend');
+    if (length(dft_data) >= 50)
+        first20 = sort(mean(dft_data(:,1:50)),'descend');
     else
         first20 = sort(mean(dft_data),'descend');
     end
     
-    if (size(first20,2))
+    if (size(first20,2) < 5)
         topAvg = mean(first20(1));
     else
-        topAvg = mean(first20(1:3)); % average of the top 3
+        topAvg = mean(first20(1:5)); % average of the top 5
     end
     
     % go through all the frames, decode frames with a mean greatere than
