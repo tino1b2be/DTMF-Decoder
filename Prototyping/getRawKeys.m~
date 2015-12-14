@@ -78,7 +78,7 @@ function rawKeys = getRawKeys( dft_data  )
     
     for j = 1 : size(dft_data,2) % for each decoded frame
         %get index of highest DTMF high and low frequencies
-        if (mean(dft_data(:,j)) < (0.60 * topAvg))
+        if (mean(dft_data(:,j)) < (0.61 * topAvg))
             rawKeys(j) = '_';
             
         else

@@ -33,12 +33,7 @@ end
 for count = 1:numFiles
     [y, chars] = randSeq(randomInt(5,50),8000,randomInt(9000,10000)/10000);
     name = strcat(folderName,'/-1dBm to 0dBm/',chars,'.wav');
-    if (exist(name,'file') == 2)
-        count = count - 1;
-        continue;
-    else
-        audiowrite(name,y,Fs);
-    end
+    audiowrite(name,y,Fs);
     if (count == floor(numFiles/2))
         disp('Halfway through the first power range: -1 to 0dbm');
     end
@@ -50,12 +45,7 @@ disp('Done with the first power range');
 for count = 1:numFiles
     [y, chars] = randSeq(randomInt(5,20),8000,randomInt(7000,9000)/10000);
     name = strcat(folderName,'/-3dBm to -1dBm/',chars,'.wav');
-    if (exist(name,'file') == 2)
-        count = count - 1;
-        continue;
-    else
-        audiowrite(name,y,Fs);
-    end
+    audiowrite(name,y,Fs);
     if (count == floor(numFiles/2))
         disp('Halfway through the second power range: -3 to 1dbm');
     end
@@ -67,12 +57,7 @@ disp('Done with the second power range');
 for count = 1:numFiles
     [y, chars] = randSeq(randomInt(5,20),8000,randomInt(3000,7000)/10000);
     name = strcat(folderName,'/-10dBm to -3dBm/',chars,'.wav');
-    if (exist(name,'file') == 2)
-        count = count - 1;
-        continue;
-    else
-        audiowrite(name,y,Fs);
-    end
+    audiowrite(name,y,Fs);
     if (count == floor(numFiles/2))
         disp('Halfway through the first power range: -10 to -3dbm');
     end
@@ -84,12 +69,9 @@ disp('Done with the third power range');
 for count = 1:numFiles
     [y, chars] = randSeq(randomInt(5,20),8000,randomInt(450,3000)/10000);
     name = strcat(folderName,'/-27dBm to -10dBm/',chars,'.wav');
-    if (exist(name,'file') == 2)
-        count = count - 1;
-        continue;
-    else
-        audiowrite(name,y,Fs);
-    end
+    if exists(name, 'file')
+    
+    audiowrite(name,y,Fs);
     if (count == floor(numFiles/2))
         disp('Halfway through the fourth power range: -27 to -10dbm');
     end
