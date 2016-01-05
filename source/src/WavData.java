@@ -33,10 +33,6 @@ public class WavData {
 		this.resolution = resolution;
 	}
 
-	public WavData() {
-		// TODO Auto-generated constructor stub
-	}
-
 	// Getters and Setters
 	public long getSampleRate() {
 		return sampleRate;

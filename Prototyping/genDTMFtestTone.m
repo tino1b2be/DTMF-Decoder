@@ -36,56 +36,80 @@ function out = genDTMFtestTone( DTMF_char, Fs, duration, amplitude)
 %The duration (in ms) of the signal is determined by the "duration" parameter. 
 %The max amplitude of the signal is determined by the "amplitude" parameter.
 
+% ITU Specifications : Max allowed frequency tolerance = 1.5%
+    
+    %freq_low = [697 +/-10, 770 +/-12, 852 +/-13, 941 +/- 14];
+    %freq_high = [1209 +/-18, 1336 +/- 20, 1477 +/- 22, 1633 +/- 24];
+
+%bin = {697, 770, 852, 941, 1209, 1336, 1477, 1633}
+
+%f_bin = [687:707, 758:782, 839:865, 927:955, 1191:1227, 1316:1356, 1455:1499, 1609:1657];
 %f_bin = [687:707, 758:782, 839:865, 927:955, 1191:1227, 1316:1356, 1455:1499, 1609:1657];
 
+
     if (DTMF_char == '1' || DTMF_char == 1)
-        lo = randomInt(687,707);
-        hi = randomInt(1191,1227);
+        lo = randomInt(691,703);
+        hi = randomInt(1201,1217);
+        
     elseif (DTMF_char == '2' || DTMF_char == 2)
-        lo = randomInt(687,707);
-        hi = randomInt(1316,1356);
+        lo = randomInt(691,703);
+        hi = randomInt(1326,1346);
+        
     elseif (DTMF_char == '3' || DTMF_char == 3)
-        lo = randomInt(687,707);
-        hi = randomInt(1455,1499);
+        lo = randomInt(691,703);
+        hi = randomInt(1467,1487);
+        
     elseif (DTMF_char == '4' || DTMF_char == 4)
-        lo = randomInt(758,782);
-        hi = randomInt(1191,1227);
+        lo = randomInt(762,778);
+        hi = randomInt(1201,1217);
+        
 	elseif (DTMF_char == '5' || DTMF_char == 5)
-        lo = randomInt(758,782);
-        hi = randomInt(1316,1356);
+        lo = randomInt(762,778);
+        hi = randomInt(1326,1346);
+        
 	elseif (DTMF_char == '6' || DTMF_char == 6)
-        lo = randomInt(758,782);
-        hi = randomInt(1455,1499);
+        lo = randomInt(762,778);
+        hi = randomInt(1467,1487);
+        
 	elseif (DTMF_char == '7' || DTMF_char == 7)
-        lo = randomInt(839,865);
-        hi = randomInt(1191,1227);
+        lo = randomInt(844,860);
+        hi = randomInt(1201,1217);
+        
 	elseif (DTMF_char == '8' || DTMF_char == 8)
-        lo = randomInt(839,865);
-        hi = randomInt(1316,1356);
+        lo = randomInt(844,860);
+        hi = randomInt(1326,1346);
+        
 	elseif (DTMF_char == '9' || DTMF_char == 9)
-        lo = randomInt(839,865);
-        hi = randomInt(1455,1499);   
+        lo = randomInt(844,860);
+        hi = randomInt(1467,1487);   
+        
     elseif (DTMF_char == '0' || DTMF_char == 0 || DTMF_char == 10)
-        lo = randomInt(927,955);
-        hi = randomInt(1316,1356);
+        lo = randomInt(933,949);
+        hi = randomInt(1326,1346);
+        
 	elseif (DTMF_char == '*'|| DTMF_char == 11)
-        lo = randomInt(927,955);
-        hi = randomInt(1191,1227);
+        lo = randomInt(933,949);
+        hi = randomInt(1201,1217);
+        
 	elseif (DTMF_char == '#'|| DTMF_char == 12)
-        lo = randomInt(927,955);
-        hi = randomInt(1455,1499);
+        lo = randomInt(933,949);
+        hi = randomInt(1467,1487);
+        
 	elseif (DTMF_char == 'A' || DTMF_char == 'a'|| DTMF_char == 13)
-        lo = randomInt(687,707);
-        hi = randomInt(1609,1657);
+        lo = randomInt(691,703);
+        hi = randomInt(1622,1644);
+        
 	elseif (DTMF_char == 'B' || DTMF_char == 'b'|| DTMF_char == 14)
-        lo = randomInt(758,782);
-        hi = randomInt(1609,1657);
+        lo = randomInt(762,778);
+        hi = randomInt(1622,1644);
+        
  	elseif (DTMF_char == 'C' || DTMF_char == 'c'|| DTMF_char == 15)
-        lo = randomInt(839,865);
-        hi = randomInt(1609,1657);
+        lo = randomInt(844,860);
+        hi = randomInt(1622,1644);
+        
     elseif (DTMF_char == 'D' || DTMF_char == 'd'|| DTMF_char == 16)
-        lo = randomInt(927,955);
-        hi = randomInt(1609,1657);
+        lo = randomInt(933,949);
+        hi = randomInt(1622,1644);
     else
         if (isstr(DTMF_char))
             msg = strcat('"',DTMF_char,'" is not a valid DTMF character');

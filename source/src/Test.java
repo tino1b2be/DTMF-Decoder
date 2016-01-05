@@ -1,23 +1,36 @@
 package src;
 
-
 import java.io.IOException;
 
 public class Test {
 	public static void main(String[] args) {
-		WavData data = new WavData();
+		WavData data = null;
 		try {
-			data = FileUtil.readWavFile("samples/0-9-8Khz.wav");
+			data = FileUtil.readWavFile("samples/1.wav");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (WavFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	System.out.println(data.toString());
-	
+//
+//		System.out.println(data.toString());
+//		int[] freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
+//		
+//		Goertzel g = new Goertzel(data,freqs);
+//		double[] weights = g.calcFreqWeight();
+//		System.out.println();
+//		for (int i = 0; i < weights.length; i++){
+//			System.out.println(weights[i]);
+//		}
+//		DTMFUtil dtmf = new DTMFUtil(data);
+		
+		DTMFUtil d = new DTMFUtil(data);
+		try {
+			d.decode();
+		} catch (DTMFDecoderException e) {
+			e.printStackTrace();
+		}
+		String seq = d.getSequence();
+		System.out.println(seq);
 	}
-	
 }

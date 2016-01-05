@@ -3,8 +3,6 @@ package src;
 import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.*;
-
 /**
  * Class to hand File operations
  * @author Tinotenda Chemvura
