@@ -130,19 +130,18 @@ public class DTMFUtil {
 		// There will be 274 frequencies to be tested instead of 8 so that the
 		// frequency tolerance recquirement can be met
 		double[][] temp = new double[frames.length][274];
+		double[][] out = new double[frames.length][8];
 		Goertzel g = new Goertzel(this.Fs, 274, fbin);
+		
+		// TODO code below is paralisable
+		
+		// 1. transform the frames using goertzel algorithm
+		// 2. get the highest DTMF freq within the tolerance range and use that
+		// magnitude to represet the corresponsing DTMF free
 		for (int frame = 0; frame < frames.length; frame++) {
 			temp[frame] = g.calcFreqWeight(frames[frame]);
-		}
-
-		// get the highest DTMF freq within the tolerance range and use that
-		// magnitude to represet the corresponsing DTMF freq
-
-		double[][] out = new double[frames.length][8];
-		for (int frame = 0; frame < frames.length; frame++) {
 			out[frame] = filterFrame(temp[frame]);
 		}
-
 		return out;
 	}
 
