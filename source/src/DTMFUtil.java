@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DTMFUtil {
@@ -97,7 +98,7 @@ public class DTMFUtil {
 		 */
 
 		int frameNum = 0;
-		for (int sample = 0; sample < numFrames; sample += Math.floor(frameSize / 2)) {
+		for (int sample = 0; sample < data.length; sample += Math.floor(frameSize / 2)) {
 			int start = sample;
 			int finish = sample + frameSize;
 			double[] frame = Arrays.copyOfRange(data, start, finish);
@@ -235,9 +236,16 @@ public class DTMFUtil {
 			if (meanArray(dftData[fr]) < (cutOffPerc * topAvg)) {
 				out[fr] = '_';
 			} else {
-				int low = maxIndex(Arrays.copyOfRange(dftData[fr], 0, 4));
-				int hi = maxIndex(Arrays.copyOfRange(dftData[fr], 4, 7));
+//				int low = maxIndex(Arrays.copyOfRange(dftData[fr], 0, 4));
+//				int hi = maxIndex(Arrays.copyOfRange(dftData[fr], 4, 7));
 
+				int low, hi;
+				double[] lower = Arrays.copyOfRange(dftData[fr], 0, 4);
+				double[] higher = Arrays.copyOfRange(dftData[fr], 4, 8);
+				
+				low = maxIndex(lower);
+				hi = maxIndex(higher);
+				
 				if (low == 0) {				// low = 697
 					if (hi == 0){			// High = 1209
 						out[fr] = '1';
@@ -361,6 +369,7 @@ public class DTMFUtil {
 		return out;
 	}
 
+	
 	/**
 	 * Method to obtain the actual DTMF tone sequence represented by the data
 	 * 
@@ -369,9 +378,17 @@ public class DTMFUtil {
 	 *            represented by each frame in the data
 	 * @return A string of the DTMF sequence represented by the audio file
 	 */
-	private char[] getDTMFSequence(char[] raw) {
-		// TODO implement this method
-		return null;
+	private void getDTMFSequence(char[] raw) {
+		ArrayList<Character> temp = new ArrayList<Character>();
+		if (raw[0] != '_')
+			temp.add(raw[0]);
+		for (int i = 1; i < raw.length; i++){
+			if (raw[i] != raw[i-1])
+				temp.add(raw[i]);
+		}
+		seq = new char[temp.size()];
+		for (int i = 0; i < temp.size(); i++)
+			seq[i] = temp.get(i);
 	}
 
 	/**
@@ -387,7 +404,7 @@ public class DTMFUtil {
 		double[][] frames = makeFrames(data);
 		double[][] dft_data = transformFrames(frames);
 		char[] rawSeq = getRawSequence(dft_data);
-		seq = getDTMFSequence(rawSeq);
+		getDTMFSequence(rawSeq);
 	}
 
 	/**

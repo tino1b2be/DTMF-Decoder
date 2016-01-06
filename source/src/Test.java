@@ -6,7 +6,7 @@ public class Test {
 	public static void main(String[] args) {
 		WavData data = null;
 		try {
-			data = FileUtil.readWavFile("samples/1.wav");
+			data = FileUtil.readWavFile("samples/complete-sequence-8kHz.wav");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (WavFileException e) {
@@ -24,6 +24,7 @@ public class Test {
 //		}
 //		DTMFUtil dtmf = new DTMFUtil(data);
 		
+		
 		DTMFUtil d = new DTMFUtil(data);
 		char[] seq = null;
 		try {
@@ -32,7 +33,6 @@ public class Test {
 		} catch (DTMFDecoderException e) {
 			e.printStackTrace();
 		}
-		
 		System.out.println(seq);
 	}
 }
