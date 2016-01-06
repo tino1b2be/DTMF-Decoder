@@ -51,7 +51,7 @@ function out  = transformFrames( frames, Fs )
     
     f_bin = [687:707, 758:782, 839:865, 927:955, 1191:1227, 1316:1356, 1455:1499, 1609:1657];
     
-    indices = round(f_bin/Fs * length(frames)) + 1;                          
+    indices = round(f_bin/Fs * size(frames,1)) + 1;                          
     
     for i = 1:size(frames,2)
         dft_data(:,i) = abs(goertzel(frames(:,i),indices)); 

@@ -7,15 +7,15 @@ disp('Starting with the -1dBm to 0dBm files');
 results = 'Results:';
 % filepaths to the different power folders
 %
-power1 = 'copy of Test Data/-1dBm to 0dBm/';
-power2 = 'copy of Test Data/-3dBm to -1dBm/';
-power3 = 'copy of Test Data/-10dBm to -3dBm/';
-power4 = 'copy of Test Data/-27dBm to -10dBm/';
+% power1 = 'copy of Test Data/-1dBm to 0dBm/';
+% power2 = 'copy of Test Data/-3dBm to -1dBm/';
+% power3 = 'copy of Test Data/-10dBm to -3dBm/';
+% power4 = 'copy of Test Data/-27dBm to -10dBm/';
 
-% power1 = 'Test Data/-1dBm to 0dBm/';
-% power2 = 'Test Data/-3dBm to -1dBm/';
-% power3 = 'Test Data/-10dBm to -3dBm/';
-% power4 = 'Test Data/-27dBm to -10dBm/';
+power1 = 'Test Data/-1dBm to 0dBm/';
+power2 = 'Test Data/-3dBm to -1dBm/';
+power3 = 'Test Data/-10dBm to -3dBm/';
+power4 = 'Test Data/-27dBm to -10dBm/';
 
 
 % decode first folder (power1)

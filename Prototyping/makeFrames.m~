@@ -53,7 +53,7 @@ function frames = makeFrames (data, Fs)
 %         frameSize = 512;
 %     end
 
-    frameSize = 360;
+    frameSize = 3;
 
     if (length(data) < frameSize)
         frameSize = length(data);
