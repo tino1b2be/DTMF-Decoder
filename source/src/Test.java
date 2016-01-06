@@ -25,12 +25,14 @@ public class Test {
 //		DTMFUtil dtmf = new DTMFUtil(data);
 		
 		DTMFUtil d = new DTMFUtil(data);
+		char[] seq = null;
 		try {
 			d.decode();
+			seq = d.getSequence();
 		} catch (DTMFDecoderException e) {
 			e.printStackTrace();
 		}
-		String seq = d.getSequence();
+		
 		System.out.println(seq);
 	}
 }
