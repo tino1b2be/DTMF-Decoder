@@ -72,10 +72,10 @@ function rawKeys = getRawKeys( dft_data  )
     
     
     
-    if (size(first20,2) < 10)
+    if (size(first20,2) < 6)
         topAvg = mean(first20(1));
     else
-        topAvg = mean(first20(5:10)); % average of the top 5
+        topAvg = mean(first20(2:6)); % average of the top 5
     end
     
     % go through all the frames, decode frames with a mean greatere than
@@ -83,7 +83,7 @@ function rawKeys = getRawKeys( dft_data  )
     
     for j = 1 : size(dft_data,2) % for each decoded frame
         %get index of highest DTMF high and low frequencies
-        if (mean(dft_data(:,j)) < (0.65 * topAvg))
+        if (mean(dft_data(:,j)) < (0.66 * topAvg))
             rawKeys(j) = '_';
             
         else
