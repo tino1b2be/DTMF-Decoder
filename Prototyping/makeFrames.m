@@ -53,13 +53,13 @@ function frames = makeFrames (data, Fs)
 %         frameSize = 512;
 %     end
 
-    frameSize = 360;
+    frameSize = 370;
 
     if (length(data) < frameSize)
         frameSize = length(data);
         numFrames = 1;
     else
-        numFrames = floor(length(data)/frameSize)*2 - 1;
+        numFrames = floor(length(data)/frameSize)*3 - 2;
     end
 
     % must preallocate memory for the output
@@ -67,7 +67,7 @@ function frames = makeFrames (data, Fs)
     %frames(:,1) = data(1:frameSize);                         % slice off the first frame
     
     col = 1;
-    for i= 1 : floor(frameSize/2) : length(data)
+    for i= 1 : floor(frameSize/3) : length(data)
         new =  data(i:i+frameSize-1);
         frames(:,col) = new;
         if (col == numFrames) % break when all the frames have been created

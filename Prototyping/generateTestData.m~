@@ -96,4 +96,4 @@ parfor count = 1:numFiles
 end
 
 disp('Done with the forth power range');
-disp(strcat('Time: ',num2str(toc),'seconds'));
+disp(strcat('Time: ',num2str(toc),));
