@@ -9,7 +9,7 @@ public class DTMFUtil {
 	private int Fs;
 	private double[] data;
 	private boolean decoded;
-	private char[] seq;
+	private String seq;
 	private static double cutOffPerc = 0.61;
 
 	public DTMFUtil(WavData file) {
@@ -186,7 +186,6 @@ public class DTMFUtil {
 	 *            Array to be processed
 	 * @return Value of the largest element
 	 */
-
 	private double max(double[] arr) {
 		Arrays.sort(arr);
 		return arr[arr.length - 1];
@@ -216,16 +215,15 @@ public class DTMFUtil {
 
 		// get the average of each frame
 		double[] topFramesAvg = avgFrames(first50);
-		Arrays.sort(topFramesAvg); // needs to be descending order
-		topFramesAvg = reverseArray(topFramesAvg);
+		Arrays.sort(topFramesAvg);
 
 		// get the top 5 frames and use the average of those frames
 		// skip the first 2 frames, they are usually outliners
 		double topAvg = 0; // average of top 5 frames
 		if (topFramesAvg.length < 6)
-			topAvg = topFramesAvg[0];
+			topAvg = topFramesAvg[topFramesAvg.length-1];
 		else
-			topAvg = meanArray(Arrays.copyOfRange(topFramesAvg, 1, 6));
+			topAvg = meanArray(Arrays.copyOfRange(topFramesAvg, topFramesAvg.length-6, topFramesAvg.length-1));
 
 		// loop through each frame in the dft data and eliminate if the avg is
 		// too low. if avg is high enough, decode by detecting the relevant
@@ -318,13 +316,13 @@ public class DTMFUtil {
 		return index;
 	}
 
-	/**
+	/*
 	 * Method to reverse an array
 	 * 
 	 * @param arr
 	 *            Array to be reversed
 	 * @return Reversed Array
-	 */
+	 *
 	private double[] reverseArray(double[] arr) {
 		for (int i = 0; i < arr.length / 2; i++) {
 			double temp = arr[i];
@@ -332,7 +330,7 @@ public class DTMFUtil {
 			arr[arr.length - i - 1] = temp;
 		}
 		return arr;
-	}
+	}*
 
 	/**
 	 * Method to calculate mean of an array
@@ -385,9 +383,12 @@ public class DTMFUtil {
 			if (raw[i] != raw[i-1])
 				temp.add(raw[i]);
 		}
-		seq = new char[temp.size()];
-		for (int i = 0; i < temp.size(); i++)
-			seq[i] = temp.get(i);
+		seq = "";
+		for (int i = 0; i < temp.size(); i++){
+			if (temp.get(i) == '_')
+				continue;
+			seq += temp.get(i);
+		}
 	}
 
 	/**
@@ -413,7 +414,7 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException
 	 *             Throws excepion when the file has not been decoded yet.
 	 */
-	public char[] getSequence() throws DTMFDecoderException {
+	public String getSequence() throws DTMFDecoderException {
 		if (!decoded)
 			throw new DTMFDecoderException("File has not been decoded yet. Please run the method decode() first.");
 		return seq;
