@@ -6,7 +6,7 @@ public class Test {
 	public static void main(String[] args) {
 		WavData data = null;
 		try {
-			data = FileUtil.readWavFile("samples/123.wav");
+			data = FileUtil.readWavFile("samples/brownianNoise.wav");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (WavFileException e) {
