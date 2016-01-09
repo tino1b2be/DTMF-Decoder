@@ -16,15 +16,34 @@ public class DecoderUtil {
 
 	    return c;
 	}
-
-	public static double[] concatenate (double[] a, double[] b) {
-		   int aLen = a.length;
-		   int bLen = b.length;
-		   double[] c= new double[aLen+bLen];
-		   System.arraycopy(a, 0, c, 0, aLen);
-		   System.arraycopy(b, 0, c, aLen, bLen);
-		   return c;
+	 /**
+	  * Method to concatenate 2 arrays
+	  * @param a
+	  * @param b
+	  * @return
+	  */
+	public static double[] concatenate(double[] a, double[] b) {
+		int aLen = a.length;
+		int bLen = b.length;
+		double[] c = new double[aLen + bLen];
+		System.arraycopy(a, 0, c, 0, aLen);
+		System.arraycopy(b, 0, c, aLen, bLen);
+		return c;
+	}
+	
+	public static <T> double[] concatenateAll(double[] tempBuffer1, double[]... buffer1) {
+		int totalLength = tempBuffer1.length;
+		for (double[] array : buffer1) {
+			totalLength += array.length;
 		}
+		double[] result = Arrays.copyOf(tempBuffer1, totalLength);
+		int offset = tempBuffer1.length;
+		for (double[] array : buffer1) {
+			System.arraycopy(array, 0, result, offset, array.length);
+			offset += array.length;
+		}
+		return result;
+	}
 
 	/**
 	 * Method to calculate and return the average power of the signal (average amplitude)
@@ -74,5 +93,19 @@ public class DecoderUtil {
 	public static String getFileSequence(String filename) {
 		filename = filename.substring(filename.lastIndexOf('/')+1, filename.length()-4); // remove .wav
 		return filename;
+	}
+	
+	/**
+	 * Method to calculate mean of an array
+	 * 
+	 * @param arr
+	 *            Array whose mean is to be calculated
+	 * @return mean of the input array
+	 */
+	public static double meanArray(double[] arr) {
+		double out = 0.0;
+		for (int i = 0; i < arr.length; i++)
+			out += arr[i];
+		return out / (1.0 * arr.length);
 	}
 }

@@ -22,7 +22,13 @@ public class DTMFUtil {
 	private boolean decoded;
 	private String seq;
 	private static double cutOffPerc = 0.61;
-	static int frameSize = 370;
+	public static int frameSize = 370;
+	public static double frameDuratioin = 0.04625;
+
+	public static void setFrameSize(WavFile wavFile) {
+		int size = (int) Math.floor(frameDuratioin*wavFile.getSampleRate());
+		DTMFUtil.frameSize = size;
+	}
 
 	public DTMFUtil(WavData file) {
 		//genFreqBin();
@@ -216,14 +222,14 @@ public class DTMFUtil {
 		if (topFramesAvg.length < 6)
 			topAvg = topFramesAvg[topFramesAvg.length-1];
 		else
-			topAvg = meanArray(Arrays.copyOfRange(topFramesAvg, topFramesAvg.length-6, topFramesAvg.length-1));
+			topAvg = DecoderUtil.meanArray(Arrays.copyOfRange(topFramesAvg, topFramesAvg.length-6, topFramesAvg.length-1));
 
 		// loop through each frame in the dft data and eliminate if the avg is
 		// too low. if avg is high enough, decode by detecting the relevant
 		// frequencies.
 
 		for (int fr = 0; fr < dftData.length; fr++) {
-			if (meanArray(dftData[fr]) < (cutOffPerc * topAvg)) {
+			if (DecoderUtil.meanArray(dftData[fr]) < (cutOffPerc * topAvg)) {
 				out[fr] = '_';
 			} else {
 //				int low = maxIndex(Arrays.copyOfRange(dftData[fr], 0, 4));
@@ -307,19 +313,7 @@ public class DTMFUtil {
 		return arr;
 	}*/
 
-	/**
-	 * Method to calculate mean of an array
-	 * 
-	 * @param arr
-	 *            Array whose mean is to be calculated
-	 * @return mean of the input array
-	 */
-	private double meanArray(double[] arr) {
-		double out = 0.0;
-		for (int i = 0; i < arr.length; i++)
-			out += arr[i];
-		return out / (1.0 * arr.length);
-	}
+	
 
 	/**
 	 * Method to calculate the mean of each frame
@@ -398,7 +392,7 @@ public class DTMFUtil {
 		
 		double[] temp = new double[25];
 		double[] out = new double[8];
-		Goertzel g = new Goertzel(Fs, frameSize, fbin);
+		Goertzel g = new Goertzel(Fs, frame.length, fbin);
 		
 		// 1. transform the frames using goertzel algorithm
 		// 2. get the highest DTMF freq within the tolerance range and use that
@@ -409,8 +403,23 @@ public class DTMFUtil {
 		return out;
 	}
 
+	/**
+	 * Method to detect whether a frame is too noisy for detection
+	 * @param dft_data Frequency spectrum magnitudes for the DTMF frequencies
+	 * @return true is noisy or false if it is acceptable
+	 */
 	public static boolean isNoisy(double[] dft_data) {
-		// TODO Auto-generated method stub
+		// TODO 
+		double mean = DecoderUtil.meanArray(dft_data);
+		int count = 0;
+		for (int i = 0; i < dft_data.length; i++){
+			if (dft_data[i] > 0.5*mean){
+				if (count++ > 2){
+					return true;
+				}
+				
+			}
+		}	
 		return false;
 	}
 
@@ -480,31 +489,39 @@ public class DTMFUtil {
 		return null;
 	}
 
-	static double[] tempBuffer = new double[frameSize];
-	public static char decodeNextFrame(WavFile wavFile, int Fs) throws IOException, WavFileException, DTMFDecoderException {
-		double[] frame = new double[frameSize];
-		double[] buffer1 = new double[frameSize/2];	// read 370 samples at a time
-		double[] buffer2 = new double[frameSize/2];
+	static double[] tempBuffer1 = new double[(int) Math.floor(frameSize/3)];
+	static double[] tempBuffer2 = new double[(int) Math.floor(frameSize/3)];
+	/**
+	 * Method to decode a frame from a WavFile stream
+	 * 
+	 * @param wavFile WavFile object with the stream
+	 * @return 
+	 * @throws IOException
+	 * @throws WavFileException
+	 * @throws DTMFDecoderException
+	 */
+	public static char decodeNextFrame(WavFile wavFile) throws IOException, WavFileException, DTMFDecoderException {
+		double[] buffer1 = new double[(int)Math.floor(frameSize/3)];	// read 370 samples at a time
 		int framesRead = 0;
 		
-		framesRead = wavFile.readFrames(buffer1, frameSize/2);
-		if (framesRead < frameSize/2)
+		framesRead = wavFile.readFrames(buffer1,(int) Math.floor(frameSize/3));
+		if (framesRead < frameSize/3)
 			throw new DTMFDecoderException("Out of frames");
-		framesRead = wavFile.readFrames(buffer2, frameSize/2);
 
-		
-		frame = DecoderUtil.concatenate(buffer1,buffer2);
+		double[] frame = DecoderUtil.concatenateAll(tempBuffer2,tempBuffer1,buffer1);
+		tempBuffer2 = tempBuffer1;
+		tempBuffer1 = buffer1;
 		
 		char out = 'T';
 		// check if the power of the signal is high enough to be accepted.
 		if (DecoderUtil.signalPower(frame) < DTMFUtil.cuttOff)
 			return '_';
 		// transform frame
-		double[] dft_data = DTMFUtil.transformFrame(frame, Fs);
+		double[] dft_data = DTMFUtil.transformFrame(frame, (int) wavFile.getSampleRate());
 
 		// check if the frame has too much noise
 		if (DTMFUtil.isNoisy(dft_data))
-			return 'X';
+			return '_';
 
 		try {
 			out = DTMFUtil.getRawChar(dft_data);

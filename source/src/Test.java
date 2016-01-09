@@ -42,32 +42,39 @@ public class Test {
 		
 		
 		// buffer method
-		String filename = "Prototyping/Test Data/-27dBm to -10dBm/10B39A35#835CC.wav";
-//		String filename = "Prototyping/Test Data/-1dBm to 0dBm/821A#BB#94#62*22.wav";
+//		String filename = "samples/whiteNoise.wav"; 
+		String filename = "samples/complete-sequence-8kHz.wav";
+//		String filename = "Prototyping/Test Data/-27dBm to -10dBm/3AB07698486.wav";
+//		String filename = "Prototyping/Test Data/-1dBm to 0dBm/0B*C6C*907226058*3A516B21.wav";
 		WavFile data = FileUtil.readWavFileBuffer(filename);
 		data.display();
 		
 		// assume mono channel
-		String rawSeq = "";
-		DTMFUtil dtmf = new DTMFUtil(data.getSampleRate());
-		//double[][] tempDFTdata = new double[10][frameSize];	// array to keep track of dft data	
-
 		String original = DecoderUtil.getFileSequence(filename);
+		DTMFUtil.setFrameSize(data);
 		char prev = '_';
+		char prev2 = '_';
 		String sequence = "";
+		System.out.print("Raw      = ");
 		do {
 
 			char curr;
 			try {
-				curr = DTMFUtil.decodeNextFrame(data, (int) data.getSampleRate());
-				rawSeq += curr;
+				curr = DTMFUtil.decodeNextFrame(data);				
 			} catch (DTMFDecoderException e) {
 				break;
 			}
-			if (curr != prev && curr != '_'){
-				sequence += curr;
+			System.out.print(curr);
+			
+			if (curr != '_'){
+				if (curr == prev) { // eliminate false positives
+					if (curr != prev2){
+						sequence += curr;
+					}
+				}
 			}
 
+			prev2 = prev;
 			prev = curr;
 			//System.out.print(curr);
 			
@@ -75,8 +82,7 @@ public class Test {
 		
 		//String Seq = DTMFUtil.getSequence(rawSeq);
 		
-		System.out.println("Raw      = " + rawSeq
-				+ "\noriginal = " + original
+		System.out.println("\noriginal = " + original
 				+ "\ndecoded  = " + sequence);
 		
 		
