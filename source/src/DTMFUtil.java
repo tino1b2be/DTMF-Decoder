@@ -5,15 +5,25 @@ import java.util.Arrays;
 
 public class DTMFUtil {
 
-	private int[] fbin;
+	//		int[] freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
+	private int[] fbin = {
+			687,697,707,			//697
+			758,770,782,			//770
+			839,852,865,			//852
+			927,941,955,			//941
+			1191,1209,1227,			//1209
+			1316,1336,1356,			//1336
+			1455,1477,1499,			//1477
+			1609,1633,1647,1657};	//1633
 	private int Fs;
 	private double[] data;
 	private boolean decoded;
 	private String seq;
 	private static double cutOffPerc = 0.61;
+	static int frameSize = 370;
 
 	public DTMFUtil(WavData file) {
-		genFreqBin();
+		//genFreqBin();
 		this.data = file.getSamples();
 		this.Fs = (int) file.getSampleRate();
 		this.decoded = false;
@@ -78,7 +88,6 @@ public class DTMFUtil {
 		// TODO calculate appropriate frame size for samples rates other than
 		// 8kHz
 
-		int frameSize = 370;
 		int numFrames = 0;
 		if (data.length < frameSize) {
 			// TODO deal with a case when only one frame is available (this
@@ -129,11 +138,9 @@ public class DTMFUtil {
 		// DTMF frequecies after beeing transforms using goertzel algorithm
 		// There will be 274 frequencies to be tested instead of 8 so that the
 		// frequency tolerance recquirement can be met
-		double[][] temp = new double[frames.length][274];
+		double[][] temp = new double[frames.length][25];
 		double[][] out = new double[frames.length][8];
-		Goertzel g = new Goertzel(this.Fs, 274, fbin);
-		
-		// TODO code below is paralisable
+		Goertzel g = new Goertzel(this.Fs, frameSize, fbin);
 		
 		// 1. transform the frames using goertzel algorithm
 		// 2. get the highest DTMF freq within the tolerance range and use that
@@ -156,25 +163,15 @@ public class DTMFUtil {
 	 */
 	private double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
-		/*
-		 * MATLAB code
-		 * 
-		 * for f = 1:size(frames,2) % for each frame out(1,f) =
-		 * max(dft_data(1:20,f)); % 697Hz out(2,f) = max(dft_data(21:46,f)); %
-		 * 770Hz out(3,f) = max(dft_data(47:73,f)); % 852Hz out(4,f) =
-		 * max(dft_data(74:102,f)); % 941Hz out(5,f) = max(dft_data(103:139,f));
-		 * % 1209Hz out(6,f) = max(dft_data(140:180,f)); % 1336Hz out(7,f) =
-		 * max(dft_data(181:225,f)); % 1477Hz out(8,f) =
-		 * max(dft_data(226:274,f)); % 1633Hz end
-		 */
-		out[0] = max(Arrays.copyOfRange(frame, 0, 20));
-		out[1] = max(Arrays.copyOfRange(frame, 20, 46));
-		out[2] = max(Arrays.copyOfRange(frame, 46, 73));
-		out[3] = max(Arrays.copyOfRange(frame, 73, 102));
-		out[4] = max(Arrays.copyOfRange(frame, 102, 139));
-		out[5] = max(Arrays.copyOfRange(frame, 139, 180));
-		out[6] = max(Arrays.copyOfRange(frame, 180, 225));
-		out[7] = max(Arrays.copyOfRange(frame, 225, 274));
+
+		out[0] = max(Arrays.copyOfRange(frame, 0, 3));
+		out[1] = max(Arrays.copyOfRange(frame, 3, 6));
+		out[2] = max(Arrays.copyOfRange(frame, 6, 9));
+		out[3] = max(Arrays.copyOfRange(frame, 9, 12));
+		out[4] = max(Arrays.copyOfRange(frame, 12, 15));
+		out[5] = max(Arrays.copyOfRange(frame, 15, 18));
+		out[6] = max(Arrays.copyOfRange(frame, 18, 21));
+		out[7] = max(Arrays.copyOfRange(frame, 21, 25));
 
 		return out;
 	}
@@ -186,6 +183,7 @@ public class DTMFUtil {
 	 *            Array to be processed
 	 * @return Value of the largest element
 	 */
+
 	private double max(double[] arr) {
 		Arrays.sort(arr);
 		return arr[arr.length - 1];
@@ -330,7 +328,7 @@ public class DTMFUtil {
 			arr[arr.length - i - 1] = temp;
 		}
 		return arr;
-	}*
+	}*/
 
 	/**
 	 * Method to calculate mean of an array
@@ -365,7 +363,6 @@ public class DTMFUtil {
 		}
 		return out;
 	}
-
 	
 	/**
 	 * Method to obtain the actual DTMF tone sequence represented by the data

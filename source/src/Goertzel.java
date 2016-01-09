@@ -38,7 +38,7 @@ public class Goertzel {
 	public Goertzel(int sampleRate, int numSamples, int[] freqBin) {
 		this.sampleRate = sampleRate;
 		this.numSamples = numSamples;
-		Arrays.sort(freqBin); // sort the
+		//Arrays.sort(freqBin); // sort the
 		this.freqs = freqBin;
 		calcCoeffs();
 	}
@@ -52,7 +52,7 @@ public class Goertzel {
 	public Goertzel(WavData wav, int[] freqBin) {
 		this.sampleRate = (int) wav.getSampleRate();
 		this.numSamples = wav.getSamples().length;
-		Arrays.sort(freqBin); // sort the
+		//Arrays.sort(freqBin); // sort the
 		this.freqs = freqBin;
 		this.inputSamples = wav.getSamples();
 		calcCoeffs();

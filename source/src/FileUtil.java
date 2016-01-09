@@ -33,7 +33,31 @@ public class FileUtil {
 		out.close();
 		return new WavData(out.getSampleRate(), out.getNumChannels(), buffer, out.getValidBits());
 	}
+
+	/**
+	 * Method to read a file with known DTMF sequence which will be used in
+	 * testing process to determine whether test was a success
+	 * 
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 * @throws WavFileException
+	 */
+	public static DTMFfile readDTMFfile(String filename) throws IOException, WavFileException {
+		String seq = getSeq(filename);
+		return new DTMFfile(readWavFile(filename),seq);
+	}
 	
+	/**
+	 * Method to extract the dtmf sequence from a given file name
+	 * @param filename
+	 * @return
+	 */
+	private static String getSeq(String filename) {
+		// TODO Method to extract the dtmf sequence from a given file name
+		return null;
+	}
+
 	public static void writeWavFile(WavData data){
 		// TODO to implement method later. can use matlab to generate test files for now
 	}
@@ -80,4 +104,26 @@ public class FileUtil {
 		}
 		pw.close();
 	}
+
+	// TODO finish off method to cycle through files
+	public static ArrayList<DTMFfile> getFiles(String path) throws IOException, WavFileException {
+		ArrayList<DTMFfile> files = new ArrayList<>();	// output array of files
+		File dir = new File(path);						// file directory for test files
+		File[] directoryListing = dir.listFiles();		// files inside directory
+		if (directoryListing != null) {
+			for (File child : directoryListing) {		// for each file inside the dir
+				if (child.getAbsolutePath().endsWith(".wav")) { // add to output if its a wav file
+					files.add(readDTMFfile(child));
+				}
+			}
+		} else {
+			throw new WavFileException("File path given is either not a directory or it is empty.");
+		}
+		return files;
+	}
+
+	private static DTMFfile readDTMFfile(File child) throws IOException, WavFileException {
+		return readDTMFfile(child.getAbsolutePath());
+	}
+	
 }
