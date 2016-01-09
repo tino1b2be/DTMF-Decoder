@@ -82,7 +82,7 @@ disp('Done with the third power range');
 
 % -30dbm to -10dbm, amplitude: 0.045 - 0.3
 parfor count = 1:numFiles
-    [y, chars] = randSeq(randomInt(5,20),Fs,randomInt(450,3000)/10000);
+    [y, chars] = randSeq(randomInt(5,20),Fs,randomInt(450,500)/10000);
     name = strcat(folderName,'/-27dBm to -10dBm/',chars,'.wav');
     if (exist(name,'file'))
    %     count = count - 1;

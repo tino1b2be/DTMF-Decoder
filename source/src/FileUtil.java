@@ -125,5 +125,9 @@ public class FileUtil {
 	private static DTMFfile readDTMFfile(File child) throws IOException, WavFileException {
 		return readDTMFfile(child.getAbsolutePath());
 	}
+
+	public static WavFile readWavFileBuffer(String filename) throws IOException, WavFileException {
+		return WavFile.openWavFile(new File(filename));
+	}
 	
 }

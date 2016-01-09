@@ -7,14 +7,14 @@ import java.util.Scanner;
 public class Test {
 	public static void main(String[] args) throws IOException, WavFileException, InterruptedException {
 		
-		WavData data = null;
-		try {
-			data = FileUtil.readWavFile("Prototyping/Test Data (large)/-1dBm to 0dBm/*0*4B89A.wav");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (WavFileException e) {
-			e.printStackTrace();
-		}
+//		WavData data = null;
+//		try {
+//			data = FileUtil.readWavFile("Prototyping/Test Data (large)/-1dBm to 0dBm/*0*4B89A.wav");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (WavFileException e) {
+//			e.printStackTrace();
+//		}
 		
 //		System.out.println(data.toString());
 //		int[] freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
@@ -27,18 +27,58 @@ public class Test {
 //			System.out.println(weights[i]);
 //		}
 		
-		DTMFUtil dtmf = new DTMFUtil(data);
+//		DTMFUtil dtmf = new DTMFUtil(data);
+//		
+//		
+//		DTMFUtil d = new DTMFUtil(data);
+//		String seq = null;
+//		try {
+//			d.decode();
+//			seq = d.getSequence();
+//		} catch (DTMFDecoderException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(seq);
 		
 		
-		DTMFUtil d = new DTMFUtil(data);
-		String seq = null;
-		try {
-			d.decode();
-			seq = d.getSequence();
-		} catch (DTMFDecoderException e) {
-			e.printStackTrace();
-		}
-		System.out.println(seq);
+		// buffer method
+		String filename = "Prototyping/Test Data/-27dBm to -10dBm/10B39A35#835CC.wav";
+//		String filename = "Prototyping/Test Data/-1dBm to 0dBm/821A#BB#94#62*22.wav";
+		WavFile data = FileUtil.readWavFileBuffer(filename);
+		data.display();
+		
+		// assume mono channel
+		String rawSeq = "";
+		DTMFUtil dtmf = new DTMFUtil(data.getSampleRate());
+		//double[][] tempDFTdata = new double[10][frameSize];	// array to keep track of dft data	
+
+		String original = DecoderUtil.getFileSequence(filename);
+		char prev = '_';
+		String sequence = "";
+		do {
+
+			char curr;
+			try {
+				curr = DTMFUtil.decodeNextFrame(data, (int) data.getSampleRate());
+				rawSeq += curr;
+			} catch (DTMFDecoderException e) {
+				break;
+			}
+			if (curr != prev && curr != '_'){
+				sequence += curr;
+			}
+
+			prev = curr;
+			//System.out.print(curr);
+			
+		}while(true);
+		
+		//String Seq = DTMFUtil.getSequence(rawSeq);
+		
+		System.out.println("Raw      = " + rawSeq
+				+ "\noriginal = " + original
+				+ "\ndecoded  = " + sequence);
+		
 		
 		
 		

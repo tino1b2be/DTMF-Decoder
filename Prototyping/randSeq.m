@@ -43,6 +43,8 @@ function [out,chars] = randSeq( numTones, Fs , amplitude)
         % add to the output signal
         out = vertcat(out,tone,pause);
     end
+    pause = genPause(70,Fs);
+    out = vertcat(out,pause);
     
     chars = '';
     for j = 1:length(charsTemp)

@@ -1,12 +1,14 @@
 package src;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DTMFUtil {
 
+	public static final double cuttOff = 0.01;  // -27dbm
 	//		int[] freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
-	private int[] fbin = {
+	private static int[] fbin = {
 			687,697,707,			//697
 			758,770,782,			//770
 			839,852,865,			//852
@@ -27,6 +29,10 @@ public class DTMFUtil {
 		this.data = file.getSamples();
 		this.Fs = (int) file.getSampleRate();
 		this.decoded = false;
+	}
+
+	public DTMFUtil(long sampleRate) {
+		this.Fs = (int) sampleRate;
 	}
 
 	/**
@@ -161,33 +167,22 @@ public class DTMFUtil {
 	 * @return an array with 8 magnitudes. Each representing the magnitude of
 	 *         each frequency
 	 */
-	private double[] filterFrame(double[] frame) {
+	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
 
-		out[0] = max(Arrays.copyOfRange(frame, 0, 3));
-		out[1] = max(Arrays.copyOfRange(frame, 3, 6));
-		out[2] = max(Arrays.copyOfRange(frame, 6, 9));
-		out[3] = max(Arrays.copyOfRange(frame, 9, 12));
-		out[4] = max(Arrays.copyOfRange(frame, 12, 15));
-		out[5] = max(Arrays.copyOfRange(frame, 15, 18));
-		out[6] = max(Arrays.copyOfRange(frame, 18, 21));
-		out[7] = max(Arrays.copyOfRange(frame, 21, 25));
+		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
+		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
+		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
+		out[3] = DecoderUtil.max(Arrays.copyOfRange(frame, 9, 12));
+		out[4] = DecoderUtil.max(Arrays.copyOfRange(frame, 12, 15));
+		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
+		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
+		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
 
 		return out;
 	}
 
-	/**
-	 * Function to return the largest value of an array
-	 * 
-	 * @param arr
-	 *            Array to be processed
-	 * @return Value of the largest element
-	 */
-
-	private double max(double[] arr) {
-		Arrays.sort(arr);
-		return arr[arr.length - 1];
-	}
+	
 
 	/**
 	 * Method to decode the frames to get the DTMF tone (or pause) being
@@ -238,8 +233,8 @@ public class DTMFUtil {
 				double[] lower = Arrays.copyOfRange(dftData[fr], 0, 4);
 				double[] higher = Arrays.copyOfRange(dftData[fr], 4, 8);
 				
-				low = maxIndex(lower);
-				hi = maxIndex(higher);
+				low = DecoderUtil.maxIndex(lower);
+				hi = DecoderUtil.maxIndex(higher);
 				
 				if (low == 0) {				// low = 697
 					if (hi == 0){			// High = 1209
@@ -295,24 +290,6 @@ public class DTMFUtil {
 		return out;
 	}
 
-	/**
-	 * Method to return the index of the max element in an array
-	 * 
-	 * @param arr
-	 *            Array to be processed
-	 * @return Index of the max element
-	 */
-	private int maxIndex(double[] arr) {
-		int index = 0;
-		double max = arr[0];
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] > max) {
-				max = arr[i];
-				index = i;
-			}
-		}
-		return index;
-	}
 
 	/*
 	 * Method to reverse an array
@@ -416,4 +393,127 @@ public class DTMFUtil {
 			throw new DTMFDecoderException("File has not been decoded yet. Please run the method decode() first.");
 		return seq;
 	}
+
+	public static double[] transformFrame(double[] frame, int Fs) {
+		
+		double[] temp = new double[25];
+		double[] out = new double[8];
+		Goertzel g = new Goertzel(Fs, frameSize, fbin);
+		
+		// 1. transform the frames using goertzel algorithm
+		// 2. get the highest DTMF freq within the tolerance range and use that
+		// magnitude to represet the corresponsing DTMF free
+			temp = g.calcFreqWeight(frame);
+			out = filterFrame(temp);
+		
+		return out;
+	}
+
+	public static boolean isNoisy(double[] dft_data) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public static char getRawChar(double[] dft_data) throws DTMFDecoderException {
+		char out = 0;
+		int low, hi;
+		double[] lower = Arrays.copyOfRange(dft_data, 0, 4);
+		double[] higher = Arrays.copyOfRange(dft_data, 4, 8);
+		
+		low = DecoderUtil.maxIndex(lower);
+		hi = DecoderUtil.maxIndex(higher);
+		
+		if (low == 0) {				// low = 697
+			if (hi == 0){			// High = 1209
+				out = '1';
+			} else if (hi == 1){	// high = 1336
+				out = '2';
+			} else if (hi == 2){	// high = 1477
+				out = '3';
+			} else if (hi == 3){	// high = 1633
+				out = 'A';
+			} else
+				throw new DTMFDecoderException("Something went terribly wrong!");
+
+		} else if (low == 1) {		// low = 770
+			if (hi == 0){			// high = 1209
+				out = '4';
+			} else if (hi == 1){	// high = 1336
+				out = '5';
+			} else if (hi == 2){	// high = 1477
+				out = '6';
+			} else if (hi == 3){	// high = 1633
+				out = 'B';
+			} else
+				throw new DTMFDecoderException("Something went terribly wrong!");
+
+		} else if (low == 2) {		// low = 852
+			if (hi == 0){			// high = 1209
+				out = '7';
+			} else if (hi == 1){	// high = 1336
+				out = '8';
+			} else if (hi == 2){	// high = 1477
+				out = '9';
+			} else if (hi == 3){	// high = 1633
+				out = 'C';
+			} else
+				throw new DTMFDecoderException("Something went terribly wrong!");
+
+		} else if (low == 3) {		// low = 941
+			if (hi == 0){			// high = 1209
+				out = '*';
+			} else if (hi == 1){	// high = 1336
+				out = '0';
+			} else if (hi == 2) { // high = 1477
+				out = '#';
+			} else if (hi == 3) { // high = 1633
+				out = 'D';
+			} else
+				throw new DTMFDecoderException("Something went terribly wrong!");
+		} else
+			throw new DTMFDecoderException("Something went terribly wrong!");
+		return out;
+	}
+
+	public static String getSequence(String rawSeq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	static double[] tempBuffer = new double[frameSize];
+	public static char decodeNextFrame(WavFile wavFile, int Fs) throws IOException, WavFileException, DTMFDecoderException {
+		double[] frame = new double[frameSize];
+		double[] buffer1 = new double[frameSize/2];	// read 370 samples at a time
+		double[] buffer2 = new double[frameSize/2];
+		int framesRead = 0;
+		
+		framesRead = wavFile.readFrames(buffer1, frameSize/2);
+		if (framesRead < frameSize/2)
+			throw new DTMFDecoderException("Out of frames");
+		framesRead = wavFile.readFrames(buffer2, frameSize/2);
+
+		
+		frame = DecoderUtil.concatenate(buffer1,buffer2);
+		
+		char out = 'T';
+		// check if the power of the signal is high enough to be accepted.
+		if (DecoderUtil.signalPower(frame) < DTMFUtil.cuttOff)
+			return '_';
+		// transform frame
+		double[] dft_data = DTMFUtil.transformFrame(frame, Fs);
+
+		// check if the frame has too much noise
+		if (DTMFUtil.isNoisy(dft_data))
+			return 'X';
+
+		try {
+			out = DTMFUtil.getRawChar(dft_data);
+		} catch (DTMFDecoderException e) {
+			e.printStackTrace();
+			return 'Q';
+		}
+		return out;
+
+	}
+
 }
