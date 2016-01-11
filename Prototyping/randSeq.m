@@ -37,7 +37,7 @@ function [out,chars] = randSeq( numTones, Fs , amplitude)
         % add a random tone
         DTMF = randomInt(1,16);
         charsTemp(i) = DTMF;
-        tone = genDTMFtestTone(DTMF,Fs,randomInt(40,45),amplitude);
+        tone = genDTMFtone(DTMF,Fs,randomInt(50,55),amplitude);
         % add a pause of random duration between 30 and 70
         pause = genPause(randomInt(70,75),Fs);
         % add to the output signal

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Class to hand File operations
@@ -34,20 +35,6 @@ public class FileUtil {
 		return new WavData(out.getSampleRate(), out.getNumChannels(), buffer, out.getValidBits());
 	}
 
-	/**
-	 * Method to read a file with known DTMF sequence which will be used in
-	 * testing process to determine whether test was a success
-	 * 
-	 * @param filename
-	 * @return
-	 * @throws IOException
-	 * @throws WavFileException
-	 */
-	public static DTMFfile readDTMFfile(String filename) throws IOException, WavFileException {
-		String seq = getSeq(filename);
-		return new DTMFfile(readWavFile(filename),seq);
-	}
-	
 	/**
 	 * Method to extract the dtmf sequence from a given file name
 	 * @param filename
@@ -104,16 +91,34 @@ public class FileUtil {
 		}
 		pw.close();
 	}
+	
+	/**
+	 * Mehotd to write the observations to a file
+	 * @param <T>
+	 * @param dataOut
+	 * @throws IOException 
+	 */
+	public static <T> void writeToFile(ArrayList<T> dataOut) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter("results.csv"));
+		if (dataOut == null)
+			pw.print("");
+		else{
+			for (int i = 0; i < dataOut.size(); i++){
+				pw.println(dataOut.get(i));
+			}
+		}
+		pw.close();
+	}
 
 	// TODO finish off method to cycle through files
-	public static ArrayList<DTMFfile> getFiles(String path) throws IOException, WavFileException {
-		ArrayList<DTMFfile> files = new ArrayList<>();	// output array of files
+	public static ArrayList<File> getFiles(String path) throws IOException, WavFileException {
+		ArrayList<File> files = new ArrayList<>();	// output array of files
 		File dir = new File(path);						// file directory for test files
 		File[] directoryListing = dir.listFiles();		// files inside directory
 		if (directoryListing != null) {
 			for (File child : directoryListing) {		// for each file inside the dir
 				if (child.getAbsolutePath().endsWith(".wav")) { // add to output if its a wav file
-					files.add(readDTMFfile(child));
+					files.add(child);
 				}
 			}
 		} else {
@@ -122,12 +127,32 @@ public class FileUtil {
 		return files;
 	}
 
-	private static DTMFfile readDTMFfile(File child) throws IOException, WavFileException {
-		return readDTMFfile(child.getAbsolutePath());
-	}
-
 	public static WavFile readWavFileBuffer(String filename) throws IOException, WavFileException {
 		return WavFile.openWavFile(new File(filename));
+	}
+
+	public static WavFile readWavFileBuffer(File file) throws IOException, WavFileException {
+		return readWavFileBuffer(file.getPath());
+	}
+
+	/**
+	 * Write test results to a file
+	 * @param dataOut
+	 * @throws IOException
+	 */
+	public static <T> void writeToFile(ArrayBlockingQueue<T> dataOut) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter("results.txt"));
+		if (dataOut == null)
+			pw.print("");
+		else{
+			for (T data : dataOut){
+				if(((TestResult) data).isSuccess())
+					Test.success++;
+				pw.println(data);
+				
+			}
+		}
+		pw.close();
 	}
 	
 }

@@ -108,4 +108,19 @@ public class DecoderUtil {
 			out += arr[i];
 		return out / (1.0 * arr.length);
 	}
+	
+	/**
+	 * Method to calculate sum of an array
+	 * 
+	 * @param arr
+	 *            Array whose mean is to be calculated
+	 * @return mean of the input array
+	 */
+	public static double sumArray(double[] arr) {
+		double out = 0.0;
+		for (int i = 0; i < arr.length; i++)
+			out += arr[i];
+		return out;
+	}
+
 }

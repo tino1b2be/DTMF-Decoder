@@ -1,11 +1,14 @@
 package src;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Test {
-	public static void main(String[] args) throws IOException, WavFileException, InterruptedException {
+	public static int success = 0;
+	public static void main(String[] args) throws IOException, WavFileException, InterruptedException, DTMFDecoderException {
 		
 //		WavData data = null;
 //		try {
@@ -42,55 +45,30 @@ public class Test {
 		
 		
 		// buffer method
+//		String filename = "samples/1n.wav";
 //		String filename = "samples/whiteNoise.wav"; 
-		String filename = "samples/complete-sequence-8kHz.wav";
-//		String filename = "Prototyping/Test Data/-27dBm to -10dBm/3AB07698486.wav";
-//		String filename = "Prototyping/Test Data/-1dBm to 0dBm/0B*C6C*907226058*3A516B21.wav";
-		WavFile data = FileUtil.readWavFileBuffer(filename);
-		data.display();
-		
-		// assume mono channel
-		String original = DecoderUtil.getFileSequence(filename);
-		DTMFUtil.setFrameSize(data);
-		char prev = '_';
-		char prev2 = '_';
-		String sequence = "";
-		System.out.print("Raw      = ");
-		do {
-
-			char curr;
-			try {
-				curr = DTMFUtil.decodeNextFrame(data);				
-			} catch (DTMFDecoderException e) {
-				break;
-			}
-			System.out.print(curr);
-			
-			if (curr != '_'){
-				if (curr == prev) { // eliminate false positives
-					if (curr != prev2){
-						sequence += curr;
-					}
-				}
-			}
-
-			prev2 = prev;
-			prev = curr;
-			//System.out.print(curr);
-			
-		}while(true);
-		
-		//String Seq = DTMFUtil.getSequence(rawSeq);
-		
-		System.out.println("\noriginal = " + original
-				+ "\ndecoded  = " + sequence);
+//		String filename = "samples/complete-sequence-8kHz.wav";
+//		String filename = "Prototyping/Test Data (small)/-27dBm to -10dBm/27C*C0A8A5AC370.wav";
+//		String filename = "Prototyping/Test Data (small)/-1dBm to 0dBm/1#27982A155AB#9463#4ACB203B4#2B039232#C87.wav";
+//		String filename = "Prototyping/Test Data (small)/-1dBm to 0dBm/*ACC0A5A6440C12A630#77B87*4.wav";
+////		String filename = "samples/stereo.wav";
+//		WavFile data = FileUtil.readWavFileBuffer(filename);
+//		data.display();
+//		
+//		DTMFUtil dtmf = new DTMFUtil(data);
+//		
+//		String original = DecoderUtil.getFileSequence(filename);
+//		String[] sequence = dtmf.decode();
+//				
+//		System.out.println("\noriginal1 = " + original
+//				+ "\ndecoded1  = " + sequence[0]);
+//		System.out.println("\noriginal2 = " + original
+//				+ "\ndecoded1  = " + sequence[1]);
+//		FileUtil.writeToFile(DTMFUtil.noisyTemp);
 		
 		
 		
 		
-		
-		
-		/*
 		Scanner sc = new Scanner(System.in);
 		boolean smallSet;
 		System.out.println("which data set do you want to test ('l' for large, 's' for small)?");
@@ -127,13 +105,13 @@ public class Test {
 			p4 = "Prototyping/Test Data (large)/-27dBm to -10dBm/";
 		}
 		
-		ArrayList<DTMFfile> p1Files = FileUtil.getFiles(p1);
-		ArrayList<DTMFfile> p2Files = FileUtil.getFiles(p2);
-		ArrayList<DTMFfile> p3Files = FileUtil.getFiles(p3);
-		ArrayList<DTMFfile> p4Files = FileUtil.getFiles(p4);
+		ArrayList<File> p1Files = FileUtil.getFiles(p1);
+		ArrayList<File> p2Files = FileUtil.getFiles(p2);
+		ArrayList<File> p3Files = FileUtil.getFiles(p3);
+		ArrayList<File> p4Files = FileUtil.getFiles(p4);
 		
 		// create the array that will hold the test results
-		TestResult[] results = new TestResult[p1Files.size() + p2Files.size() + p3Files.size() + p4Files.size()];
+		ArrayBlockingQueue<TestResult> results = new ArrayBlockingQueue<TestResult>(p1Files.size() + p2Files.size() + p3Files.size() + p4Files.size());
 		TestThread one = new TestThread(p1Files, results, 0, p1Files.size());
 		TestThread two = new TestThread(p2Files,results, p1Files.size(), p1Files.size()+p2Files.size());
 		TestThread three = new TestThread(p3Files, results, p1Files.size()+p2Files.size(), p1Files.size()+p2Files.size()+p3Files.size());
@@ -153,7 +131,10 @@ public class Test {
 		
 		// TODO tests are all done
 		
-		*/
+		int sum = results.size();
+		FileUtil.writeToFile(results);
+		double successRate = success * 100.0 / (sum * 1.0);
+		System.out.println("\nSuccess Rate = " + successRate + "%");
 		
 	}
 }

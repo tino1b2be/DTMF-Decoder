@@ -695,7 +695,7 @@ public class WavFile
 		out.printf("Sample Rate: %d, Block Align: %d\n", sampleRate, blockAlign);
 		out.printf("Valid Bits: %d, Bytes per sample: %d\n", validBits, bytesPerSample);
 	}
-
+/*
 	public static void main(String[] args)
 	{
 		if (args.length < 1)
@@ -749,5 +749,5 @@ public class WavFile
 			System.err.println(e);
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
