@@ -1,3 +1,4 @@
+
 package src;
 
 import java.io.File;
@@ -23,16 +24,16 @@ public class DTMFUtil {
 	private WavFile wavFile;
 	private int frameSize;
 	private int totalFramesRead = 0;
-	// freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
+	public static final double[] DTMF_FREQUENCIES = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
 	private static int[] fbin = {
-			687, 692, 697, 702, 707,				// 697
-			758, 764, 770, 776, 782, 						// 770
-			839, 852, 865, 						// 852
-			927, 941, 955, 						// 941
-			1191, 1209, 1227, 					// 1209
-			1316, 1336, 1356, 					// 1336
-			1455, 1477, 1499, 					// 1477
-			1609, 1633, 1647, 1657 }; 			// 1633
+			687, 692, 697, 702, 707,					// 697  0-5
+			758, 764, 770, 776, 782, 					// 770  5-10
+			839, 845, 852, 859, 865, 					// 852  10-15
+			927, 935, 941, 947, 955, 					// 941  15-20
+			1191, 1200, 1209, 1220, 1227, 				// 1209 20-25
+			1316, 1325, 1336, 1344, 1356, 				// 1336 25-30
+			1455, 1465, 1477, 1486, 1499, 				// 1477 30-35
+			1609, 1620, 1633, 1640, 1647, 1651, 1657 };	// 1633 35-42
 	
 	/**
 	 * Create DTMFUtil object for a wav file given the WavFile object
@@ -97,14 +98,14 @@ public class DTMFUtil {
 	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
 
-		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
-		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
-		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
-		out[3] = DecoderUtil.max(Arrays.copyOfRange(frame, 9, 12));
-		out[4] = DecoderUtil.max(Arrays.copyOfRange(frame, 12, 15));
-		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
-		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
-		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
+		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 5));
+		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 5, 10));
+		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 10, 15));
+		out[3] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 20));
+		out[4] = DecoderUtil.max(Arrays.copyOfRange(frame, 20, 25));
+		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 25, 30));
+		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 30, 35));
+		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 25, 42));
 
 		return out;
 	}
@@ -132,16 +133,17 @@ public class DTMFUtil {
 	 * @return an Array showing the realtive powers of the DTMF frequencies
 	 */
 	private static double[] transformFrame(double[] frame, int Fs) {
-		double[] temp = new double[25];
 		double[] out = new double[8];
-		Goertzel g = new Goertzel(Fs, frame.length, fbin);
+		Goertzel2 g = new Goertzel2(Fs, frame.length, fbin);
 		// 1. transform the frames using goertzel algorithm
 		// 2. get the highest DTMF freq within the tolerance range and use that
 		// magnitude to represet the corresponsing DTMF free
-		temp = g.calcFreqWeight(frame);
+		double[] temp = g.calcFreqWeight(frame);
 		out = filterFrame(temp);
 		return out;
 	}
+	
+	
 
 	/**
 	 * Method to detect whether a frame is too noisy for detection
