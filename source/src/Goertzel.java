@@ -1,7 +1,5 @@
 package src;
 
-import java.util.Arrays;
-
 /**
  * Class Goertzel returns an outputList with values that represents the weight
  * of selected frequencies in a signal. Calculations are performed by using the
@@ -16,7 +14,7 @@ import java.util.Arrays;
  * @version 04/01/2016
  */
 
-public class Goertzel2 {
+public class Goertzel {
 	private int numSamples; // Number of samples.
 	private int sampleRate; // SampleRate in Hz.
 	private final int[] freqs; // Frequency bin in Hz.
@@ -35,26 +33,10 @@ public class Goertzel2 {
 	 * @param freqBin
 	 *            The frequency bin to be used in the Goertzel Transformation
 	 */
-	public Goertzel2(int sampleRate, int numSamples, int[] freqBin) {
+	public Goertzel(int sampleRate, int numSamples, int[] freqBin) {
 		this.sampleRate = sampleRate;
 		this.numSamples = numSamples;
-		//Arrays.sort(freqBin); // sort the
 		this.freqs = freqBin;
-		calcCoeffs();
-	}
-
-	/**
-	 * Initialize by calculating coefficients.
-	 * 
-	 * @param wav
-	 *            wavData object with wav file information and sample data
-	 */
-	public Goertzel2(WavData wav, int[] freqBin) {
-		this.sampleRate = (int) wav.getSampleRate();
-		this.numSamples = wav.getSamples().length;
-		//Arrays.sort(freqBin); // sort the
-		this.freqs = freqBin;
-		this.inputSamples = wav.getSamples();
 		calcCoeffs();
 	}
 

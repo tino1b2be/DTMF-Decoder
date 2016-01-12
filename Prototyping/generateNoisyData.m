@@ -18,6 +18,9 @@ if (~exist(folderName,'dir'))
     mkdir(folderName,'/15dB');
     mkdir(folderName,'/20dB');
     mkdir(folderName,'/30dB');
+    mkdir(folderName,'/40dB');
+    mkdir(folderName,'/50dB');
+    mkdir(folderName,'/60dB');
 
 else
     if (~exist(strcat(folderName,'/0.5dB'),'dir'))
@@ -45,6 +48,15 @@ else
         mkdir(folderName,'/20dB');
     end
     if (~exist(strcat(folderName,'/30dB'),'dir'))
+        mkdir(folderName,'/30dB');
+    end
+    if (~exist(strcat(folderName,'/40dB'),'dir'))
+        mkdir(folderName,'/30dB');
+    end
+    if (~exist(strcat(folderName,'/50dB'),'dir'))
+        mkdir(folderName,'/30dB');
+    end
+    if (~exist(strcat(folderName,'/60dB'),'dir'))
         mkdir(folderName,'/30dB');
     end
 end
@@ -190,6 +202,54 @@ parfor count = 1:numFiles
     end
     if (count == floor(numFiles/2))
         disp('Halfway through 30dB');
+    end
+end
+
+
+parfor count = 1:numFiles
+    [x, chars] = randSeq(randomInt(5,50),Fs,1);
+    y = awgn(x,40);
+    name = strcat(folderName,'/40dB/',chars,'.wav');
+    if (exist(name,'file'))
+    %    count = count - 1;
+        continue;
+    else
+        audiowrite(name,y,Fs);
+    end
+    if (count == floor(numFiles/2))
+        disp('Halfway through 40dB');
+    end
+end
+
+
+parfor count = 1:numFiles
+    [x, chars] = randSeq(randomInt(5,50),Fs,1);
+    y = awgn(x,50);
+    name = strcat(folderName,'/50dB/',chars,'.wav');
+    if (exist(name,'file'))
+    %    count = count - 1;
+        continue;
+    else
+        audiowrite(name,y,Fs);
+    end
+    if (count == floor(numFiles/2))
+        disp('Halfway through 50dB');
+    end
+end
+
+
+parfor count = 1:numFiles
+    [x, chars] = randSeq(randomInt(5,50),Fs,1);
+    y = awgn(x,60);
+    name = strcat(folderName,'/60dB/',chars,'.wav');
+    if (exist(name,'file'))
+    %    count = count - 1;
+        continue;
+    else
+        audiowrite(name,y,Fs);
+    end
+    if (count == floor(numFiles/2))
+        disp('Halfway through 60dB');
     end
 end
 

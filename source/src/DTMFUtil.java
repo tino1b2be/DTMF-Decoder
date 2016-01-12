@@ -1,4 +1,3 @@
-
 package src;
 
 import java.io.File;
@@ -13,27 +12,25 @@ import java.util.Arrays;
  *
  */
 public class DTMFUtil {
-
-	public static ArrayList<String> noisyTemp = new ArrayList<String>();
 	
-	private final double CUT_OFF_POWER = 0.001;
-	private final double CUT_OFF_POWER_NOISE_RATIO = 0.68;
-	private final double FRAME_DURATION = 0.038;
+	public static double CUT_OFF_POWER = 0.002;
+	public static double CUT_OFF_POWER_NOISE_RATIO = 0.40;
+	public static double FRAME_DURATION = 0.038;
 	private boolean decoded;
 	private String seq[];
 	private WavFile wavFile;
 	private int frameSize;
-	private int totalFramesRead = 0;
-	public static final double[] DTMF_FREQUENCIES = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
-	private static int[] fbin = {
-			687, 692, 697, 702, 707,					// 697  0-5
-			758, 764, 770, 776, 782, 					// 770  5-10
-			839, 845, 852, 859, 865, 					// 852  10-15
-			927, 935, 941, 947, 955, 					// 941  15-20
-			1191, 1200, 1209, 1220, 1227, 				// 1209 20-25
-			1316, 1325, 1336, 1344, 1356, 				// 1336 25-30
-			1455, 1465, 1477, 1486, 1499, 				// 1477 30-35
-			1609, 1620, 1633, 1640, 1647, 1651, 1657 };	// 1633 35-42
+	public static ArrayList<Double> noisyTemp = new ArrayList<>();
+	
+	// freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
+	private static int[] fbin = { 687, 697, 707,// 697
+			758, 770, 782, 						// 770
+			839, 852, 865, 						// 852
+			927, 941, 955, 						// 941
+			1191, 1209, 1227, 					// 1209
+			1316, 1336, 1356, 					// 1336
+			1455, 1477, 1499, 					// 1477
+			1609, 1633, 1647, 1657 }; 			// 1633
 	
 	/**
 	 * Create DTMFUtil object for a wav file given the WavFile object
@@ -98,14 +95,14 @@ public class DTMFUtil {
 	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
 
-		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 5));
-		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 5, 10));
-		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 10, 15));
-		out[3] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 20));
-		out[4] = DecoderUtil.max(Arrays.copyOfRange(frame, 20, 25));
-		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 25, 30));
-		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 30, 35));
-		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 25, 42));
+		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
+		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
+		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
+		out[3] = DecoderUtil.max(Arrays.copyOfRange(frame, 9, 12));
+		out[4] = DecoderUtil.max(Arrays.copyOfRange(frame, 12, 15));
+		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
+		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
+		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
 
 		return out;
 	}
@@ -134,7 +131,7 @@ public class DTMFUtil {
 	 */
 	private static double[] transformFrame(double[] frame, int Fs) {
 		double[] out = new double[8];
-		Goertzel2 g = new Goertzel2(Fs, frame.length, fbin);
+		Goertzel g = new Goertzel(Fs, frame.length, fbin);
 		// 1. transform the frames using goertzel algorithm
 		// 2. get the highest DTMF freq within the tolerance range and use that
 		// magnitude to represet the corresponsing DTMF free
@@ -142,8 +139,6 @@ public class DTMFUtil {
 		out = filterFrame(temp);
 		return out;
 	}
-	
-	
 
 	/**
 	 * Method to detect whether a frame is too noisy for detection
@@ -155,13 +150,15 @@ public class DTMFUtil {
 	private boolean isNoisy(double[] dft_data) {
 		// sum the powers of all frequencies = sum
 		// find ratio of the (sum of two highest peaks) : sum
-		double[] temp = Arrays.copyOf(dft_data, dft_data.length);
-		Arrays.sort(temp);
-		double one = temp[temp.length - 1];
-		double two = temp[temp.length - 2];
-		double sum = DecoderUtil.sumArray(temp);
+		double[] temp1 = Arrays.copyOfRange(dft_data, 0,4);
+		double[] temp2 = Arrays.copyOfRange(dft_data, 4,8);
+		Arrays.sort(temp1);
+		Arrays.sort(temp2);
+		double one = temp1[temp1.length - 1];
+		double two = temp2[temp2.length - 2];
+		double sum = DecoderUtil.sumArray(dft_data);
 		double ratio = (one + two) / sum;
-		noisyTemp.add(Double.toString(ratio));
+		noisyTemp.add(ratio);
 		return ratio < CUT_OFF_POWER_NOISE_RATIO;
 		// return
 		// ((temp[temp.length-1]+temp[temp.length-2])/DecoderUtil.sumArray(temp))
@@ -259,7 +256,6 @@ public class DTMFUtil {
 		double[] tempBuffer21 = new double[(int) Math.floor(frameSize / 3)];
 
 		int framesRead = wavFile.readFrames(buffer1, (int) Math.floor(frameSize / 3));
-		totalFramesRead+= framesRead;
 		if (framesRead < frameSize / 3)
 			throw new DTMFDecoderException("Out of frames");
 

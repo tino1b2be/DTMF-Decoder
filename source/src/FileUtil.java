@@ -35,16 +35,6 @@ public class FileUtil {
 		return new WavData(out.getSampleRate(), out.getNumChannels(), buffer, out.getValidBits());
 	}
 
-	/**
-	 * Method to extract the dtmf sequence from a given file name
-	 * @param filename
-	 * @return
-	 */
-	private static String getSeq(String filename) {
-		// TODO Method to extract the dtmf sequence from a given file name
-		return null;
-	}
-
 	public static void writeWavFile(WavData data){
 		// TODO to implement method later. can use matlab to generate test files for now
 	}
@@ -98,8 +88,8 @@ public class FileUtil {
 	 * @param dataOut
 	 * @throws IOException 
 	 */
-	public static <T> void writeToFile(ArrayList<T> dataOut) throws IOException {
-		PrintWriter pw = new PrintWriter(new FileWriter("results.csv"));
+	public static <T> void writeToFile(ArrayList<T> dataOut, String filename) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(filename));
 		if (dataOut == null)
 			pw.print("");
 		else{
@@ -117,7 +107,7 @@ public class FileUtil {
 		File[] directoryListing = dir.listFiles();		// files inside directory
 		if (directoryListing != null) {
 			for (File child : directoryListing) {		// for each file inside the dir
-				if (child.getAbsolutePath().endsWith(".wav")) { // add to output if its a wav file
+				if (child.getAbsolutePath().endsWith(".wav") || child.getAbsolutePath().endsWith(".WAV")) { // add to output if its a wav file
 					files.add(child);
 				}
 			}
@@ -147,12 +137,72 @@ public class FileUtil {
 		else{
 			for (T data : dataOut){
 				if(((TestResult) data).isSuccess())
-					Test.success++;
+					TestResult.totalSuccess++;
 				pw.println(data);
 				
 			}
 		}
 		pw.close();
+	}
+	
+	/**
+	 * Write test results to a file
+	 * @param dataOut
+	 * @throws IOException
+	 */
+	public static void writeToFile(TestResult[] dataOut) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter("results.txt"));
+		if (dataOut == null)
+			pw.print("");
+		else{
+			for (TestResult data : dataOut){
+				if(((TestResult) data).isSuccess())
+					TestResult.totalSuccess++;
+				pw.println(data);
+				
+			}
+		}
+		pw.close();
+	}
+	
+	/**
+	 * Write test results to a file
+	 * @param dataOut
+	 * @throws IOException
+	 */
+	public static void writeToFile(TestResult[] dataOut, String filename) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(filename));
+		if (dataOut == null)
+			pw.print("");
+		else{
+			for (TestResult data : dataOut){
+				if(((TestResult) data).isSuccess())
+					TestResult.totalSuccess++;
+				pw.println(data);
+				
+			}
+		}
+		pw.close();
+	}
+
+	public static ArrayList<File> getDirs(String parent) throws WavFileException {
+		ArrayList<File> files = new ArrayList<>();	// output array of files
+		File dir = new File(parent);						// file directory for test files
+		File[] directoryListing = dir.listFiles();		// files inside directory
+		if (directoryListing != null) {
+			for (File child : directoryListing) {		// for each file inside the dir
+				if (child.isDirectory()) { // add to output if its a wav file
+					files.add(child);
+				}
+			}
+		} else {
+			throw new WavFileException("File path given is either not a directory or it is empty.");
+		}
+		return files;
+	}
+
+	public static ArrayList<File> getFiles(File path) throws IOException, WavFileException {
+		return getFiles(path.getAbsolutePath());
 	}
 	
 }
