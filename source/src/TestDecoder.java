@@ -7,17 +7,16 @@ import java.util.ArrayList;
 public class TestDecoder {
 	
 	public static void main(String[] args) throws WavFileException, IOException, InterruptedException {
+		DTMFUtil.debug = false;
 		System.out.println("Default DTMFUtil constatnts\n");
-		double powerCut = 0.002;
-		double noiseCut = 0.38;
+		double powerCut = 0.004;
+		double noiseCut = 0.6;
+		double noiseCut2 = 0.85;
 		double frameDur = 0.038;
-		runTests(powerCut, noiseCut, frameDur);
-		System.out.println("\nTesting next noise cut-off\n");
-		runTests(0.0005, 0.40, frameDur);
-		
+		runTests(powerCut, noiseCut, frameDur, noiseCut2);
 		}
 
-	private static void runTests(double powerCut, double noiseCut, double frameDur) throws WavFileException, IOException, InterruptedException {
+	private static void runTests(double powerCut, double noiseCut, double frameDur, double noise2) throws WavFileException, IOException, InterruptedException {
 		TestResult.totalSuccess = 0;
 		DTMFUtil.CUT_OFF_POWER = powerCut;
 		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = noiseCut;
@@ -60,7 +59,7 @@ public class TestDecoder {
 		}
 		
 		int sum = results.length;
-		FileUtil.writeToFile(results, "noise results.txt");
+		FileUtil.writeToFile(results, "test data.txt");
 		double successRate = TestResult.totalSuccess * 100.0 / (sum * 1.0);
 		double hitRate = (hits*1.0)/(tries*1.0) * 100.0;
 		System.out.println("Total files: " + results.length);

@@ -21,6 +21,7 @@ public class DTMFUtil {
 	private WavFile wavFile;
 	private int frameSize;
 	public static ArrayList<Double> noisyTemp = new ArrayList<>();
+	public static boolean debug = true;
 	
 	// freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
 	private static int[] fbin = { 687, 697, 707,// 697
@@ -155,16 +156,22 @@ public class DTMFUtil {
 		Arrays.sort(temp1);
 		Arrays.sort(temp2);
 		double one = temp1[temp1.length - 1];
-		double two = temp2[temp2.length - 2];
+		double two = temp2[temp2.length - 1];
 		double sum = DecoderUtil.sumArray(dft_data);
 		double ratio = (one + two) / sum;
 		noisyTemp.add(ratio);
-		return ratio < CUT_OFF_POWER_NOISE_RATIO;
+//		return ratio < CUT_OFF_POWER_NOISE_RATIO;
+		//debug
+		boolean noisy = ratio < CUT_OFF_POWER_NOISE_RATIO;
+		if (noisy)
+			return true;
+		else
+			return false;
 		// return
 		// ((temp[temp.length-1]+temp[temp.length-2])/DecoderUtil.sumArray(temp))
 		// < CUT_OFF_POWER_NOISE_RATIO;
 	}
-
+	
 	/**
 	 * Method to decode a frame given the frequency spectrum information of the
 	 * frame
@@ -266,6 +273,7 @@ public class DTMFUtil {
 		char out = 'T';
 		// check if the power of the signal is high enough to be accepted.
 		double power = DecoderUtil.signalPower(frame);
+		noisyTemp.add(power);
 		if (power < CUT_OFF_POWER)
 			return '_';
 		// transform frame
@@ -274,7 +282,9 @@ public class DTMFUtil {
 		// check if the frame has too much noise
 		if (isNoisy(dft_data))
 			return '_';
-
+		
+		// check if the frame is
+		
 		try {
 			out = DTMFUtil.getRawChar(dft_data);
 		} catch (DTMFDecoderException e) {
