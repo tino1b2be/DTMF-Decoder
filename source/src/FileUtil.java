@@ -246,4 +246,16 @@ public class FileUtil {
 		return getFiles(path.getAbsolutePath());
 	}
 
+	public static void writeToFile(AudioTestResult[] dataOut, String filename) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(filename));
+		if (dataOut == null)
+			pw.print("");
+		else {
+			for (AudioTestResult data : dataOut) {
+				pw.println(data);
+			}
+		}
+		pw.close();		
+	}
+
 }

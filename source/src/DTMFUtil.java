@@ -35,17 +35,18 @@ import java.util.Arrays;
  */
 public class DTMFUtil {
 
-	public static double CUT_OFF_POWER = 0.002;
-	public static double CUT_OFF_POWER_NOISE_RATIO = 0.40;
-	public static double FRAME_DURATION = 0.038;
+	public static double CUT_OFF_POWER = 0.004;
+	public static double CUT_OFF_POWER_NOISE_RATIO = 0.85;
+	public static double FRAME_DURATION = 0.0445;
 	private boolean decoded;
 	private String seq[];
 	private WavFile wavFile;
 	private int frameSize;
 	public static ArrayList<Double> noisyTemp = new ArrayList<>();
 	public static boolean debug = true;
+	public static boolean db = true;
 
-	// freqs = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
+	private static int[] fbin2 = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
 	private static int[] fbin = { 687, 697, 707, // 697
 			758, 770, 782, // 770
 			839, 852, 865, // 852
@@ -122,7 +123,7 @@ public class DTMFUtil {
 	 */
 	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
-
+		if (db){
 		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
 		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
 		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
@@ -131,7 +132,8 @@ public class DTMFUtil {
 		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
 		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
 		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
-
+		}
+		else return frame;
 		return out;
 	}
 
@@ -159,7 +161,11 @@ public class DTMFUtil {
 	 */
 	private static double[] transformFrame(double[] frame, int Fs) {
 		double[] out = new double[8];
-		Goertzel g = new Goertzel(Fs, frame.length, fbin);
+		Goertzel g;
+		if (db)
+			g = new Goertzel(Fs, frame.length, fbin);
+		else
+			g = new Goertzel(Fs, frame.length, fbin2);
 		// 1. transform the frames using goertzel algorithm
 		// 2. get the highest DTMF freq within the tolerance range and use that
 		// magnitude to represet the corresponsing DTMF free

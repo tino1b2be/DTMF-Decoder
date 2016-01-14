@@ -34,15 +34,15 @@ public class TestThread extends Thread {
 
 		// sequential run
 		try {
-			sequential(files, start, stop);
+			sequential();
 		} catch (IOException | WavFileException | DTMFDecoderException | InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		hitrate = (1.0*hits)*100.0/(tries*1.0);
+
+		hitrate = (1.0 * hits) * 100.0 / (tries * 1.0);
 	}
 
-	private void sequential(ArrayList<File> files, int start, int stop)
+	private void sequential()
 			throws IOException, WavFileException, DTMFDecoderException, InterruptedException {
 		int i = start;
 		DTMFUtil dtmf;
@@ -53,7 +53,8 @@ public class TestThread extends Thread {
 			tries += results[i].tries;
 			hits += results[i].hits;
 			total++;
-			if (results[i++].isSuccess()) pass++;
+			if (results[i++].isSuccess())
+				pass++;
 		}
 	}
 	

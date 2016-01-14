@@ -33,7 +33,11 @@ import java.util.ArrayList;
  *
  */
 public class AudioRecordingsTest {
-	public static void main(String[] args) throws IOException, WavFileException {
+	@SuppressWarnings("unused")
+	public static void main(String[] args) throws IOException, WavFileException, InterruptedException {
+		double startT = System.currentTimeMillis();
+		DTMFUtil.debug = false;
+//		DTMFUtil.db = false;
 		String parent;
 		if (args.length > 0)
 			parent = args[0];
@@ -43,18 +47,31 @@ public class AudioRecordingsTest {
 			ArrayList<ArrayList<File>> testThreadFiles = new ArrayList<>();
 			ArrayList<File> testFiles = FileUtil.getFiles(parent);
 			setUpThreadFiles(testThreadFiles,testFiles);
-			AudioTestThread[] testThreads = setUpThreads(testThreadFiles);
+			AudioTestResult[] results = new AudioTestResult[testFiles.size()];
+			AudioTestThread[] testThreads = startThreads(testThreadFiles, results);
+			for (AudioTestThread thread : testThreads)
+				thread.join();
+			FileUtil.writeToFile(results, "Audio Recordings results.txt");
+			double perc = AudioTestResult.filesWithTones.get() * 100.0/testFiles.size();
+			System.out.println("done"
+					+ "/nFiles with tones = " + AudioTestResult.filesWithTones.get() + " = " + perc + "% of all files.");
 			
+			double stopT = System.currentTimeMillis();
+			System.out.println("Time taken = " + Double.toString((stopT-startT)/1000) + "sec.");
 			
 		}
 	}
 
-	private static AudioTestThread[] setUpThreads(ArrayList<ArrayList<File>> testThreadFiles) {
+	private static AudioTestThread[] startThreads(ArrayList<ArrayList<File>> testThreadFiles, AudioTestResult[] results) {
 		AudioTestThread[] testThreads = new AudioTestThread[testThreadFiles.size()];
-		int i = 0;
-		for (AudioTestThread thread : testThreads)
-			thread = new AudioTestThread(testThreadFiles.get(i++));
-		
+		int start = 0;
+		int stop = 0;
+		for (int i = 0; i < testThreadFiles.size(); i++){
+			stop = start + testThreadFiles.get(i).size();
+			testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start, stop);
+			testThreads[i].start();
+			start = stop;
+		}
 		return testThreads;
 	}
 
@@ -62,6 +79,7 @@ public class AudioRecordingsTest {
 		int index = 0;
 		do{
 			ArrayList<File> threadFiles = new ArrayList<>();
+			threadFiles.add(testFiles.get(index++));
 			for (; index%1000 != 0 && index < testFiles.size(); index++){ // 1000 files per thread
 				threadFiles.add(testFiles.get(index));
 			}
@@ -74,6 +92,6 @@ public class AudioRecordingsTest {
 
 	private static String getParentFolerFromUser() {
 		// TODO Auto-generated method stub
-		return "";
+		return "/media/tino1b2be/lin_2/wavs/converted/TestAPI/";
 	}
 }
