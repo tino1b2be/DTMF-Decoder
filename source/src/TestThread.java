@@ -14,6 +14,9 @@ public class TestThread extends Thread {
 	public int tries = 0;
 	public int hits = 0;
 	public double hitrate;
+	private int pass = 0;
+	private int total = 0;
+	private double passRate;
 
 	private String parent;
 
@@ -46,14 +49,16 @@ public class TestThread extends Thread {
 		for (File file : files) {
 			dtmf = new DTMFUtil(file);
 			String decoded = dtmf.decode()[0];
-			results[i] = new TestResult(file.getPath(), decoded);
+			results[i] = new TestResult(file, decoded);
 			tries += results[i].tries;
 			hits += results[i].hits;
-			i++;
+			total++;
+			if (results[i++].isSuccess()) pass++;
 		}
 	}
 	
 	public String toString(){
-		return "Folder : " + parent + " Hit Rate: " + hitrate;
+		passRate = (100.0*pass)/(total*1.0);
+		return "Folder : " + parent + " Hit Rate: " + hitrate + " Pass Rate: " + passRate;
 	}
 }

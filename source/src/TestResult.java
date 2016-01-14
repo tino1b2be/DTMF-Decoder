@@ -1,5 +1,8 @@
 package src;
 
+import java.io.File;
+import java.io.IOException;
+
 public class TestResult {
 
 	private String original;
@@ -11,9 +14,9 @@ public class TestResult {
 	public static int totalSuccess;
 	
 
-	public TestResult(String path, String decoded) {
-		this.path = path;
-		this.original = DecoderUtil.getFileSequence(path);
+	public TestResult(File file, String decoded) throws IOException {
+		this.path = file.getAbsolutePath();
+		this.original = DecoderUtil.getFileSequence(file.getPath());
 		this.decoded = decoded;
 		this.success = original.equals(decoded);
 		tries += original.length();
@@ -33,13 +36,18 @@ public class TestResult {
 	}
 
 	public String toString() {
-		
+		calcHitRate();
 		if (success) {
-			return "~~ pass : , " + original;
+			return "~~ pass : , " + path ;
 		} else {
 			return "** FAIL : , The file \"" + path + "\" decoded to \"" + decoded + "\" instead of \"" + original
 					+ "\"";
 		}
 
+	}
+
+	private void calcHitRate() {
+		// TODO Auto-generated method stub
+		
 	}
 }

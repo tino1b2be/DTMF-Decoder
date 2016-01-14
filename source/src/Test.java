@@ -7,19 +7,20 @@ public class Test {
 		double start = System.currentTimeMillis();
 		DTMFUtil.CUT_OFF_POWER = 0.004;
 		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = 0.85;
-		DTMFUtil.FRAME_DURATION = 0.038;
+		DTMFUtil.FRAME_DURATION = 0.0445;
 		
 		String filename;
-		filename = "samples/call01.wav";
+		filename = "samples/callx.wav";
 //		filename = "samples/123.wav";
-//		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/997CB84AB8B4*1B74.wav";
+//		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Noisy Test Data/10dB/9909257037*6A8897*3598B088#6#*B#49B8.wav";
 //		filename = "samples/whiteNoise.wav";
+//		filename = "samples/b-8kHz.wav";
+		filename = "/media/tino1b2be/lin_2/wavs/converted/TestAPI/00000017.wav";
 
 		WavFile data = FileUtil.readWavFileBuffer(filename);
 		data.display();
 		
-		DTMFUtil dtmf = new DTMFUtil(data);
-		
+		DTMFUtil dtmf = new DTMFUtil(data);	
 		String original = DecoderUtil.getFileSequence(filename);
 		String[] sequence = dtmf.decode();
 				

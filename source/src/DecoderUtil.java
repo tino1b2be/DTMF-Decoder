@@ -3,25 +3,56 @@ package src;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
+/**
+ * 
+ * Class for arbitary functions used in the DTMF decoder
+ * 
+ * The MIT License (MIT)
+ * 
+ * Copyright (c) 2015 Tinotenda Chemvura
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ * @author tino1b2be
+ *
+ */
 public class DecoderUtil {
-	
-	public static <T> T[] concatenate (T[] a, T[] b) {
-	    int aLen = a.length;
-	    int bLen = b.length;
 
-	    @SuppressWarnings("unchecked")
-	    T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen+bLen);
-	    System.arraycopy(a, 0, c, 0, aLen);
-	    System.arraycopy(b, 0, c, aLen, bLen);
+	public static <T> T[] concatenate(T[] a, T[] b) {
+		int aLen = a.length;
+		int bLen = b.length;
 
-	    return c;
+		@SuppressWarnings("unchecked")
+		T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + bLen);
+		System.arraycopy(a, 0, c, 0, aLen);
+		System.arraycopy(b, 0, c, aLen, bLen);
+
+		return c;
 	}
-	 /**
-	  * Method to concatenate 2 arrays
-	  * @param a
-	  * @param b
-	  * @return
-	  */
+
+	/**
+	 * Method to concatenate 2 arrays
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public static double[] concatenate(double[] a, double[] b) {
 		int aLen = a.length;
 		int bLen = b.length;
@@ -30,7 +61,7 @@ public class DecoderUtil {
 		System.arraycopy(b, 0, c, aLen, bLen);
 		return c;
 	}
-	
+
 	public static <T> double[] concatenateAll(double[] tempBuffer1, double[]... buffer1) {
 		int totalLength = tempBuffer1.length;
 		for (double[] array : buffer1) {
@@ -46,18 +77,22 @@ public class DecoderUtil {
 	}
 
 	/**
-	 * Method to calculate and return the average power of the signal (average amplitude)
-	 * @param frame Array of sample points to be tested
+	 * Method to calculate and return the average power of the signal (average
+	 * amplitude)
+	 * 
+	 * @param frame
+	 *            Array of sample points to be tested
 	 * @return average amplitude of the frame
 	 */
 	public static double signalPower(double[] frame) {
 		double power = 0;
-		
-		for (int i= 0; i < frame.length; i++){
+
+		for (int i = 0; i < frame.length; i++) {
 			power += Math.abs(frame[i]);
 		}
-		return power/frame.length;
+		return power / frame.length;
 	}
+
 	/**
 	 * Function to return the largest value of an array
 	 * 
@@ -70,7 +105,7 @@ public class DecoderUtil {
 		Arrays.sort(arr);
 		return arr[arr.length - 1];
 	}
-	
+
 	/**
 	 * Method to return the index of the max element in an array
 	 * 
@@ -91,10 +126,11 @@ public class DecoderUtil {
 	}
 
 	public static String getFileSequence(String filename) {
-		filename = filename.substring(filename.lastIndexOf('/')+1, filename.length()-4); // remove .wav
+		filename = filename.substring(filename.lastIndexOf('/') + 1, filename.length() - 4); // remove
+																								// .wav
 		return filename;
 	}
-	
+
 	/**
 	 * Method to calculate mean of an array
 	 * 
@@ -108,7 +144,7 @@ public class DecoderUtil {
 			out += arr[i];
 		return out / (1.0 * arr.length);
 	}
-	
+
 	/**
 	 * Method to calculate sum of an array
 	 * 

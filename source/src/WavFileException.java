@@ -2,6 +2,11 @@ package src;
 
 public class WavFileException extends Exception
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6396102077094956248L;
+
 	public WavFileException()
 	{
 		super();

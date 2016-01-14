@@ -9,14 +9,16 @@ public class TestDecoder {
 	public static void main(String[] args) throws WavFileException, IOException, InterruptedException {
 		DTMFUtil.debug = false;
 		System.out.println("Default DTMFUtil constatnts\n");
+		String parent;
+		parent = "Prototyping/Noisy Test Data";
+//		parent = "Prototyping/Test Data";
 		double powerCut = 0.004;
-		double noiseCut = 0.6;
-		double noiseCut2 = 0.85;
-		double frameDur = 0.038;
-		runTests(powerCut, noiseCut, frameDur, noiseCut2);
+		double noiseCut = 0.8;
+		double frameDur = 0.0445;
+		runTests(powerCut, noiseCut, frameDur, parent);
 		}
 
-	private static void runTests(double powerCut, double noiseCut, double frameDur, double noise2) throws WavFileException, IOException, InterruptedException {
+	private static void runTests(double powerCut, double noiseCut, double frameDur, String parent) throws WavFileException, IOException, InterruptedException {
 		TestResult.totalSuccess = 0;
 		DTMFUtil.CUT_OFF_POWER = powerCut;
 		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = noiseCut;
@@ -26,11 +28,6 @@ public class TestDecoder {
 		
 		double startT = System.currentTimeMillis();
 
-		String parent;
-//		parent = "Prototyping/Noisy Test Data";
-		parent = "Prototyping/Test Data";
-		
-		
 		ArrayList<File> dirs = FileUtil.getDirs(parent);
 		ArrayList<ArrayList<File>> testDirs = new ArrayList<ArrayList<File>>();
 		int totalFiles = 0;
@@ -69,5 +66,4 @@ public class TestDecoder {
 		System.out.println("Time taken = " + Double.toString((stopT-startT)/1000) + "sec.");
 		
 	}
-
 }
