@@ -257,5 +257,18 @@ public class FileUtil {
 		}
 		pw.close();		
 	}
+	
+	public static void writeToFileSuccessOnly(AudioTestResult[] dataOut, String filename) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(filename));
+		if (dataOut == null)
+			pw.print("");
+		else {
+			for (AudioTestResult data : dataOut) {
+				if (data.sequenceFound())
+					pw.println(data);
+			}
+		}
+		pw.close();		
+	}
 
 }

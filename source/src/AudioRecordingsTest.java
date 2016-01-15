@@ -33,10 +33,10 @@ import java.util.ArrayList;
  *
  */
 public class AudioRecordingsTest {
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, WavFileException, InterruptedException {
 		double startT = System.currentTimeMillis();
 		DTMFUtil.debug = false;
+		DTMFUtil.decode80 = true;
 //		DTMFUtil.db = false;
 		String parent;
 		if (args.length > 0)
@@ -51,7 +51,8 @@ public class AudioRecordingsTest {
 			AudioTestThread[] testThreads = startThreads(testThreadFiles, results);
 			for (AudioTestThread thread : testThreads)
 				thread.join();
-			FileUtil.writeToFile(results, "Audio Recordings results.txt");
+//			FileUtil.writeToFile(results, "Audio Recordings results (60ms).txt");
+			FileUtil.writeToFileSuccessOnly(results, "Audio Recordings results (60ms) (Found).txt");
 			double perc = AudioTestResult.filesWithTones.get() * 100.0/testFiles.size();
 			System.out.println("done"
 					+ "/nFiles with tones = " + AudioTestResult.filesWithTones.get() + " = " + perc + "% of all files.");

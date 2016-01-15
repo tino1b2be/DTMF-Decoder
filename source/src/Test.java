@@ -11,7 +11,7 @@ public class Test {
 //		DTMFUtil.db = false;
 		String filename;
 		filename = "samples/callx.wav";
-		filename = "samples/mag3.wav";
+//		filename = "samples/mag3.wav";
 //		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Noisy Test Data/10dB/9909257037*6A8897*3598B088#6#*B#49B8.wav";
 //		filename = "samples/whiteNoise.wav";
 //		filename = "samples/b-8kHz.wav";

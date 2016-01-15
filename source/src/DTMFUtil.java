@@ -42,19 +42,24 @@ public class DTMFUtil {
 	private String seq[];
 	private WavFile wavFile;
 	private int frameSize;
+	public static boolean decode60 = false;
+	public static boolean decode80 = false;
 	public static ArrayList<Double> noisyTemp = new ArrayList<>();
 	public static boolean debug = true;
 	public static boolean db = true;
 
 	private static int[] fbin2 = {697, 770, 852, 941, 1209, 1336, 1477, 1633};
-	private static int[] fbin = { 687, 697, 707, // 697
-			758, 770, 782, // 770
-			839, 852, 865, // 852
-			927, 941, 955, // 941
-			1191, 1209, 1227, // 1209
-			1316, 1336, 1356, // 1336
-			1455, 1477, 1499, // 1477
-			1609, 1633, 1647, 1657 }; // 1633
+	private static int[] fbin = 
+		{ 
+			687, 697, 707,						 	// 697
+			758, 770, 782, 							// 770
+			839, 852, 865, 							// 852
+			927, 941, 955, 							// 941
+			1191, 1209, 1227, 						// 1209
+			1316, 1336, 1356, 						// 1336
+			1455, 1477, 1499, 						// 1477
+			1609, 1633, 1647, 1657 					// 1633 
+		};
 
 	/**
 	 * Create DTMFUtil object for a wav file given the WavFile object
@@ -311,8 +316,6 @@ public class DTMFUtil {
 		if (isNoisy(dft_data))
 			return '_';
 
-		// check if the frame is
-
 		try {
 			out = DTMFUtil.getRawChar(dft_data);
 		} catch (DTMFDecoderException e) {
@@ -330,7 +333,7 @@ public class DTMFUtil {
 	 * @throws IOException
 	 * @throws WavFileException
 	 */
-	private void decodeMono() throws IOException, WavFileException {
+	private void decodeMono40() throws IOException, WavFileException {
 		char prev = '_';
 		char prev2 = '_';
 		String seq2 = "";
@@ -368,6 +371,94 @@ public class DTMFUtil {
 			prev = curr;
 		} while (true);
 		seq[0] = seq2;
+	}
+	
+	private void decodeMono60() throws IOException, WavFileException {
+		char prev = '_';
+		char prev2 = '_';
+		char prev3 = '_';
+		String seq2 = "";
+		String seq22 = "";
+		int count = 0;
+		do {
+
+			char curr;
+			try {
+				curr = decodeNextFrame1();
+			} catch (DTMFDecoderException e) {
+				break;
+			}
+			if (debug)
+				System.out.print(curr);
+			// System.out.print(curr);
+			if (curr != '_') {
+				if (curr == prev && curr == prev2) { // eliminate false positives
+					if (curr != prev3) {
+						if (debug) {
+							seq22 = seq22.substring(0, seq22.length() - 1);
+							seq22 += curr + ".";
+							count = 0;
+						}
+						seq2 += curr;
+
+					}
+				}
+			}
+			if (debug && count % 30 == 0) {
+				seq22 += '_';
+			}
+			count++;
+			prev3 = prev2;
+			prev2 = prev;
+			prev = curr;
+		} while (true);
+		seq[0] = seq2;
+	}
+	
+	private void decodeMono80() throws IOException, WavFileException {
+		char prev = '_';
+		char prev2 = '_';
+		char prev3 = '_';
+		char prev4 = '_';
+		String seq2 = "";
+		String seq22 = "";
+		int count = 0;
+		do {
+
+			char curr;
+			try {
+				curr = decodeNextFrame1();
+			} catch (DTMFDecoderException e) {
+				break;
+			}
+			if (debug)
+				System.out.print(curr);
+			// System.out.print(curr);
+			if (curr != '_') {
+				if (curr == prev && curr == prev2 && curr == prev3) { // eliminate false positives
+					if (curr != prev4) {
+						if (debug) {
+							seq22 = seq22.substring(0, seq22.length() - 1);
+							seq22 += curr + ".";
+							count = 0;
+						}
+						seq22 += curr + ".";	/////
+						seq2 += curr;
+
+					}
+				}
+			}
+			if (count % 100 == 0) {
+				seq22 += '_';
+			}
+			//seq22 += '_';	//////
+			count++;
+			prev4 = prev3;
+			prev3 = prev2;
+			prev2 = prev;
+			prev = curr;
+		} while (true);
+		seq[0] = seq22;
 	}
 
 	/**
@@ -502,7 +593,12 @@ public class DTMFUtil {
 			return seq;
 		}
 		if (wavFile.getNumChannels() == 1) {
-			decodeMono();
+			if (decode60)
+				decodeMono60();
+			else if (decode80)
+				decodeMono80();
+			else
+				decodeMono40();
 			decoded = true;
 		} else if (wavFile.getNumChannels() == 2) {
 			decodeStereo();
