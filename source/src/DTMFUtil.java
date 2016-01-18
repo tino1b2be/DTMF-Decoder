@@ -36,8 +36,8 @@ import java.util.Arrays;
 public class DTMFUtil {
 
 	public static double CUT_OFF_POWER = 0.004;
-	public static double CUT_OFF_POWER_NOISE_RATIO = 0.85;
-	public static double FRAME_DURATION = 0.0445;
+	public static double CUT_OFF_POWER_NOISE_RATIO = 0.87;
+	public static double FRAME_DURATION = 0.045;
 	private boolean decoded;
 	private String seq[];
 	private WavFile wavFile;
@@ -166,15 +166,15 @@ public class DTMFUtil {
 	 */
 	private static double[] transformFrame(double[] frame, int Fs) {
 		double[] out = new double[8];
-		Goertzel g;
+		GoertzelM g;
 		if (db)
-			g = new Goertzel(Fs, frame.length, fbin);
+			g = new GoertzelM(Fs, frame, fbin);
 		else
-			g = new Goertzel(Fs, frame.length, fbin2);
+			g = new GoertzelM(Fs, frame, fbin2);
 		// 1. transform the frames using goertzel algorithm
 		// 2. get the highest DTMF freq within the tolerance range and use that
 		// magnitude to represet the corresponsing DTMF free
-		double[] temp = g.calcFreqWeight(frame);
+		double[] temp = g.getDFTMag();
 		out = filterFrame(temp);
 		return out;
 	}
@@ -196,18 +196,13 @@ public class DTMFUtil {
 		double one = temp1[temp1.length - 1];
 		double two = temp2[temp2.length - 1];
 		double sum = DecoderUtil.sumArray(dft_data);
-		double ratio = (one + two) / sum;
-		// noisyTemp.add(ratio);
-		// return ratio < CUT_OFF_POWER_NOISE_RATIO;
-		// debug
-		boolean noisy = ratio < CUT_OFF_POWER_NOISE_RATIO;
-		if (noisy)
-			return true;
-		else
-			return false;
-		// return
-		// ((temp[temp.length-1]+temp[temp.length-2])/DecoderUtil.sumArray(temp))
-		// < CUT_OFF_POWER_NOISE_RATIO;
+//		double ratio = (one + two) / sum;
+//		boolean noisy = ratio < CUT_OFF_POWER_NOISE_RATIO;
+//		if (noisy)
+//			return true;
+//		else
+//			return false;
+		return ((one + two) / sum) < CUT_OFF_POWER_NOISE_RATIO;
 	}
 
 	/**
@@ -296,8 +291,10 @@ public class DTMFUtil {
 		double[] tempBuffer21 = new double[(int) Math.floor(frameSize / 3)];
 
 		int framesRead = wavFile.readFrames(buffer1, (int) Math.floor(frameSize / 3));
-		if (framesRead < frameSize / 3)
+		if (framesRead < frameSize / 3){
+			wavFile.close();
 			throw new DTMFDecoderException("Out of frames");
+		}
 
 		double[] frame = DecoderUtil.concatenateAll(tempBuffer21, tempBuffer11, buffer1);
 		tempBuffer21 = tempBuffer11;
@@ -357,8 +354,10 @@ public class DTMFUtil {
 							seq22 = seq22.substring(0, seq22.length() - 1);
 							seq22 += curr + ".";
 							count = 0;
+						}else {
+							seq22 += curr + ".";
+							seq2 += curr;
 						}
-						seq2 += curr;
 
 					}
 				}
@@ -398,13 +397,15 @@ public class DTMFUtil {
 							seq22 = seq22.substring(0, seq22.length() - 1);
 							seq22 += curr + ".";
 							count = 0;
+						} else {
+							seq22 += curr + ".";
+							seq2 += curr;
 						}
-						seq2 += curr;
 
 					}
 				}
 			}
-			if (debug && count % 30 == 0) {
+			if (count % 30 == 0) {
 				seq22 += '_';
 			}
 			count++;
@@ -412,7 +413,7 @@ public class DTMFUtil {
 			prev2 = prev;
 			prev = curr;
 		} while (true);
-		seq[0] = seq2;
+		seq[0] = seq22;
 	}
 	
 	private void decodeMono80() throws IOException, WavFileException {
@@ -441,9 +442,10 @@ public class DTMFUtil {
 							seq22 = seq22.substring(0, seq22.length() - 1);
 							seq22 += curr + ".";
 							count = 0;
+						} else {
+							seq22 += curr + ".";
+							seq2 += curr;
 						}
-						seq22 += curr + ".";	/////
-						seq2 += curr;
 
 					}
 				}
@@ -451,7 +453,6 @@ public class DTMFUtil {
 			if (count % 100 == 0) {
 				seq22 += '_';
 			}
-			//seq22 += '_';	//////
 			count++;
 			prev4 = prev3;
 			prev3 = prev2;
@@ -525,8 +526,10 @@ public class DTMFUtil {
 		int framesRead = 0;
 
 		framesRead = wavFile.readFrames(buffer, (int) Math.floor(frameSize / 3));
-		if (framesRead < frameSize / 3)
+		if (framesRead < frameSize / 3){
+			wavFile.close();
 			throw new DTMFDecoderException("Out of frames");
+		}
 
 		double[] frame1 = DecoderUtil.concatenateAll(tempBuffer21, tempBuffer11, buffer[0]);
 		double[] frame2 = DecoderUtil.concatenateAll(tempBuffer22, tempBuffer12, buffer[1]);

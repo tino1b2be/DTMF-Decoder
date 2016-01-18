@@ -1,4 +1,4 @@
-% Script to generate Test Data for the DTMF Decoder
++% Script to generate Test Data for the DTMF Decoder
 % TODO: summary of how the data is produced and variales being
 % changed/tested
 tic

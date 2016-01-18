@@ -37,7 +37,6 @@ public class AudioRecordingsTest {
 		double startT = System.currentTimeMillis();
 		DTMFUtil.debug = false;
 		DTMFUtil.decode80 = true;
-//		DTMFUtil.db = false;
 		String parent;
 		if (args.length > 0)
 			parent = args[0];
@@ -55,7 +54,7 @@ public class AudioRecordingsTest {
 			FileUtil.writeToFileSuccessOnly(results, "Audio Recordings results (60ms) (Found).txt");
 			double perc = AudioTestResult.filesWithTones.get() * 100.0/testFiles.size();
 			System.out.println("done"
-					+ "/nFiles with tones = " + AudioTestResult.filesWithTones.get() + " = " + perc + "% of all files.");
+					+ "\nFiles with tones = " + AudioTestResult.filesWithTones.get() + " = " + perc + "% of all files.");
 			
 			double stopT = System.currentTimeMillis();
 			System.out.println("Time taken = " + Double.toString((stopT-startT)/1000) + "sec.");
@@ -67,12 +66,16 @@ public class AudioRecordingsTest {
 		AudioTestThread[] testThreads = new AudioTestThread[testThreadFiles.size()];
 		int start = 0;
 		int stop = 0;
-		for (int i = 0; i < testThreadFiles.size(); i++){
+		int i = 0;
+		for (; i < testThreadFiles.size() - 1; i++){
 			stop = start + testThreadFiles.get(i).size();
 			testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start, stop);
 			testThreads[i].start();
 			start = stop;
 		}
+		// start another thread inside this current thread
+		testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start, stop);
+		testThreads[i].run();
 		return testThreads;
 	}
 
@@ -81,7 +84,8 @@ public class AudioRecordingsTest {
 		do{
 			ArrayList<File> threadFiles = new ArrayList<>();
 			threadFiles.add(testFiles.get(index++));
-			for (; index%1000 != 0 && index < testFiles.size(); index++){ // 1000 files per thread
+			int stop = testFiles.size() / 8;
+			for (; index%stop != 0 && index < testFiles.size(); index++){ // make 8 queues
 				threadFiles.add(testFiles.get(index));
 			}
 			testThreadFiles.add(threadFiles); // add an array of 1000 files

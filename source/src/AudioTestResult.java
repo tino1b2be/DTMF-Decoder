@@ -7,7 +7,7 @@ public class AudioTestResult {
 
 	private File file;
 	private String decoded;
-	private boolean status;
+	private boolean status = false;
 	public static AtomicInteger filesWithTones = new AtomicInteger(0);
 
 	public AudioTestResult(File file, String decoded) {
