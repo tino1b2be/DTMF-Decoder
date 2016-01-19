@@ -1,19 +1,4 @@
-package src;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
-
-/**
- * Class to hand File operations
- * 
- * The MIT License (MIT)
+/* The MIT License (MIT)
  * 
  * Copyright (c) 2015 Tinotenda Chemvura
  * 
@@ -34,37 +19,27 @@ import java.util.concurrent.ArrayBlockingQueue;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
- * @author Tinotenda Chemvura
- *
  */
 
+package src;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
+
+/**
+ * Class to hand File operations
+ * 
+ * @author Tinotenda Chemvura
+ */
 public class FileUtil {
-
-	/**
-	 * Method to read a Wav File
-	 * 
-	 * @param filename
-	 * @return A WavData object that has the meta data for the wav file and the
-	 *         sample data
-	 * @throws IOException
-	 * @throws WavFileException
-	 */
-	public static WavData readWavFile(String filename) throws IOException, WavFileException {
-		// open the wav file specified by the 'filename' parameter
-		WavFile out = WavFile.openWavFile(new File(filename));
-		// create a buffer for all the samples in the wav file and get the
-		// sample points
-		double[] buffer = new double[(int) out.getNumFrames()];
-		out.readFrames(buffer, buffer.length);
-		out.close();
-		return new WavData(out.getSampleRate(), out.getNumChannels(), buffer, out.getValidBits());
-	}
-
-	public static void writeWavFile(WavData data) {
-		// TODO to implement method later. can use matlab to generate test files
-		// for now
-	}
 
 	/**
 	 * Method to load a text file
@@ -129,7 +104,6 @@ public class FileUtil {
 		pw.close();
 	}
 
-	// TODO finish off method to cycle through files
 	public static ArrayList<File> getFiles(String path) throws IOException, WavFileException {
 		ArrayList<File> files = new ArrayList<>(); // output array of files
 		File dir = new File(path); // file directory for test files
@@ -156,7 +130,8 @@ public class FileUtil {
 	}
 
 	public static WavFile readWavFileBuffer(String filename) throws IOException, WavFileException {
-		return WavFile.openWavFile(new File(filename));
+		
+		return new WavFile(WavFile.openWavFile(new File(filename)));
 	}
 
 	public static WavFile readWavFileBuffer(File file) throws IOException, WavFileException {
@@ -270,6 +245,25 @@ public class FileUtil {
 			}
 		}
 		pw.close();		
+	}
+
+	public static MP3File readMp3File(String filename) throws FileNotFoundException, Exception {
+		
+		return new MP3File(new FileInputStream(new File(filename)));
+	}
+
+	public static AudioFile readAudioFile(String filename) throws AudioFileException, Exception {
+		return readAudioFile(new File(filename));
+	}
+
+	public static AudioFile readAudioFile(File file) throws AudioFileException, Exception {
+		if (file.getName().toLowerCase().endsWith(".mp3")){
+			return readMp3File(file.getAbsolutePath());
+		} else if (file.getName().toLowerCase().endsWith(".wav")){
+			return readWavFileBuffer(file);
+		} else {
+			throw new AudioFileException("Cannot read the file type of the chosen file.");
+		}
 	}
 
 }

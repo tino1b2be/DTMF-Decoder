@@ -1,7 +1,6 @@
 package src;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TestThread extends Thread {
@@ -9,22 +8,21 @@ public class TestThread extends Thread {
 	private TestResult[] results; // results array
 
 	private ArrayList<File> files; // wav files to be tested
-	private int stop; // results stop index
 	private int start; // results start index
 	public int tries = 0;
 	public int hits = 0;
 	public double hitrate;
 	private int pass = 0;
 	private int total = 0;
-	private double passRate;
+	public double passRate;
 
-	private String parent;
+	public String parent;
 
 	public TestThread(ArrayList<File> files, TestResult[] results, int start, int stop) {
 		this.files = files;
 		this.results = results;
 		this.start = start;
-		this.stop = stop;
+//		this.stop = stop;
 		this.parent = files.get(0).getParentFile().getName();
 	}
 
@@ -35,7 +33,7 @@ public class TestThread extends Thread {
 		// sequential run
 		try {
 			sequential();
-		} catch (IOException | WavFileException | DTMFDecoderException | InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -43,7 +41,7 @@ public class TestThread extends Thread {
 	}
 
 	private void sequential()
-			throws IOException, WavFileException, DTMFDecoderException, InterruptedException {
+			throws AudioFileException, Exception {
 		int i = start;
 		DTMFUtil dtmf;
 		for (File file : files) {
@@ -60,6 +58,7 @@ public class TestThread extends Thread {
 	
 	public String toString(){
 		passRate = (100.0*pass)/(total*1.0);
-		return "Folder : " + parent + " Hit Rate: " + hitrate + " Pass Rate: " + passRate;
+//		return "Folder : " + parent + " Hit Rate: " + hitrate + " Pass Rate: " + passRate;
+		return parent.substring(0, parent.length() - 2) + "," + passRate;
 	}
 }

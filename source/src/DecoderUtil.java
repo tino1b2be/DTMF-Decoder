@@ -1,13 +1,4 @@
-package src;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
-/**
- * 
- * Class for arbitary functions used in the DTMF decoder
- * 
- * The MIT License (MIT)
+/* The MIT License (MIT)
  * 
  * Copyright (c) 2015 Tinotenda Chemvura
  * 
@@ -28,12 +19,28 @@ import java.util.Arrays;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ */
+
+package src;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+/**
  * 
- * @author tino1b2be
+ * Class for arbitary functions used in the DTMF decoder
+ * 
+ * @author Tinotenda Chemvura
  *
  */
 public class DecoderUtil {
 
+	/**
+	 * Method to concatenate 2 arrays of a generic type
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public static <T> T[] concatenate(T[] a, T[] b) {
 		int aLen = a.length;
 		int bLen = b.length;
@@ -62,14 +69,21 @@ public class DecoderUtil {
 		return c;
 	}
 
-	public static <T> double[] concatenateAll(double[] tempBuffer1, double[]... buffer1) {
-		int totalLength = tempBuffer1.length;
-		for (double[] array : buffer1) {
+	/**
+	 * Method to concatenate several double arrays
+	 * 
+	 * @param tempBuffer1
+	 * @param buffer1
+	 * @return
+	 */
+	public static double[] concatenateAll(double[] arr1, double[]... arr2) {
+		int totalLength = arr1.length;
+		for (double[] array : arr2) {
 			totalLength += array.length;
 		}
-		double[] result = Arrays.copyOf(tempBuffer1, totalLength);
-		int offset = tempBuffer1.length;
-		for (double[] array : buffer1) {
+		double[] result = Arrays.copyOf(arr1, totalLength);
+		int offset = arr1.length;
+		for (double[] array : arr2) {
 			System.arraycopy(array, 0, result, offset, array.length);
 			offset += array.length;
 		}
@@ -100,7 +114,6 @@ public class DecoderUtil {
 	 *            Array to be processed
 	 * @return Value of the largest element
 	 */
-
 	public static double max(double[] arr) {
 		Arrays.sort(arr);
 		return arr[arr.length - 1];
@@ -125,6 +138,11 @@ public class DecoderUtil {
 		return index;
 	}
 
+	/**
+	 * Method to extract the dtmf tones represented in a wav file from the filename
+	 * @param filename
+	 * @return
+	 */
 	public static String getFileSequence(String filename) {
 		filename = filename.substring(filename.lastIndexOf('/') + 1, filename.length() - 4); // remove
 																								// .wav

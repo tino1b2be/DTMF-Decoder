@@ -25,10 +25,16 @@ public class AudioTestThread extends Thread{
 			sequentialRun();
 		} catch (IOException | WavFileException | DTMFDecoderException e) {
 			e.printStackTrace();
+		} catch (AudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}	
 	}
 
-	private void sequentialRun() throws IOException, WavFileException, DTMFDecoderException {
+	private void sequentialRun() throws AudioFileException, Exception {
 		int i = start;
 		for (File file : files){
 			DTMFUtil dtmf = new DTMFUtil(file);

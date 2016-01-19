@@ -24,7 +24,7 @@ public class TestDecoder {
 		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = noiseCut;
 		DTMFUtil.FRAME_DURATION = frameDur;
 		
-		ArrayList<Double> hitrates = new ArrayList<>();
+		ArrayList<String> hitrates = new ArrayList<>();
 		
 		double startT = System.currentTimeMillis();
 
@@ -52,11 +52,13 @@ public class TestDecoder {
 			thread.join();
 			hits += thread.hits;
 			tries += thread.tries;
-			hitrates.add(thread.hitrate);
+			hitrates.add(thread.toString());
 		}
 		
-		int sum = results.length;
 		FileUtil.writeToFile(results, "test data.txt");
+		FileUtil.writeToFile(hitrates, "Noise Pass Rates.");
+		
+		int sum = results.length;
 		double successRate = TestResult.totalSuccess * 100.0 / (sum * 1.0);
 		double hitRate = (hits*1.0)/(tries*1.0) * 100.0;
 		System.out.println("Total files: " + results.length);
