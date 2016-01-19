@@ -51,7 +51,7 @@ public class AudioRecordingsTest {
 			for (AudioTestThread thread : testThreads)
 				thread.join();
 //			FileUtil.writeToFile(results, "Audio Recordings results (60ms).txt");
-			FileUtil.writeToFileSuccessOnly(results, "Audio Recordings results (60ms) (Found).txt");
+			FileUtil.writeToFileSuccessOnly(results, "Audio Recordings results (80ms) (Found).txt");
 			double perc = AudioTestResult.filesWithTones.get() * 100.0/testFiles.size();
 			System.out.println("done"
 					+ "\nFiles with tones = " + AudioTestResult.filesWithTones.get() + " = " + perc + "% of all files.");

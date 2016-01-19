@@ -149,7 +149,8 @@ public class FileUtil {
 				}
 			}
 		} else {
-			throw new WavFileException("File path given is either not a directory or it is empty.");
+			throw new WavFileException("File path given, \""
+					+ path + "\" is either not a directory or it is empty.");
 		}
 		return files;
 	}

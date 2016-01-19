@@ -33,7 +33,7 @@ import java.util.Arrays;
  * @author Tinotenda Chemvura
  *
  */
-public class DTMFUtil {
+public class DTMFUtil2 {
 
 	public static double CUT_OFF_POWER = 0.004;
 	public static double CUT_OFF_POWER_NOISE_RATIO = 0.87;
@@ -53,9 +53,9 @@ public class DTMFUtil {
 	 * href="http://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling"
 	 * >WikiPedia article on DTMF</a>.
 	 */
-	public static final int[] DTMF_FREQUENCIES = { 697, 770, 852, 941, 1209, 1336, 1477, 1633 };
+	public static final double[] DTMF_FREQUENCIES = { 697, 770, 852, 941, 1209, 1336, 1477, 1633 };
 	
-	private static int[] fbin = 
+	private static double[] fbin = 
 		{ 
 			687, 697, 707,						 	// 697
 			758, 770, 782, 							// 770
@@ -73,7 +73,7 @@ public class DTMFUtil {
 	 * @param data
 	 *            waveFile object to be processed.
 	 */
-	public DTMFUtil(WavFile data) {
+	public DTMFUtil2(WavFile data) {
 		this.wavFile = data;
 		setFrameSize();
 		this.decoded = false;
@@ -90,7 +90,7 @@ public class DTMFUtil {
 	 * @throws IOException
 	 * @throws WavFileException
 	 */
-	public DTMFUtil(String filename) throws IOException, WavFileException {
+	public DTMFUtil2(String filename) throws IOException, WavFileException {
 		this.wavFile = FileUtil.readWavFileBuffer(filename);
 		setFrameSize();
 		this.decoded = false;
@@ -107,7 +107,7 @@ public class DTMFUtil {
 	 * @throws IOException
 	 * @throws WavFileException
 	 */
-	public DTMFUtil(File file) throws IOException, WavFileException {
+	public DTMFUtil2(File file) throws IOException, WavFileException {
 		this.wavFile = FileUtil.readWavFileBuffer(file);
 		setFrameSize();
 		this.decoded = false;
@@ -134,7 +134,6 @@ public class DTMFUtil {
 	 */
 	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
-		if (db){
 		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
 		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
 		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
@@ -143,8 +142,6 @@ public class DTMFUtil {
 		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
 		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
 		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
-		}
-		else return frame;
 		return out;
 	}
 
@@ -170,18 +167,10 @@ public class DTMFUtil {
 	 *            Sampling Frequency
 	 * @return an Array showing the realtive powers of the DTMF frequencies
 	 */
-	private static double[] transformFrame(double[] frame, int Fs) {
-		double[] out = new double[8];
-		GoertzelM g;
-		if (db)
-			g = new GoertzelM(Fs, frame, fbin);
-		else
-			g = new GoertzelM(Fs, frame, DTMF_FREQUENCIES);
-		// 1. transform the frames using goertzel algorithm
-		// 2. get the highest DTMF freq within the tolerance range and use that
-		// magnitude to represet the corresponsing DTMF free
-		double[] temp = g.getDFTMag();
-		out = filterFrame(temp);
+	private static double[] transformFrame(double[] frame,double Fs) {
+		Goertzel g = new Goertzel(Fs, fbin);
+		double[] temp = g.processFull(frame);
+		double[] out = filterFrame(temp);
 		return out;
 	}
 
@@ -313,14 +302,14 @@ public class DTMFUtil {
 		if (power < CUT_OFF_POWER)
 			return '_';
 		// transform frame
-		double[] dft_data = DTMFUtil.transformFrame(frame, (int) wavFile.getSampleRate());
+		double[] dft_data = DTMFUtil2.transformFrame(frame, (int) wavFile.getSampleRate());
 
 		// check if the frame has too much noise
 		if (isNoisy(dft_data))
 			return '_';
 
 		try {
-			out = DTMFUtil.getRawChar(dft_data);
+			out = DTMFUtil2.getRawChar(dft_data);
 		} catch (DTMFDecoderException e) {
 			e.printStackTrace();
 			return 'Q';
@@ -559,8 +548,8 @@ public class DTMFUtil {
 		}
 
 		// transform frame
-		double[] dft_data1 = DTMFUtil.transformFrame(frame1, (int) wavFile.getSampleRate());
-		double[] dft_data2 = DTMFUtil.transformFrame(frame2, (int) wavFile.getSampleRate());
+		double[] dft_data1 = DTMFUtil2.transformFrame(frame1, (int) wavFile.getSampleRate());
+		double[] dft_data2 = DTMFUtil2.transformFrame(frame2, (int) wavFile.getSampleRate());
 
 		// check if the frame has too much noise
 		if (isNoisy(dft_data1)) {
@@ -576,10 +565,10 @@ public class DTMFUtil {
 
 		try {
 			if (outArr[0] != '_') {
-				outArr[0] = DTMFUtil.getRawChar(dft_data1);
+				outArr[0] = DTMFUtil2.getRawChar(dft_data1);
 			}
 			if (outArr[1] != '_') {
-				outArr[1] = DTMFUtil.getRawChar(dft_data2);
+				outArr[1] = DTMFUtil2.getRawChar(dft_data2);
 			}
 		} catch (DTMFDecoderException e) {
 			e.printStackTrace();

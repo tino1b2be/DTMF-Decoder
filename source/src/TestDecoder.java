@@ -13,7 +13,7 @@ public class TestDecoder {
 		parent = "Prototyping/Noisy Test Data";
 //		parent = "Prototyping/Test Data";
 		double powerCut = 0.004;
-		double noiseCut = 0.8;
+		double noiseCut = 0.85;
 		double frameDur = 0.0445;
 		runTests(powerCut, noiseCut, frameDur, parent);
 		}
