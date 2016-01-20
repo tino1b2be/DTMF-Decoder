@@ -29,6 +29,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.TransformType;
+
 /**
  * Class to decode DTMF signals within a wav file. 
  * 
@@ -116,6 +121,7 @@ public class DTMFUtil {
 	public DTMFUtil(File file) throws AudioFileException, Exception{
 		this.audio = FileUtil.readAudioFile(file);
 		setFrameSize();
+		setCentreIndicies();
 		this.decoded = false;
 		seq = new String[2];
 		this.seq[0] = "";
@@ -123,23 +129,36 @@ public class DTMFUtil {
 	}
 
 	/**
-	 * Method to set the frame size for the decoding process
+	 * Method to precalculate the indices to be used to locate the DTMF frequencies in the power spectrum
 	 */
-	private void setFrameSize() {
-		this.frameSize = (int) Math.floor(FRAME_DURATION * audio.getSampleRate());
+	private void setCentreIndicies() {
+		for (int i = 0; i < freqIndicies.length; i++){
+			freqIndicies[i] = 
+		}
 	}
 
 	/**
-	 * Method to get the highest DTMF freq within the tolerance range and use
-	 * that magnitude to represet the corresponsing DTMF freq
+	 * Method to set the frame size for the decoding process. Framesize must be
+	 * a poser of 2
+	 */
+	private void setFrameSize() {
+		// calculate framesize depending on the framerate
+		this.frameSize = 256;
+	}
+
+	/**
+	 * Method to filter out the power spectrum information for the DTMF
+	 * frequencies given an array of power spectrum information from an FFT.
 	 * 
 	 * @param frame
-	 *            Frame with 274 magnitudes to be processed
-	 * @return an array with 8 magnitudes. Each representing the magnitude of
-	 *         each frequency
+	 *            Frame with power spectrum information to be processed
+	 * @return an array with 8 doubles. Each representing the magnitude of the
+	 *         corresponding dtmf frequency
 	 */
 	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
+		// TODO
+		/*
 		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
 		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
 		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
@@ -148,6 +167,7 @@ public class DTMFUtil {
 		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
 		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
 		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
+		*/
 		return out;
 	}
 
@@ -174,13 +194,14 @@ public class DTMFUtil {
 	 * @return an Array showing the realtive powers of the DTMF frequencies
 	 */
 	private static double[] transformFrame(double[] frame, int Fs) {
-		double[] out = new double[8];
-		GoertzelM g = new GoertzelM(Fs, frame, fbin);
-		// 1. transform the frames using goertzel algorithm
-		// 2. get the highest DTMF freq within the tolerance range and use that
-		// magnitude to represet the corresponsing DTMF free
-		out = filterFrame(g.getDFTMag());
-		return out;
+		final FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
+		final Complex[] spectrum = fft.transform(frame, TransformType.FORWARD);
+		final double[] powerSpectrum = new double[frame.length / 2 + 1];
+		for (int ii = 0; ii < powerSpectrum.length; ii++) {
+			final double abs = spectrum[ii].abs();
+			powerSpectrum[ii] = abs * abs;
+		}
+		return powerSpectrum;
 	}
 
 	/**
@@ -284,40 +305,48 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException
 	 */
 	private char decodeNextFrame1() throws AudioFileException, DTMFDecoderException, IOException {
-
-		double[] buffer1 = new double[(int) Math.floor(frameSize / 3)];
-		double[] tempBuffer11 = new double[(int) Math.floor(frameSize / 3)];
-		double[] tempBuffer21 = new double[(int) Math.floor(frameSize / 3)];
+		int bufferSize = (int) Math.ceil(frameSize / 3.0);
+		double[] buffer1 = new double[bufferSize];
+		double[] tempBuffer11 = new double[bufferSize];
+		double[] tempBuffer21 = new double[bufferSize];
 
 		int framesRead = audio.read(buffer1);
-		if (framesRead < frameSize / 3){
+		if (framesRead < bufferSize){
 			audio.close();
 			throw new DTMFDecoderException("Out of frames");
 		}
-
-		double[] frame = DecoderUtil.concatenateAll(tempBuffer21, tempBuffer11, buffer1);
+		
+		// slice off the extra bit to make the framesize a power of 2
+		int slice = buffer1.length + tempBuffer11.length + tempBuffer21.length - frameSize;
+		double[] sliced = Arrays.copyOfRange(buffer1, 0, buffer1.length-slice);
+		
+		double[] frame = DecoderUtil.concatenateAll(tempBuffer21, tempBuffer11, sliced);
 		tempBuffer21 = tempBuffer11;
 		tempBuffer11 = buffer1;
 
 		char out = 'T';
 		// check if the power of the signal is high enough to be accepted.
+		// TODO run tests to obtain good power cut-off
+		
 		double power = DecoderUtil.signalPower(frame);
 		// noisyTemp.add(power);
+		
 		if (power < CUT_OFF_POWER)
 			return '_';
-		// transform frame
-		double[] dft_data = DTMFUtil.transformFrame(frame, (int) audio.getSampleRate());
-
+		
+		// transform frame and return frequency spectrum information		
+		double[] power_spectrum = DTMFUtil.transformFrame(frame, (int) audio.getSampleRate());
+		
+		// filter out the 8 DTMF frequencies from the power spectrum
+		double[] dft_data = filterFrame(power_spectrum);
+		
+		
+		
 		// check if the frame has too much noise
-		if (isNoisy(dft_data))
+		if (isNoisy(power_spectrum))
 			return '_';
-
-		try {
-			out = DTMFUtil.getRawChar(dft_data);
-		} catch (DTMFDecoderException e) {
-			e.printStackTrace();
-			return 'Q';
-		}
+		
+		out = DTMFUtil.getRawChar(dft_data);
 		return out;
 	}
 
@@ -521,6 +550,8 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException
 	 */
 	private char[] decodeNextFrame2() throws IOException, AudioFileException , DTMFDecoderException {
+		// TODO 
+		
 		double[][] buffer = new double[2][(int) Math.floor(frameSize / 3)]; 
 		double[] tempBuffer11 = new double[(int) Math.floor(frameSize / 3)];
 		double[] tempBuffer21 = new double[(int) Math.floor(frameSize / 3)];

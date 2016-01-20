@@ -1,13 +1,4 @@
-package src;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-/**
- * Class to decode DTMF signals within a wav file. 
- * 
+/*
  * The MIT License (MIT)
  * 
  * Copyright (c) 2015 Tinotenda Chemvura
@@ -29,6 +20,17 @@ import java.util.Arrays;
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ */
+
+package src;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * Class to decode DTMF signals within a wav file. 
  * 
  * @author Tinotenda Chemvura
  *
@@ -40,7 +42,7 @@ public class DTMFUtil2 {
 	public static double FRAME_DURATION = 0.045;
 	private boolean decoded;
 	private String seq[];
-	private WavFile wavFile;
+	private AudioFile audio;
 	private int frameSize;
 	public static boolean decode60 = false;
 	public static boolean decode80 = false;
@@ -53,9 +55,9 @@ public class DTMFUtil2 {
 	 * href="http://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling"
 	 * >WikiPedia article on DTMF</a>.
 	 */
-	public static final double[] DTMF_FREQUENCIES = { 697, 770, 852, 941, 1209, 1336, 1477, 1633 };
+	public static final int[] DTMF_FREQUENCIES = { 697, 770, 852, 941, 1209, 1336, 1477, 1633 };
 	
-	private static double[] fbin = 
+	private static int[] fbin = 
 		{ 
 			687, 697, 707,						 	// 697
 			758, 770, 782, 							// 770
@@ -68,13 +70,13 @@ public class DTMFUtil2 {
 		};
 
 	/**
-	 * Create DTMFUtil object for a wav file given the WavFile object
+	 * Create DTMFUtil object for an audio file given the AudioFile object
 	 * 
 	 * @param data
-	 *            waveFile object to be processed.
+	 *            AudioFile object to be processed.
 	 */
-	public DTMFUtil2(WavFile data) {
-		this.wavFile = data;
+	public DTMFUtil2(AudioFile data) {
+		this.audio = data;
 		setFrameSize();
 		this.decoded = false;
 		seq = new String[2];
@@ -83,15 +85,17 @@ public class DTMFUtil2 {
 	}
 
 	/**
-	 * Create DTMFUtil object for a wav file given the filename
+	 * Create DTMFUtil object for an audio file given the filename
 	 * 
 	 * @param filename
-	 *            Filename of the wav file to be processed
+	 *            Filename of the audio file to be processed
+	 * @throws Exception 
+	 * @throws AudioFileException 
 	 * @throws IOException
 	 * @throws WavFileException
 	 */
-	public DTMFUtil2(String filename) throws IOException, WavFileException {
-		this.wavFile = FileUtil.readWavFileBuffer(filename);
+	public DTMFUtil2(String filename) throws AudioFileException, Exception{
+		this.audio = FileUtil.readAudioFile(filename);
 		setFrameSize();
 		this.decoded = false;
 		seq = new String[2];
@@ -100,15 +104,17 @@ public class DTMFUtil2 {
 	}
 
 	/**
-	 * Create DTMFUtil object for a wav file given the file object
+	 * Create DTMFUtil object for an audio file given the file object
 	 * 
 	 * @param file
-	 *            File object for the wav file
+	 *            File object for the audio file
+	 * @throws Exception 
+	 * @throws AudioFileException 
 	 * @throws IOException
 	 * @throws WavFileException
 	 */
-	public DTMFUtil2(File file) throws IOException, WavFileException {
-		this.wavFile = FileUtil.readWavFileBuffer(file);
+	public DTMFUtil2(File file) throws AudioFileException, Exception{
+		this.audio = FileUtil.readAudioFile(file);
 		setFrameSize();
 		this.decoded = false;
 		seq = new String[2];
@@ -120,7 +126,7 @@ public class DTMFUtil2 {
 	 * Method to set the frame size for the decoding process
 	 */
 	private void setFrameSize() {
-		this.frameSize = (int) Math.floor(FRAME_DURATION * wavFile.getSampleRate());
+		this.frameSize = (int) Math.floor(FRAME_DURATION * audio.getSampleRate());
 	}
 
 	/**
@@ -167,10 +173,13 @@ public class DTMFUtil2 {
 	 *            Sampling Frequency
 	 * @return an Array showing the realtive powers of the DTMF frequencies
 	 */
-	private static double[] transformFrame(double[] frame,double Fs) {
-		Goertzel g = new Goertzel(Fs, fbin);
-		double[] temp = g.processFull(frame);
-		double[] out = filterFrame(temp);
+	private static double[] transformFrame(double[] frame, int Fs) {
+		double[] out = new double[8];
+		GoertzelM g = new GoertzelM(Fs, frame, fbin);
+		// 1. transform the frames using goertzel algorithm
+		// 2. get the highest DTMF freq within the tolerance range and use that
+		// magnitude to represet the corresponsing DTMF free
+		out = filterFrame(g.getDFTMag());
 		return out;
 	}
 
@@ -191,12 +200,6 @@ public class DTMFUtil2 {
 		double one = temp1[temp1.length - 1];
 		double two = temp2[temp2.length - 1];
 		double sum = DecoderUtil.sumArray(dft_data);
-//		double ratio = (one + two) / sum;
-//		boolean noisy = ratio < CUT_OFF_POWER_NOISE_RATIO;
-//		if (noisy)
-//			return true;
-//		else
-//			return false;
 		return ((one + two) / sum) < CUT_OFF_POWER_NOISE_RATIO;
 	}
 
@@ -275,19 +278,20 @@ public class DTMFUtil2 {
 	 * Method to decode the next frame in a buffer of a mono channeled wav file
 	 * 
 	 * @return the decoded DTMF character
+	 * @throws AudioFileException 
 	 * @throws IOException
 	 * @throws WavFileException
 	 * @throws DTMFDecoderException
 	 */
-	private char decodeNextFrame1() throws IOException, WavFileException, DTMFDecoderException {
+	private char decodeNextFrame1() throws AudioFileException, DTMFDecoderException, IOException {
 
 		double[] buffer1 = new double[(int) Math.floor(frameSize / 3)];
 		double[] tempBuffer11 = new double[(int) Math.floor(frameSize / 3)];
 		double[] tempBuffer21 = new double[(int) Math.floor(frameSize / 3)];
 
-		int framesRead = wavFile.readFrames(buffer1, (int) Math.floor(frameSize / 3));
+		int framesRead = audio.read(buffer1);
 		if (framesRead < frameSize / 3){
-			wavFile.close();
+			audio.close();
 			throw new DTMFDecoderException("Out of frames");
 		}
 
@@ -297,17 +301,20 @@ public class DTMFUtil2 {
 
 		char out = 'T';
 		// check if the power of the signal is high enough to be accepted.
-		double power = DecoderUtil.signalPower(frame);
+		// TODO run tests to obtain good power cut-off
+		double power = Signals.power(frame);
 		// noisyTemp.add(power);
 		if (power < CUT_OFF_POWER)
 			return '_';
-		// transform frame
-		double[] dft_data = DTMFUtil2.transformFrame(frame, (int) wavFile.getSampleRate());
+		
+		// transform frame and return frequency spectrum information		
+		double[] dft_data = DTMFUtil2.transformFrame(frame, (int) audio.getSampleRate());
 
 		// check if the frame has too much noise
 		if (isNoisy(dft_data))
 			return '_';
 
+		
 		try {
 			out = DTMFUtil2.getRawChar(dft_data);
 		} catch (DTMFDecoderException e) {
@@ -323,9 +330,10 @@ public class DTMFUtil2 {
 	 * @return String representation of the sequence of DTMF tones represented
 	 *         in the wav file
 	 * @throws IOException
+	 * @throws AudioFileException 
 	 * @throws WavFileException
 	 */
-	private void decodeMono40() throws IOException, WavFileException {
+	private void decodeMono40() throws IOException, AudioFileException {
 		char prev = '_';
 		char prev2 = '_';
 		String seq2 = "";
@@ -349,6 +357,7 @@ public class DTMFUtil2 {
 							seq22 = seq22.substring(0, seq22.length() - 1);
 							seq22 += curr + ".";
 							count = 0;
+							seq2 += curr;
 						}else {
 							seq22 += curr + ".";
 							seq2 += curr;
@@ -367,7 +376,7 @@ public class DTMFUtil2 {
 		seq[0] = seq2;
 	}
 	
-	private void decodeMono60() throws IOException, WavFileException {
+	private void decodeMono60() throws IOException, AudioFileException  {
 		char prev = '_';
 		char prev2 = '_';
 		char prev3 = '_';
@@ -392,6 +401,7 @@ public class DTMFUtil2 {
 							seq22 = seq22.substring(0, seq22.length() - 1);
 							seq22 += curr + ".";
 							count = 0;
+							seq2 += curr;
 						} else {
 							seq22 += curr + ".";
 							seq2 += curr;
@@ -411,7 +421,7 @@ public class DTMFUtil2 {
 		seq[0] = seq2;
 	}
 	
-	private void decodeMono80() throws IOException, WavFileException {
+	private void decodeMono80() throws IOException, AudioFileException  {
 		char prev = '_';
 		char prev2 = '_';
 		char prev3 = '_';
@@ -437,6 +447,7 @@ public class DTMFUtil2 {
 							seq22 = seq22.substring(0, seq22.length() - 1);
 							seq22 += curr + ".";
 							count = 0;
+							seq2 += curr;
 						} else {
 							seq22 += curr + ".";
 							seq2 += curr;
@@ -465,7 +476,7 @@ public class DTMFUtil2 {
 	 * @throws IOException
 	 * @throws WavFileException
 	 */
-	private void decodeStereo() throws IOException, WavFileException {
+	private void decodeStereo() throws IOException, AudioFileException  {
 		char curr[];
 		char[] prev = { '_', '_' };
 		char[] prev2 = { '_', '_' };
@@ -512,7 +523,9 @@ public class DTMFUtil2 {
 	 * @throws WavFileException
 	 * @throws DTMFDecoderException
 	 */
-	private char[] decodeNextFrame2() throws IOException, WavFileException, DTMFDecoderException {
+	private char[] decodeNextFrame2() throws IOException, AudioFileException , DTMFDecoderException {
+		// TODO 
+		
 		double[][] buffer = new double[2][(int) Math.floor(frameSize / 3)]; 
 		double[] tempBuffer11 = new double[(int) Math.floor(frameSize / 3)];
 		double[] tempBuffer21 = new double[(int) Math.floor(frameSize / 3)];
@@ -520,9 +533,9 @@ public class DTMFUtil2 {
 		double[] tempBuffer22 = new double[(int) Math.floor(frameSize / 3)];
 		int framesRead = 0;
 
-		framesRead = wavFile.readFrames(buffer, (int) Math.floor(frameSize / 3));
+		framesRead = audio.read(buffer);
 		if (framesRead < frameSize / 3){
-			wavFile.close();
+			audio.close();
 			throw new DTMFDecoderException("Out of frames");
 		}
 
@@ -548,8 +561,8 @@ public class DTMFUtil2 {
 		}
 
 		// transform frame
-		double[] dft_data1 = DTMFUtil2.transformFrame(frame1, (int) wavFile.getSampleRate());
-		double[] dft_data2 = DTMFUtil2.transformFrame(frame2, (int) wavFile.getSampleRate());
+		double[] dft_data1 = DTMFUtil2.transformFrame(frame1, (int) audio.getSampleRate());
+		double[] dft_data2 = DTMFUtil2.transformFrame(frame2, (int) audio.getSampleRate());
 
 		// check if the frame has too much noise
 		if (isNoisy(dft_data1)) {
@@ -586,11 +599,11 @@ public class DTMFUtil2 {
 	 * @throws WavFileException
 	 * @throws DTMFDecoderException
 	 */
-	public String[] decode() throws IOException, WavFileException, DTMFDecoderException {
+	public String[] decode() throws IOException, AudioFileException , DTMFDecoderException {
 		if (decoded) {
 			return seq;
 		}
-		if (wavFile.getNumChannels() == 1) {
+		if (audio.getNumChannels() == 1) {
 			if (decode60)
 				decodeMono60();
 			else if (decode80)
@@ -598,11 +611,11 @@ public class DTMFUtil2 {
 			else
 				decodeMono40();
 			decoded = true;
-		} else if (wavFile.getNumChannels() == 2) {
+		} else if (audio.getNumChannels() == 2) {
 			decodeStereo();
 			decoded = true;
 		} else
-			throw new DTMFDecoderException("Can only decode mono and stereo wav files.");
+			throw new DTMFDecoderException("Can only decode mono and stereo files.");
 		return seq;
 	}
 }

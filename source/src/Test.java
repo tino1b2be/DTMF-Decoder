@@ -5,13 +5,13 @@ public class Test {
 		double start = System.currentTimeMillis();
 		
 //		DTMFUtil.CUT_OFF_POWER = 0.005;
-//		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = 0.87;
-//		DTMFUtil.FRAME_DURATION = 0.045;
-		DTMFUtil.decode80 = true;
-//		DTMFUtil.debug = false;
+		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = 0.8;
+		DTMFUtil.FRAME_DURATION = 0.032;
+//		DTMFUtil.decode80 = true;
+		DTMFUtil.debug = true;
 ////		DTMFUtil.db = false;
 		String filename;
-		filename = "samples/The Sound of dial-up Internet.mp3";
+		filename = "samples/one.wav";
 ////		filename = "samples/mag3.wav";
 ////		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Noisy Test Data/10dB/9909257037*6A8897*3598B088#6#*B#49B8.wav";
 ////		filename = "samples/whiteNoise.wav";
