@@ -1,0 +1,19 @@
+apply plugin: "java"
+apply plugin: "eclipse"
+
+sourceSets {
+    main {
+        java {
+            srcDir 'source'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile files('jl1.0.jar', 'mp3spi1.9.4.jar', 'tritonus_share.jar')
+    compile 'org.apache.commons:commons-math3:3.6'
+}
