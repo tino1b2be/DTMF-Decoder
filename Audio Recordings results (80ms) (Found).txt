@@ -1,5 +1,5 @@
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010848.wav , 9959
-/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00000187.wav , 4447774477447444447444744444774444445474*
+/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00000187.wav , 4447774477474444447447444447744444454747*
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00002066.wav , 4544444474
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010131.wav , 1C1
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010559.wav , BBB4BBB
@@ -93,7 +93,7 @@
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011338.wav , 7**41944BA4
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010070.wav , AAAAA
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010192.wav , 17D6*
-/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010530.wav , 5111
+/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010530.wav , 511
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010513.wav , 4BD6
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011816.wav , B5*866#86
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00004223.wav , 6BB
@@ -154,7 +154,7 @@
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00004022.wav , 744454747
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011480.wav , DDD
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010826.wav , 9DD
-/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010796.wav , 7#*6154
+/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010796.wav , 7#*61545
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011723.wav , A21
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011504.wav , 54A2
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00003424.wav , 1A1
@@ -200,7 +200,7 @@
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011339.wav , 7444144*BA
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010029.wav , 56646
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010968.wav , A56B
-/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00003973.wav , DDD
+/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00003973.wav , DDCD
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00002410.wav , 1**51
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010024.wav , 17*
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010979.wav , 61C
@@ -386,7 +386,7 @@
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011726.wav , 5A551
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011609.wav , B14
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00001511.wav , 13A6
-/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00004534.wav , 4747**44477774547477444447454774474444447444444444747**
+/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00004534.wav , 4747**4447777454747444447454774474444447444444444747**
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00001370.wav , *****************9999999999999999999999
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00001501.wav , *77
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010180.wav , 121
@@ -399,4 +399,4 @@
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010641.wav , 5C6
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00001469.wav , 777777777777*7
 /media/tino1b2be/lin_2/wavs/converted/TestAPI2/00011110.wav , 15#9
-/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010465.wav , 44*#84
+/media/tino1b2be/lin_2/wavs/converted/TestAPI2/00010465.wav , 44*#4
