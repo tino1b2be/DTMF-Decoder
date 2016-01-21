@@ -1,42 +1,51 @@
 package com.tino1b2be.cmdprograms;
 
+import com.tino1b2be.DTMFDecoder.DTMFDecoderException;
 import com.tino1b2be.DTMFDecoder.DTMFUtil;
 import com.tino1b2be.DTMFDecoder.DecoderUtil;
 import com.tino1b2be.DTMFDecoder.FileUtil;
 import com.tino1b2be.audio.AudioFile;
+import com.tino1b2be.audio.AudioFileException;
 
+/**
+ * A program that decodes DTMF tones within a supported audio file.
+ * 
+ * @author tino1b2be
+ *
+ */
 public class DTMFDecoder {
-		public static void main(String[] args) throws Exception {
-		double start = System.currentTimeMillis();
-		
-//		DTMFUtil.CUT_OFF_POWER = 0.005;
-		DTMFUtil.setMinToneDuration(60);
-		DTMFUtil.debug = true;
-////		DTMFUtil.db = false;
-		String filename;
-		filename = "samples/stereo.wav";
-////		filename = "samples/mag3.wav";
-////		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Noisy Test Data/10dB/9909257037*6A8897*3598B088#6#*B#49B8.wav";
-//		filename = "samples/whiteNoise.wav";
-//		filename = "samples/callx.wav";
-//		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C2AC81059AA13.wav";
-		
 
-		AudioFile data = FileUtil.readAudioFile(filename);
-//		data.display();
+	private static String filename;
+	/**
+	 * A program that decodes DTMF tones within a supported audio file.
+	 * 
+	 * @param args 1st argument is the filename. 2nd argument is the minimum tone duration of the tones (0 or a negative number to use the ITU-T recommended duration)
+	 * @throws Exception 
+	 * @throws AudioFileException 
+	 * 
+	 */
+	public static void main(String[] args) throws AudioFileException, Exception {
 		
+		if (args.length == 2){
+			filename = args[0];
+			DTMFUtil.setMinToneDuration(Integer.parseInt(args[1]));
+		} else {
+			getInputFromUser();
+		}
 		
-		DTMFUtil dtmf = new DTMFUtil(data);	
-		String original = DecoderUtil.getFileSequence(filename);
+		DTMFUtil dtmf = new DTMFUtil(filename);
 		String[] sequence = dtmf.decode();
-				
-		System.out.println("\noriginal1 = " + original
-				+ "\ndecoded1  = " + sequence[0]);
-		System.out.println("\noriginal2 = " + original
-				+ "\ndecoded1  = " + sequence[1]);		
-				
-		double stop = System.currentTimeMillis();
-		System.out.println("Time taken = " + Double.toString((stop-start)/1000) + "sec.");
 		
+		if (dtmf.getChannelCount() == 1) {
+			System.out.println("The DTMF tones found in the given file are: " + sequence[0]);
+		} else {
+			System.out.println("The DTMF tones found in channel one are: " + sequence[0]
+					+ "\nThe DTMF tones found in channel one are: " + sequence[1]);
+		}
+
+	}
+	private static void getInputFromUser() {
+		// TODO get input from the user.
+		filename = "samples/stereo.wav";
 	}
 }

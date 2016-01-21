@@ -148,9 +148,9 @@ public class DTMFUtil {
 	 * Method to precalculate the indices to be used to locate the DTMF frequencies in the power spectrum
 	 */
 	private void setCentreIndicies() {
-		freqIndicies = new int[DTMF_FREQUENCIES.length];
+		freqIndicies = new int[DTMF_FREQUENCIES_BIN.length];
 		for (int i = 0; i < freqIndicies.length; i++){
-			int ind = (int) Math.round(((DTMF_FREQUENCIES[i]*1.0) / (audio.getSampleRate()) * 1.0) * frameSize);
+			int ind = (int) Math.round(((DTMF_FREQUENCIES_BIN[i]*1.0) / (audio.getSampleRate()) * 1.0) * frameSize);
 			freqIndicies[i] = ind;
 		}
 	}
@@ -977,7 +977,7 @@ public class DTMFUtil {
 	 * Method to decode the wav file and return the sequence of DTMF tones
 	 * represented.
 	 * 
-	 * @return String array with the sequence of tones for each channel
+	 * @return String array with the sequence of tones for each channel. Mono files will have the sequence stored in the first position of the array.
 	 * @throws IOException
 	 * @throws WavFileException
 	 * @throws DTMFDecoderException
@@ -1014,12 +1014,15 @@ public class DTMFUtil {
 	/**
 	 * Method to set the minimum duration of the DTMF tones to be detected
 	 * 
-	 * @param duration minimum duration of a tone.
+	 * @param duration minimum duration of a tone. 0 or negative to use the default ITU-T recommended value (40ms)
 	 * @throws DTMFDecoderException Throws an exception if the duration is less than 40ms
 	 */
 	public static void setMinToneDuration(int duration) throws DTMFDecoderException{
-		if (duration < 40)
-			throw new DTMFDecoderException("Minimum tone duration must be greater than 40ms.");
+		if (duration <= 0) // use default duration of 40ms
+			return;
+		else if (duration < 40)
+			throw new DTMFDecoderException(
+					"Minimum tone duration must be greater than 40ms or use 0 or a negative number to use the default ITU-T value.");
 		else if (duration <= 60)
 			decode60 = true;
 		else if (duration <= 80)
@@ -1035,5 +1038,9 @@ public class DTMFUtil {
 	 */
 	public boolean isDecoded() {
 		return decoded;
+	}
+
+	public int getChannelCount() {
+		return audio.getNumChannels();
 	}
 }
