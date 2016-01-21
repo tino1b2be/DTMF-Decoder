@@ -16,7 +16,7 @@ public class Test {
 ////		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Noisy Test Data/10dB/9909257037*6A8897*3598B088#6#*B#49B8.wav";
 ////		filename = "samples/whiteNoise.wav";
 		filename = "samples/callx.wav";
-		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/6BBC7159071*CA#263AC4BC6#***68A5*A66C606AB765*C.wav";
+//		filename = "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C2AC81059AA13.wav";
 		
 
 		AudioFile data = FileUtil.readAudioFile(filename);
@@ -32,7 +32,7 @@ public class Test {
 		System.out.println("\noriginal2 = " + original
 				+ "\ndecoded1  = " + sequence[1]);		
 		
-		FileUtil.writeToFile(DTMFUtil.data, "ratios.csv");
+		FileUtil.writeToFile(DTMFUtil.noisyTemp, "noisy temp.csv");
 		
 		// testing taros goertzel
 		

@@ -428,7 +428,7 @@ public class DTMFUtil {
 		// TODO run tests to obtain good power cut-off
 		
 		double power = DecoderUtil.signalPower(frame);
-		// noisyTemp.add(power);
+		 noisyTemp.add(power);
 		
 		if (power < CUT_OFF_POWER)
 			return '_';

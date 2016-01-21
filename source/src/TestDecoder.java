@@ -11,7 +11,7 @@ public class TestDecoder {
 		System.out.println("Default DTMFUtil constatnts\n");
 		String parent;
 		parent = "Prototyping/Noisy Test Data";
-//		parent = "Prototyping/Test Data";
+		parent = "Prototyping/Test Data";
 		double powerCut = 0.004;
 		double noiseCut = 0.45;
 		double frameDur = 0.03;
@@ -55,7 +55,7 @@ public class TestDecoder {
 			hitrates.add(thread.toString());
 		}
 		
-//		FileUtil.writeToFile(results, "test data.txt");
+		FileUtil.writeToFile(results, "test results.txt");
 		FileUtil.writeToFile(hitrates, "Noise Pass Rates.");
 //		FileUtil.writeToFile(DTMFUtil.data, "ratios2.csv");
 		
