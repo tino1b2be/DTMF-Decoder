@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
@@ -43,27 +44,28 @@ import org.apache.commons.math3.transform.TransformType;
 public class DTMFUtil {
 
 	public static double CUT_OFF_POWER = 0.004;
-	public static double CUT_OFF_POWER_NOISE_RATIO = 0.87;
-	public static double FRAME_DURATION = 0.045;
+	public static double CUT_OFF_POWER_NOISE_RATIO = 0.45;
+	public static double FRAME_DURATION = 0.030;
 	private boolean decoded;
 	private String seq[];
 	private AudioFile audio;
 	private int frameSize;
+	private static int[] freqIndicies;
 	public static boolean decode60 = false;
 	public static boolean decode80 = false;
 	public static ArrayList<Double> noisyTemp = new ArrayList<>();
 	public static boolean debug = true;
 	public static boolean db = true;
+	
+	//debugging variables
+	public static ArrayBlockingQueue<Double> data = new ArrayBlockingQueue<Double>(10000);
 
 	/**
 	 * The list of valid DTMF frequencies. See the <a
 	 * href="http://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling"
 	 * >WikiPedia article on DTMF</a>.
 	 */
-	public static final int[] DTMF_FREQUENCIES = { 697, 770, 852, 941, 1209, 1336, 1477, 1633 };
-	
-	private static int[] fbin = 
-		{ 
+	public static final int[] DTMF_FREQUENCIES = { 
 			687, 697, 707,						 	// 697
 			758, 770, 782, 							// 770
 			839, 852, 865, 							// 852
@@ -73,16 +75,31 @@ public class DTMFUtil {
 			1455, 1477, 1499, 						// 1477
 			1609, 1633, 1647, 1657 					// 1633 
 		};
+		//{ 697, 770, 852, 941, 1209, 1336, 1477, 1633 };
+	
+//	private static int[] fbin = 
+//		{ 
+//			687, 697, 707,						 	// 697
+//			758, 770, 782, 							// 770
+//			839, 852, 865, 							// 852
+//			927, 941, 955, 							// 941
+//			1191, 1209, 1227, 						// 1209
+//			1316, 1336, 1356, 						// 1336
+//			1455, 1477, 1499, 						// 1477
+//			1609, 1633, 1647, 167] - 157 					// 1633 
+//		};
 
 	/**
 	 * Create DTMFUtil object for an audio file given the AudioFile object
 	 * 
 	 * @param data
 	 *            AudioFile object to be processed.
+	 * @throws DTMFDecoderException 
 	 */
-	public DTMFUtil(AudioFile data) {
+	public DTMFUtil(AudioFile data) throws DTMFDecoderException {
 		this.audio = data;
 		setFrameSize();
+		setCentreIndicies();
 		this.decoded = false;
 		seq = new String[2];
 		this.seq[0] = "";
@@ -102,6 +119,7 @@ public class DTMFUtil {
 	public DTMFUtil(String filename) throws AudioFileException, Exception{
 		this.audio = FileUtil.readAudioFile(filename);
 		setFrameSize();
+		setCentreIndicies();
 		this.decoded = false;
 		seq = new String[2];
 		this.seq[0] = "";
@@ -132,18 +150,33 @@ public class DTMFUtil {
 	 * Method to precalculate the indices to be used to locate the DTMF frequencies in the power spectrum
 	 */
 	private void setCentreIndicies() {
+		freqIndicies = new int[DTMF_FREQUENCIES.length];
 		for (int i = 0; i < freqIndicies.length; i++){
-			freqIndicies[i] = 
+			int ind = (int) Math.round(((DTMF_FREQUENCIES[i]*1.0) / (audio.getSampleRate()) * 1.0) * frameSize);
+			freqIndicies[i] = ind;
 		}
 	}
 
 	/**
 	 * Method to set the frame size for the decoding process. Framesize must be
-	 * a poser of 2
+	 * a power of 2
+	 * @throws DTMFDecoderException If Fs if less than 8kHz or loo large.
 	 */
-	private void setFrameSize() {
-		// calculate framesize depending on the framerate
-		this.frameSize = 256;
+	private void setFrameSize() throws DTMFDecoderException {
+		if (audio.getSampleRate() < 8000)
+			throw new DTMFDecoderException("Sampling Rate cannot be less than 8kHz.");
+		int size = 0;
+		for (int i = 8; i <= 15; i++) {
+			size = (int) Math.pow(2, i);
+			if (size / (audio.getSampleRate() * 1.0) < FRAME_DURATION)
+				continue;
+			else {
+				frameSize = size;
+				return;
+			}
+		}
+		throw new DTMFDecoderException(
+				"Sampling Frequency of the audio file is too high. Please use a file with a lower Sampling Frequency.");
 	}
 
 	/**
@@ -157,17 +190,79 @@ public class DTMFUtil {
 	 */
 	private static double[] filterFrame(double[] frame) {
 		double[] out = new double[8];
-		// TODO
-		/*
-		out[0] = DecoderUtil.max(Arrays.copyOfRange(frame, 0, 3));
-		out[1] = DecoderUtil.max(Arrays.copyOfRange(frame, 3, 6));
-		out[2] = DecoderUtil.max(Arrays.copyOfRange(frame, 6, 9));
-		out[3] = DecoderUtil.max(Arrays.copyOfRange(frame, 9, 12));
-		out[4] = DecoderUtil.max(Arrays.copyOfRange(frame, 12, 15));
-		out[5] = DecoderUtil.max(Arrays.copyOfRange(frame, 15, 18));
-		out[6] = DecoderUtil.max(Arrays.copyOfRange(frame, 18, 21));
-		out[7] = DecoderUtil.max(Arrays.copyOfRange(frame, 21, 25));
-		*/
+		
+//		687, 697, 707,						 	// 697 0,1,2
+//		758, 770, 782, 							// 770 3,4,5
+//		839, 852, 865, 							// 852 6,7,8
+//		927, 941, 955, 							// 941 9,10,11
+//		1191, 1209, 1227, 						// 1209 12,13,14
+//		1316, 1336, 1356, 						// 1336 15,16,17
+//		1455, 1477, 1499, 						// 1477 18,19,20
+//		1609, 1633, 1647, 1657 					// 1633 21,22,23,24
+		
+//		687, 697, 707,						 	// 697 0,1,2
+		out[0] = frame[freqIndicies[0]];
+		if (freqIndicies[0] != freqIndicies[1])
+			out[0] += frame[freqIndicies[1]];
+		if (freqIndicies[0] != freqIndicies[2] && freqIndicies[1] != freqIndicies[2])
+			out[0] += frame[freqIndicies[2]];
+
+//		758, 770, 782, 							// 770 3,4,5
+		out[1] = frame[freqIndicies[3]];
+		if (freqIndicies[3] != freqIndicies[4])
+			out[1] += frame[freqIndicies[4]];
+		if (freqIndicies[3] != freqIndicies[5] && freqIndicies[4] != freqIndicies[5])
+			out[1] += frame[freqIndicies[5]];
+	
+//		839, 852, 865, 							// 852 6,7,8
+		out[2] = frame[freqIndicies[6]];
+		if (freqIndicies[6] != freqIndicies[7])
+			out[2] += frame[freqIndicies[7]];
+		if (freqIndicies[6] != freqIndicies[8] && freqIndicies[7] != freqIndicies[8])
+			out[2] += frame[freqIndicies[8]];
+		
+//		927, 941, 955, 							// 941 9,10,11
+		out[3] = frame[freqIndicies[9]];
+		if (freqIndicies[9] != freqIndicies[10])
+			out[3] += frame[freqIndicies[10]];
+		if (freqIndicies[9] != freqIndicies[11] && freqIndicies[10] != freqIndicies[11])
+			out[3] += frame[freqIndicies[11]];
+		
+//		1191, 1209, 1227, 						// 1209 12,13,14
+		out[4] = frame[freqIndicies[12]];
+		if (freqIndicies[12] != freqIndicies[13])
+			out[4] += frame[freqIndicies[13]];
+		if (freqIndicies[12] != freqIndicies[14] && freqIndicies[13] != freqIndicies[14])
+			out[5] += frame[freqIndicies[14]];
+		
+//		1316, 1336, 1356, 						// 1336 15,16,17
+		out[5] = frame[freqIndicies[15]];
+		if (freqIndicies[15] != freqIndicies[16])
+			out[5] += frame[freqIndicies[16]];
+		if (freqIndicies[15] != freqIndicies[17] && freqIndicies[16] != freqIndicies[17])
+			out[5] += frame[freqIndicies[17]];
+		
+//		1455, 1477, 1499, 						// 1477 18,19,20
+		out[6] = frame[freqIndicies[18]];
+		if (freqIndicies[18] != freqIndicies[19])
+			out[6] += frame[freqIndicies[19]];
+		if (freqIndicies[18] != freqIndicies[20] && freqIndicies[19] != freqIndicies[20])
+			out[6] += frame[freqIndicies[20]];
+		
+//		1609, 1633, 1647, 1657 					// 1633 21,22,23,24
+//		out[7] = frame[freqIndicies[21]];
+//		if (freqIndicies[21] != freqIndicies[22])
+//			out[7] += frame[freqIndicies[22]];
+//		if (freqIndicies[21] != freqIndicies[23] && freqIndicies[22] != freqIndicies[23])
+//			out[7] += frame[freqIndicies[23]];
+
+		out[7] = frame[freqIndicies[21]];
+		if (frame[freqIndicies[22]] != frame[freqIndicies[21]])
+			out[7] += frame[freqIndicies[22]];
+		else
+			out[7] += frame[freqIndicies[23]];
+		out[7] += frame[freqIndicies[24]];
+		
 		return out;
 	}
 
@@ -209,9 +304,10 @@ public class DTMFUtil {
 	 * 
 	 * @param dft_data
 	 *            Frequency spectrum magnitudes for the DTMF frequencies
+	 * @param power_spectrum 
 	 * @return true is noisy or false if it is acceptable
 	 */
-	private boolean isNoisy(double[] dft_data) {
+	private boolean isNoisy(double[] dft_data, double[] power_spectrum) {
 		// sum the powers of all frequencies = sum
 		// find ratio of the (sum of two highest peaks) : sum
 		double[] temp1 = Arrays.copyOfRange(dft_data, 0, 4);
@@ -220,7 +316,10 @@ public class DTMFUtil {
 		Arrays.sort(temp2);
 		double one = temp1[temp1.length - 1];
 		double two = temp2[temp2.length - 1];
-		double sum = DecoderUtil.sumArray(dft_data);
+//		double sum = DecoderUtil.sumArray(dft_data);
+		double sum = DecoderUtil.sumArray(power_spectrum);
+		double ratio = (one + two)/sum;
+//		data.add(ratio);
 		return ((one + two) / sum) < CUT_OFF_POWER_NOISE_RATIO;
 	}
 
@@ -340,10 +439,8 @@ public class DTMFUtil {
 		// filter out the 8 DTMF frequencies from the power spectrum
 		double[] dft_data = filterFrame(power_spectrum);
 		
-		
-		
 		// check if the frame has too much noise
-		if (isNoisy(power_spectrum))
+		if (isNoisy(dft_data, power_spectrum))
 			return '_';
 		
 		out = DTMFUtil.getRawChar(dft_data);
@@ -550,7 +647,7 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException
 	 */
 	private char[] decodeNextFrame2() throws IOException, AudioFileException , DTMFDecoderException {
-		// TODO 
+		// TODO update this method
 		
 		double[][] buffer = new double[2][(int) Math.floor(frameSize / 3)]; 
 		double[] tempBuffer11 = new double[(int) Math.floor(frameSize / 3)];
@@ -591,10 +688,10 @@ public class DTMFUtil {
 		double[] dft_data2 = DTMFUtil.transformFrame(frame2, (int) audio.getSampleRate());
 
 		// check if the frame has too much noise
-		if (isNoisy(dft_data1)) {
+		if (isNoisy(dft_data1, null)) {
 			outArr[0] = '_';
 		}
-		if (isNoisy(dft_data2)) {
+		if (isNoisy(dft_data2, null)) {
 			outArr[1] = '_';
 		}
 

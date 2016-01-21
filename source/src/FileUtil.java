@@ -144,13 +144,13 @@ public class FileUtil {
 	 * @param dataOut
 	 * @throws IOException
 	 */
-	public static <T> void writeToFile(ArrayBlockingQueue<T> dataOut) throws IOException {
-		PrintWriter pw = new PrintWriter(new FileWriter("results.txt"));
+	public static <T> void writeToFile(ArrayBlockingQueue<T> dataOut, String filename) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(filename));
 		if (dataOut == null)
 			pw.print("");
 		else {
 			for (T data : dataOut) {
-				if (((TestResult) data).isSuccess())
+				if (data.getClass() == TestResult.class && ((TestResult) data).isSuccess())
 					TestResult.totalSuccess++;
 				pw.println(data);
 
@@ -265,5 +265,6 @@ public class FileUtil {
 			throw new AudioFileException("Cannot read the file type of the chosen file.");
 		}
 	}
+
 
 }

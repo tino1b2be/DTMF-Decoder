@@ -13,16 +13,16 @@ public class TestDecoder {
 		parent = "Prototyping/Noisy Test Data";
 //		parent = "Prototyping/Test Data";
 		double powerCut = 0.004;
-		double noiseCut = 0.85;
-		double frameDur = 0.0445;
+		double noiseCut = 0.45;
+		double frameDur = 0.03;
 		runTests(powerCut, noiseCut, frameDur, parent);
 		}
 
 	private static void runTests(double powerCut, double noiseCut, double frameDur, String parent) throws WavFileException, IOException, InterruptedException {
 		TestResult.totalSuccess = 0;
-		DTMFUtil.CUT_OFF_POWER = powerCut;
-		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = noiseCut;
-		DTMFUtil.FRAME_DURATION = frameDur;
+//		DTMFUtil.CUT_OFF_POWER = powerCut;
+//		DTMFUtil.CUT_OFF_POWER_NOISE_RATIO = noiseCut;
+//		DTMFUtil.FRAME_DURATION = frameDur;
 		
 		ArrayList<String> hitrates = new ArrayList<>();
 		
@@ -55,8 +55,9 @@ public class TestDecoder {
 			hitrates.add(thread.toString());
 		}
 		
-		FileUtil.writeToFile(results, "test data.txt");
+//		FileUtil.writeToFile(results, "test data.txt");
 		FileUtil.writeToFile(hitrates, "Noise Pass Rates.");
+//		FileUtil.writeToFile(DTMFUtil.data, "ratios2.csv");
 		
 		int sum = results.length;
 		double successRate = TestResult.totalSuccess * 100.0 / (sum * 1.0);

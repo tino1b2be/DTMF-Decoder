@@ -9,8 +9,8 @@ public class TryFFTSpectrum {
 
 	public static void main(String[] args) {
 		double startT = System.currentTimeMillis();
-		final double Fs = 44100;
-		final int N = 2048;
+		final double Fs = 8000;
+		final int N = 256;
 
 		// *** Generate a signal
 		double[] signal = new double[N];

@@ -13,14 +13,14 @@ if (~exist(folderName,'dir'))
 %     mkdir(folderName,'/1dB');
 %     mkdir(folderName,'/2dB');
 %     mkdir(folderName,'/5dB');
-    mkdir(folderName,'/3dB');
-    mkdir(folderName,'/6dB');
+    mkdir(folderName,'/11dB');
+    mkdir(folderName,'/14dB');
 %     mkdir(folderName,'/10dB');
-    mkdir(folderName,'/9dB');
-    mkdir(folderName,'/13dB');
-    mkdir(folderName,'/17dB');
-%     mkdir(folderName,'/30dB');
-%     mkdir(folderName,'/40dB');
+    mkdir(folderName,'/16dB');
+    mkdir(folderName,'/18dB');
+    mkdir(folderName,'/19dB');
+    mkdir(folderName,'/25dB');
+    mkdir(folderName,'/30dB');
 %     mkdir(folderName,'/50dB');
 %     mkdir(folderName,'/60dB');
 
@@ -37,27 +37,27 @@ else
 %     if (~exist(strcat(folderName,'/5dB'),'dir'))
 %         mkdir(folderName,'/5dB');
 %     end
-    if (~exist(strcat(folderName,'/3dB'),'dir'))
-        mkdir(folderName,'/3dB');
+    if (~exist(strcat(folderName,'/11dB'),'dir'))
+        mkdir(folderName,'/11dB');
     end
-    if (~exist(strcat(folderName,'/6dB'),'dir'))
-        mkdir(folderName,'/6dB');
+    if (~exist(strcat(folderName,'/14dB'),'dir'))
+        mkdir(folderName,'/14dB');
     end
-%     if (~exist(strcat(folderName,'/10dB'),'dir'))
-%         mkdir(folderName,'/10dB');
-%     end
-    if (~exist(strcat(folderName,'/9dB'),'dir'))
-        mkdir(folderName,'/9dB');
+    if (~exist(strcat(folderName,'/16dB'),'dir'))
+        mkdir(folderName,'/16dB');
     end
-    if (~exist(strcat(folderName,'/13dB'),'dir'))
-        mkdir(folderName,'/13dB');
+    if (~exist(strcat(folderName,'/18dB'),'dir'))
+        mkdir(folderName,'/18dB');
     end
-    if (~exist(strcat(folderName,'/17dB'),'dir'))
-        mkdir(folderName,'/17dB');
+    if (~exist(strcat(folderName,'/19dB'),'dir'))
+        mkdir(folderName,'/19dB');
     end
-%     if (~exist(strcat(folderName,'/30dB'),'dir'))
-%         mkdir(folderName,'/30dB');
-%     end
+    if (~exist(strcat(folderName,'/25dB'),'dir'))
+        mkdir(folderName,'/25dB');
+    end
+    if (~exist(strcat(folderName,'/30dB'),'dir'))
+        mkdir(folderName,'/30dB');
+    end
 %     if (~exist(strcat(folderName,'/40dB'),'dir'))
 %         mkdir(folderName,'/30dB');
 %     end
@@ -153,8 +153,8 @@ end
 
 parfor count = 1:numFiles
     [x, chars] = randSeq(randomInt(5,50),Fs,1);
-    y = awgn(x,3);
-    name = strcat(folderName,'/3dB/',chars,'.wav');
+    y = awgn(x,11);
+    name = strcat(folderName,'/11dB/',chars,'.wav');
     if (exist(name,'file'))
     %    count = count - 1;
         continue;
@@ -162,14 +162,14 @@ parfor count = 1:numFiles
         audiowrite(name,y,Fs);
     end
     if (count == floor(numFiles/2))
-        disp('Halfway through 3dB');
+        disp('Halfway through 11dB');
     end
 end
 
 parfor count = 1:numFiles
     [x, chars] = randSeq(randomInt(5,50),Fs,1);
-    y = awgn(x,6);
-    name = strcat(folderName,'/6dB/',chars,'.wav');
+    y = awgn(x,14);
+    name = strcat(folderName,'/14dB/',chars,'.wav');
     if (exist(name,'file'))
     %    count = count - 1;
         continue;
@@ -177,59 +177,14 @@ parfor count = 1:numFiles
         audiowrite(name,y,Fs);
     end
     if (count == floor(numFiles/2))
-        disp('Halfway through 6dB');
-    end
-end
-
-% parfor count = 1:numFiles
-%     [x, chars] = randSeq(randomInt(5,50),Fs,1);
-%     y = awgn(x,10);
-%     name = strcat(folderName,'/10dB/',chars,'.wav');
-%     if (exist(name,'file'))
-%     %    count = count - 1;
-%         continue;
-%     else
-%         audiowrite(name,y,Fs);
-%     end
-%     if (count == floor(numFiles/2))
-%         disp('Halfway through 10dB');
-%     end
-% end
-
-% parfor count = 1:numFiles
-%     [x, chars] = randSeq(randomInt(5,50),Fs,1);
-%     y = awgn(x,10);
-%     name = strcat(folderName,'/10dB/',chars,'.wav');
-%     if (exist(name,'file'))
-%     %    count = count - 1;
-%         continue;
-%     else
-%         audiowrite(name,y,Fs);
-%     end
-%     if (count == floor(numFiles/2))
-%         disp('Halfway through 10dB');
-%     end
-% end
-
-parfor count = 1:numFiles
-    [x, chars] = randSeq(randomInt(5,50),Fs,1);
-    y = awgn(x,9);
-    name = strcat(folderName,'/9dB/',chars,'.wav');
-    if (exist(name,'file'))
-    %    count = count - 1;
-        continue;
-    else
-        audiowrite(name,y,Fs);
-    end
-    if (count == floor(numFiles/2))
-        disp('Halfway through 9dB');
+        disp('Halfway through 14dB');
     end
 end
 
 parfor count = 1:numFiles
     [x, chars] = randSeq(randomInt(5,50),Fs,1);
-    y = awgn(x,13);
-    name = strcat(folderName,'/13dB/',chars,'.wav');
+    y = awgn(x,16);
+    name = strcat(folderName,'/16dB/',chars,'.wav');
     if (exist(name,'file'))
     %    count = count - 1;
         continue;
@@ -237,14 +192,14 @@ parfor count = 1:numFiles
         audiowrite(name,y,Fs);
     end
     if (count == floor(numFiles/2))
-        disp('Halfway through 13dB');
+        disp('Halfway through 16dB');
     end
 end
 
 parfor count = 1:numFiles
     [x, chars] = randSeq(randomInt(5,50),Fs,1);
-    y = awgn(x,17);
-    name = strcat(folderName,'/17dB/',chars,'.wav');
+    y = awgn(x,18);
+    name = strcat(folderName,'/18dB/',chars,'.wav');
     if (exist(name,'file'))
     %    count = count - 1;
         continue;
@@ -252,7 +207,52 @@ parfor count = 1:numFiles
         audiowrite(name,y,Fs);
     end
     if (count == floor(numFiles/2))
-        disp('Halfway through 17dB');
+        disp('Halfway through 18dB');
+    end
+end
+
+parfor count = 1:numFiles
+    [x, chars] = randSeq(randomInt(5,50),Fs,1);
+    y = awgn(x,19);
+    name = strcat(folderName,'/19dB/',chars,'.wav');
+    if (exist(name,'file'))
+    %    count = count - 1;
+        continue;
+    else
+        audiowrite(name,y,Fs);
+    end
+    if (count == floor(numFiles/2))
+        disp('Halfway through 19dB');
+    end
+end
+
+parfor count = 1:numFiles
+    [x, chars] = randSeq(randomInt(5,50),Fs,1);
+    y = awgn(x,25);
+    name = strcat(folderName,'/25dB/',chars,'.wav');
+    if (exist(name,'file'))
+    %    count = count - 1;
+        continue;
+    else
+        audiowrite(name,y,Fs);
+    end
+    if (count == floor(numFiles/2))
+        disp('Halfway through 25dB');
+    end
+end
+
+parfor count = 1:numFiles
+    [x, chars] = randSeq(randomInt(5,50),Fs,1);
+    y = awgn(x,30);
+    name = strcat(folderName,'/30dB/',chars,'.wav');
+    if (exist(name,'file'))
+    %    count = count - 1;
+        continue;
+    else
+        audiowrite(name,y,Fs);
+    end
+    if (count == floor(numFiles/2))
+        disp('Halfway through 30dB');
     end
 end
 
@@ -321,5 +321,5 @@ disp('Done with the sixth power range');
 %     end
 % end
 
-disp('Done with the seventh power range');
+% disp('Done with the seventh power range');
 disp(strcat('Time: ',num2str(toc),'seconds'));
