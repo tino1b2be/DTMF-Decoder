@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.FastFourierTransformer;
@@ -110,10 +112,12 @@ public class DTMFUtil {
 	 *            Filename of the audio file to be processed
 	 * @throws Exception 
 	 * @throws AudioFileException 
+	 * @throws UnsupportedAudioFileException 
 	 * @throws IOException
 	 * @throws WavFileException
+	 * @throws DTMFDecoderException 
 	 */
-	public DTMFUtil(String filename) throws AudioFileException, Exception{
+	public DTMFUtil(String filename) throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException, DTMFDecoderException{
 		this.audio = FileUtil.readAudioFile(filename);
 		setFrameSize();
 		setCentreIndicies();
@@ -130,10 +134,12 @@ public class DTMFUtil {
 	 *            File object for the audio file
 	 * @throws Exception 
 	 * @throws AudioFileException 
+	 * @throws UnsupportedAudioFileException 
 	 * @throws IOException
 	 * @throws WavFileException
+	 * @throws DTMFDecoderException 
 	 */
-	public DTMFUtil(File file) throws AudioFileException, Exception{
+	public DTMFUtil(File file) throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException, DTMFDecoderException{
 		this.audio = FileUtil.readAudioFile(file);
 		setFrameSize();
 		setCentreIndicies();

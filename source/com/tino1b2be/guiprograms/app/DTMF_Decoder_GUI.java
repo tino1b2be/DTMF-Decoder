@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JMenu;
 
 public class DTMF_Decoder_GUI {
 
@@ -45,41 +46,78 @@ public class DTMF_Decoder_GUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tino1b2be/workspace/DTMF-Decoder/media/computing22.png"));
-		frame.setBounds(100, 100, 443, 186);
+		frame.setBounds(100, 100, 500, 186);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton decodeBtn = new JButton("Decode Wav File");
+		JButton decodeBtn = new JButton("Decode Audio File");
 		decodeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				DecodeFrame frame = new DecodeFrame();
-				frame.setVisible(true);
+				startDecoder();
 			}
 		});
-		decodeBtn.setBounds(12, 37, 193, 82);
+		
+		decodeBtn.setBounds(12, 37, 217, 82);
 		frame.getContentPane().add(decodeBtn);
 		
-		JButton generateBtn = new JButton("Generate DTMF Tone");
+		JButton generateBtn = new JButton("Generate DTMF Sequence");
 		generateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Function not yet available.");
+				startGenerator();
 			}
 		});
-		generateBtn.setBounds(232, 37, 193, 82);
+		generateBtn.setBounds(265, 37, 217, 82);
 		frame.getContentPane().add(generateBtn);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenuItem mntmAbout = new JMenuItem("About");
-		mntmAbout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				About aboutFrame = new About();
-				aboutFrame.setVisible(true);
-//				JOptionPane.showMessageDialog(null, message);
+		JMenu mnMenu = new JMenu("Menu");
+		menuBar.add(mnMenu);
+		
+		JMenuItem mntmDecodeAudioFile = new JMenuItem("Decode Audio File");
+		mnMenu.add(mntmDecodeAudioFile);
+		
+		JMenuItem mntmGenerateDtmfSequence = new JMenuItem("Generate a sequence of DTMF tones");
+		mnMenu.add(mntmGenerateDtmfSequence);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
 			}
 		});
-		menuBar.add(mntmAbout);
+		mnMenu.add(mntmExit);
+		
+		JMenu mnAbout = new JMenu("About");
+		menuBar.add(mnAbout);
+		
+		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AboutDecoder about = new AboutDecoder();
+				about.setVisible(true);
+			}
+		});
+		
+		JMenuItem mntmLicense = new JMenuItem("License");
+		mntmLicense.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				License l = new License();
+				l.setVisible(true);
+			}
+		});
+		mnAbout.add(mntmLicense);
+		mnAbout.add(mntmAbout);
+		
+		
+	}
+	private void startDecoder(){
+		DecodeFrame frame = new DecodeFrame();
+		frame.setVisible(true);
+	}
+	
+	private void startGenerator(){
+		JOptionPane.showMessageDialog(null, "Function not yet available.");
 	}
 }
