@@ -10,5 +10,10 @@
 	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/jl1.0.jar"/>
 	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/mp3spi1.9.4.jar"/>
 	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/VorbisSPI1.0.3/vorbisspi1.0.3.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/tino1b2be/workspace/DTMF-Decoder/libs/VorbisSPI1.0.3/docs/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

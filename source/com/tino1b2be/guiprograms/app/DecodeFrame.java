@@ -46,6 +46,7 @@ public class DecodeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public DecodeFrame() {
+		setTitle("DTMF Decoder");
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 650, 379);

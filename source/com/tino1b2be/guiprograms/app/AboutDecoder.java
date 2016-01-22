@@ -31,6 +31,7 @@ public class AboutDecoder extends JFrame {
 	 * Create the frame.
 	 */
 	public AboutDecoder() {
+		setTitle("About");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

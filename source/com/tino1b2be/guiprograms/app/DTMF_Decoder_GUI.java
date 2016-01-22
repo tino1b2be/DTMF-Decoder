@@ -14,7 +14,7 @@ import javax.swing.JMenu;
 
 public class DTMF_Decoder_GUI {
 
-	private JFrame frame;
+	private JFrame frmDtmfDecoderAnd;
 	private String message = "<html>\n<body  style='width: 100%;'>\n<p>The MIT License (MIT)</p>\n<p>Copyright (c) 2015 Tinotenda Chemvura</p>\n<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>\n<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>\n<p>THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>\n</body>\n</html>";
 
 	/**
@@ -25,7 +25,7 @@ public class DTMF_Decoder_GUI {
 			public void run() {
 				try {
 					DTMF_Decoder_GUI window = new DTMF_Decoder_GUI();
-					window.frame.setVisible(true);
+					window.frmDtmfDecoderAnd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,11 +44,12 @@ public class DTMF_Decoder_GUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tino1b2be/workspace/DTMF-Decoder/media/computing22.png"));
-		frame.setBounds(100, 100, 500, 186);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmDtmfDecoderAnd = new JFrame();
+		frmDtmfDecoderAnd.setTitle("DTMF Decoder and Generator");
+		frmDtmfDecoderAnd.setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tino1b2be/workspace/DTMF-Decoder/media/computing22.png"));
+		frmDtmfDecoderAnd.setBounds(100, 100, 500, 186);
+		frmDtmfDecoderAnd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDtmfDecoderAnd.getContentPane().setLayout(null);
 		
 		JButton decodeBtn = new JButton("Decode Audio File");
 		decodeBtn.addActionListener(new ActionListener() {
@@ -58,7 +59,7 @@ public class DTMF_Decoder_GUI {
 		});
 		
 		decodeBtn.setBounds(12, 37, 217, 82);
-		frame.getContentPane().add(decodeBtn);
+		frmDtmfDecoderAnd.getContentPane().add(decodeBtn);
 		
 		JButton generateBtn = new JButton("Generate DTMF Sequence");
 		generateBtn.addActionListener(new ActionListener() {
@@ -67,10 +68,10 @@ public class DTMF_Decoder_GUI {
 			}
 		});
 		generateBtn.setBounds(265, 37, 217, 82);
-		frame.getContentPane().add(generateBtn);
+		frmDtmfDecoderAnd.getContentPane().add(generateBtn);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmDtmfDecoderAnd.setJMenuBar(menuBar);
 		
 		JMenu mnMenu = new JMenu("Menu");
 		menuBar.add(mnMenu);
@@ -84,7 +85,7 @@ public class DTMF_Decoder_GUI {
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmDtmfDecoderAnd.dispose();
 			}
 		});
 		mnMenu.add(mntmExit);

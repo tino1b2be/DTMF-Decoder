@@ -9,11 +9,7 @@ sourceSets {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    compile files('libs/jl1.0.jar', 'libs/mp3spi1.9.4.jar', 'libs/tritonus_share.jar', 'libs/commons-math3-3.6.jar')
-    compile 'org.apache.commons:commons-math3:3.6'
+    compile files('libs/jl1.0.jar', 'libs/mp3spi1.9.4.jar', 'libs/tritonus_share.jar', 'libs/commons-math3-3.6.jar', 'libs/VorbisSPI1.0.3/vorbisspi1.0.3.jar')
+    
 }

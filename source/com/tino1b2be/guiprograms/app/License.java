@@ -14,6 +14,7 @@ public class License extends JFrame {
 	 * Create the frame.
 	 */
 	public License() {
+		setTitle("License");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setResizable(false);
