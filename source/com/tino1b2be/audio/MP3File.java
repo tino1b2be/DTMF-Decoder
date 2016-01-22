@@ -27,7 +27,10 @@ package com.tino1b2be.audio;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Class to represent an MP3 audio file
@@ -36,15 +39,15 @@ import java.io.InputStream;
  */
 public class MP3File extends MP3Decoder implements AudioFile{
 
-	public MP3File(String filename) throws Exception {
+	public MP3File(String filename) throws FileNotFoundException, UnsupportedAudioFileException, IOException {
 		super(new FileInputStream(new File(filename)));
 	}
 	
-	public MP3File(File file) throws FileNotFoundException, Exception{
+	public MP3File(File file) throws UnsupportedAudioFileException, IOException{
 		super(new FileInputStream(file));
 	}
 	
-	public MP3File(InputStream stream) throws Exception{
+	public MP3File(InputStream stream) throws UnsupportedAudioFileException, IOException{
 		super(stream);
 	}
 
@@ -66,12 +69,12 @@ public class MP3File extends MP3Decoder implements AudioFile{
 
 	@Override
 	public int getSampleRate() {
-		return (int) this.in.getFormat().getSampleRate();
+		return (int) this.getIn().getFormat().getSampleRate();
 	}
 
 	@Override
 	public int getNumChannels() {
-		return this.in.getFormat().getChannels();
+		return this.getIn().getFormat().getChannels();
 	}
 	
 

@@ -7,29 +7,29 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3A1A8B9#4#97.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A#63#6##3B567.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/*579A17.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/08*81#8C32770046.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/08*81#8C32770046.wav" decoded to "0*81#C32770046" instead of "08*81#8C32770046"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/6#18C9B44.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/884886#B*3950A*31.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/C##79693#93BC5580.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#1B14*538C691925A.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1A0882270.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1A0882270.wav" decoded to "1A088220" instead of "1A0882270"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/0106454A796042A502C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/30323*71A72.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/0CA#74B287C941564.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#3B7B60#748.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#3B7B60#748.wav" decoded to "#3B760#748" instead of "#3B7B60#748"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/68A30*BAAA.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/2319249#576B8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/93111A074472.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/B488#47A9*CA.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/6*55*4B8107#1008*25.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/6*55*4B8107#1008*25.wav" decoded to "6*55*4B8107#100*25" instead of "6*55*4B8107#1008*25"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1219B1A6*657B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/6#A*107272.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/8#750834C2081881.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1448C2697A#2B567B26.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3288592*966812.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/74#80*543.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A18A0**C#C1796769.wav" decoded to "A18A0*C#C1796769" instead of "A18A0**C#C1796769"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/05B5##60C376C0343B.wav" decoded to "05B5##60376C0343B" instead of "05B5##60C376C0343B"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A18A0**C#C1796769.wav
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/05B5##60C376C0343B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/C7957A3A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/9B8#405680.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A49#05B.wav
@@ -37,15 +37,15 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1C03#560803#35A5C9.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/4328#C5B67C3*B**A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/480133.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/*02*45#3A75B#9B.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/*02*45#3A75B#9B.wav" decoded to "*02*45#3AB#9B" instead of "*02*45#3A75B#9B"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#7667478*81**9C*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/**7BCC.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/77B971#AAA767#9C0.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3B*4*25.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3C077A.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/90*5B5B0.wav" decoded to "90*5B5B" instead of "90*5B5B0"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/90*5B5B0.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/CA326C0.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A5174218.wav" decoded to "A517218" instead of "A5174218"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A5174218.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1B05C60*378A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/65*386C061A93711.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/0*90537200CC0A8950.wav
@@ -53,7 +53,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/162257CA7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/B#7AC4CB6C3#B1A#9.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/107827*.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#2AA0390AB.wav" decoded to "#AA0390AB" instead of "#2AA0390AB"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#2AA0390AB.wav" decoded to "#2AA030AB" instead of "#2AA0390AB"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#B2AA4A7*#A*B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/625B#7AA165*9*B690.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/8C0*36#68.wav
@@ -62,11 +62,11 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/9669A#9.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/B1A45.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/01C23A#0014413B08#.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/62CAB67#824452#*.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/62CAB67#824452#*.wav" decoded to "62CAB67#824452#" instead of "62CAB67#824452#*"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1380*06*1660*4*BAA7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/0B55996A2*89.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3506C891897.wav" decoded to "3506C81897" instead of "3506C891897"
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/8*7A60B35668BBB156.wav
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3506C891897.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/8*7A60B35668BBB156.wav" decoded to "8*7A60B35668BB156" instead of "8*7A60B35668BBB156"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/775A2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/7B83536A717B7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/4AA8C076223*776.wav
@@ -77,7 +77,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/AB36#C4#7946.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/75A766B572187984A3.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3*639B1#C723#.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/18A0BA*C6#409*3#11.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/18A0BA*C6#409*3#11.wav" decoded to "18ABA*C6#409*3#11" instead of "18A0BA*C6#409*3#11"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/858CA202713#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/C#7B*4*45B4B73C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/6*2A11933242A5AB1A7.wav
@@ -85,7 +85,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#B0187*A1*7A3B0B*A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/1A97*8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/56B875325C.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/*0B4C#7B9C#432694#.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/*0B4C#7B9C#432694#.wav" decoded to "*0B4C#7B9C#32694#" instead of "*0B4C#7B9C#432694#"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/C11#38.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/5011A92C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/0##2B4C0C877747426.wav
@@ -93,13 +93,13 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/7929803014234A8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/2B648.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A*6#C*C98A*.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/7824A*A03*7*CBB954.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/7824A*A03*7*CBB954.wav" decoded to "7824A*A03*7*CBB94" instead of "7824A*A03*7*CBB954"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/385C0CA*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/A6#4*1B804*828B30#5.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/004B9197024A62.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/5536201.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/42238475.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/63A802A#0*73C08.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/63A802A#0*73C08.wav" decoded to "63A802A#0*73C8" instead of "63A802A#0*73C08"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3B74#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/05A80BBA3BA#89B5C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/C50*8C*#A9*.wav
@@ -129,7 +129,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/*#B3#264#7BA559CA*7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/0B9A07*7091.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/3B66C0B279#781*.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/CA7067BA39*49.wav" decoded to "C7067BA39*49" instead of "CA7067BA39*49"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/CA7067BA39*49.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/61313C0107C93377.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/4A9C7A*A49#2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/75B7010B5515#6BA2B*.wav
@@ -527,7 +527,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/590B238630#85.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/33C9ABC716329348#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/10#4A4349**#73B#CC9.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#CB737*##1149#1#A1A.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/#CB737*##1149#1#A1A.wav" decoded to "#CB737*##1149##A1A" instead of "#CB737*##1149#1#A1A"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/680CC6B87.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/C08ABA9C2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/7A58398865C99.wav
@@ -654,7 +654,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/B91#7*5.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/44A18807.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/2B8#AB380#*36.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/5#9B2771A7#8CB59C9.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/5#9B2771A7#8CB59C9.wav" decoded to "5#92771A7#8CB59C9" instead of "5#9B2771A7#8CB59C9"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/B925CB8##.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/769994C28*2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-3dBm to -1dBm/082652#*122C4#7*.wav
@@ -1006,7 +1006,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/8A8C39#285608#18555.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*805**382B6C*#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/C441873C9727B71.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/10790566C085978158.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/10790566C085978158.wav" decoded to "1079056C085978158" instead of "10790566C085978158"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/8A*789.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B33A704#21B5.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*A5#2290#6C*5C.wav
@@ -1020,12 +1020,12 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/43#1*57C*A#*5C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/13CC#9573.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B975*998707*51##19.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/270#187.wav" decoded to "270#17" instead of "270#187"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/270#187.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/87*C02.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/382*375AC6*1C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/BBCB7B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/68C026BB7C5*4328.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/6*7*2#AC0693413605.wav" decoded to "6*7*2#AC063413605" instead of "6*7*2#AC0693413605"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/6*7*2#AC0693413605.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/5363C45610CC16#0*A5.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/23973*4*9074*7113CB.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/7A9A7BB27708C2AC*.wav
@@ -1050,60 +1050,60 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/9048ABC1*C19534069.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/2B73934A*9.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/BCCA#5146974370.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/39#27168##A0B7*.wav" decoded to "39#27168##0B7*" instead of "39#27168##A0B7*"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/39#27168##A0B7*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/66743.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/5C79A1B4BAB70C0.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/4984A140.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/5C79A1B4BAB70C0.wav" decoded to "5C79A1B4BB70C0" instead of "5C79A1B4BAB70C0"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/4984A140.wav" decoded to "4984A14" instead of "4984A140"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/5C*0813AABB70*A03.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/66607581A#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/C9A5371B3#333*70.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/69#B#.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*#7471817BC1*#4.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/501**B.wav" decoded to "501*B" instead of "501**B"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*#7471817BC1*#4.wav" decoded to "*#747817BC1*#4" instead of "*#7471817BC1*#4"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/501**B.wav" decoded to "01**B" instead of "501**B"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/39#19000*A0B2309**.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/9#916243745A85.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/438#9C##*4#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1C56AC6AB8A2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/72786898091*.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#500**CA5#098*#5493.wav" decoded to "#50**CA5#098*#5493" instead of "#500**CA5#098*#5493"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#500**CA5#098*#5493.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/C037CC9B2*92.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/576#A#ACCB4.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/C#25985AB*B#07.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/568A85.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/0A1*6047CB0*110858#.wav" decoded to "0A1*6047CB0*11858#" instead of "0A1*6047CB0*110858#"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/0A1*6047CB0*110858#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/A7A978720966#3A04B0.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B149702572AB9.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1C#43.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1C#43.wav" decoded to "1C43" instead of "1C#43"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B7*B1B*638C4*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/A087*395AC*C*220#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/85#3267C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/86759B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/C04*128857.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*963#8.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/01B3C47577#4B074C.wav" decoded to "01B3C4757#4B074C" instead of "01B3C47577#4B074C"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/01B3C47577#4B074C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B#6B9B213808C#1A223.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/7046104AB86#8C111.wav" decoded to "704604AB86#8C111" instead of "7046104AB86#8C111"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/7046104AB86#8C111.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/7C5*04#0.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B91#6.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/572CA#0#829#.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/572CA#0#829#.wav" decoded to "572CA#0829#" instead of "572CA#0#829#"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B636#12*7AC83#1*61.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#1C647B052C5B0C1.wav" decoded to "#1C647B052CB0C1" instead of "#1C647B052C5B0C1"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/10AB1C1A60489C8.wav" decoded to "10B1C1A6048C8" instead of "10AB1C1A60489C8"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#1C647B052C5B0C1.wav" decoded to "#1C67B052C5B0C" instead of "#1C647B052C5B0C1"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/10AB1C1A60489C8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#9#B6#86#43.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*7*8B#8B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/310757C2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1C2BC#5.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/3*2C2429*431C7AA7*C.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/3*2C2429*431C7AA7*C.wav" decoded to "3*2C242*431C7AA7*C" instead of "3*2C2429*431C7AA7*C"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/885145648B5C6A600.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/*6153*A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/90528#8BA218370B3A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1C249B3599295941.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/3066C27469*A1C31AC7.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/2910C832***52*8*B8.wav" decoded to "2910C32***52*8*B8" instead of "2910C832***52*8*B8"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#8822C539864402375.wav" decoded to "#8822C59864402375" instead of "#8822C539864402375"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/2910C832***52*8*B8.wav
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/#8822C539864402375.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/BA6724.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1156#5A#04.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/95C*240#1957B407604.wav" decoded to "95C*240#1957B40604" instead of "95C*240#1957B407604"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/95C*240#1957B407604.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/70079CBB7#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/A5CC790081.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/5#2C34997.wav
@@ -1282,7 +1282,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/888B388A7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/826782A3C*B7CA65*7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/21#055#026C49431BC8.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/BCC731756#8B480087#.wav" decoded to "BCC731756#8B48008#" instead of "BCC731756#8B480087#"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/BCC731756#8B480087#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/1#9382BB1*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/725617A#A1.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/6327307C0042AC663C7.wav
@@ -1456,7 +1456,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/A2C2C174#B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/A9B0#36*80.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/0B612140.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/6*CC*9756**A9C.wav" decoded to "6*CC*9756**9C" instead of "6*CC*9756**A9C"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/6*CC*9756**A9C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/9046C#0*#062*0.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/74*#0#8*13.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-10dBm to -3dBm/B9*26B7493A0C#CB44B.wav
@@ -2009,47 +2009,47 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/063*8*521B**.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6BA#0A08#9*7A38AA30.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C3B#9118.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/90329A#60B*.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/90329A#60B*.wav" decoded to "9329A#60B*" instead of "90329A#60B*"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1C311#4B691.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#41##.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/9#41C9#09.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6B7883C*0##03B8.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A08#AB030.wav" decoded to "A8#AB030" instead of "A08#AB030"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A08#AB030.wav" decoded to "08#AB030" instead of "A08#AB030"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/3B7120766A*.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7373107.wav" decoded to "737317" instead of "7373107"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#3884C61C.wav" decoded to "#388461C" instead of "#3884C61C"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7368B*769B*C*37570.wav" decoded to "7368B*76B*C*37570" instead of "7368B*769B*C*37570"
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/CAB60B1*1*6.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1C770A418AC4#*C7C65.wav" decoded to "C770A418AC4#*C7C65" instead of "1C770A418AC4#*C7C65"
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A83*##B758A#59#A.wav
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7373107.wav
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#3884C61C.wav
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7368B*769B*C*37570.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/CAB60B1*1*6.wav" decoded to "CAB60B1*1*" instead of "CAB60B1*1*6"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1C770A418AC4#*C7C65.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A83*##B758A#59#A.wav" decoded to "A83*##B758#59#A" instead of "A83*##B758A#59#A"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/050B4.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/39#B#8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/66#BB3#5*A*.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A193#481524A.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A193#481524A.wav" decoded to "193#481524A" instead of "A193#481524A"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/8B543A4096*C65.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/0B5B1600983.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C96#B#497097.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C2531278B3AC86.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/35781*33#*C1CA0A32C.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C2531278B3AC86.wav" decoded to "C253128B3AC86" instead of "C2531278B3AC86"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/35781*33#*C1CA0A32C.wav" decoded to "3578133#*C1CA0A32C" instead of "35781*33#*C1CA0A32C"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7#CB8A7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/31252.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7387286B#.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7387286B#.wav" decoded to "737286B#" instead of "7387286B#"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/8215A5510295269*47.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6C6C93*3959248B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6842390AAB924289053.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/78676B87*464*8*3B#9.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/3C2369#039C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C630A61.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/8028020#67C8390C.wav" decoded to "8028020#67390C" instead of "8028020#67C8390C"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/8028020#67C8390C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A49CAA52B9737AB4.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A3A48*492*2#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/10CBA0*4B7#5*1.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/87*C*6*8*B9562.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/87*C*6*8*B9562.wav" decoded to "87*C*6*8*B562" instead of "87*C*6*8*B9562"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/133B#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C19*53*89.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/115AA7A*280921.wav" decoded to "115AAA*280921" instead of "115AA7A*280921"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/115AA7A*280921.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/9B0268A2A.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A19040#*7BA#9*.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A19040#*7BA#9*.wav" decoded to "A19040#*7BA9*" instead of "A19040#*7BA#9*"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/*77C66*21*975.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#40B1CC7#9BB*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/77#1AAB105.wav
@@ -2080,14 +2080,14 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1C7862068C*848045.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/20*33*03*7B#4#2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/9#9*10441#8A4.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7#415A5880500#.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C473B2A3*.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7#415A5880500#.wav" decoded to "7#415A580500#" instead of "7#415A5880500#"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C473B2A3*.wav" decoded to "C473B2A3" instead of "C473B2A3*"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/B*004525.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/96C#45C8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/CACC37B.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#4BAC6CC*708#478.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1A2513.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/5BC1725285301A.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/5BC1725285301A.wav" decoded to "5BC125285301A" instead of "5BC1725285301A"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#*0AAC29441.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/642#5.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/658B711B9*33A#C717.wav
@@ -2096,11 +2096,11 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/#7A847.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1#637924**780B299.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/*#5#7*8036B36A1305.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/798**A8B4#83#0C4#.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/798**A8B4#83#0C4#.wav" decoded to "98**A8B4#83#0C4#" instead of "798**A8B4#83#0C4#"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/904A552B942#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/C911#6A1809#7#2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1A84C177C8*81C#0#6.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/BB3B47B87A*4*7B226A.wav" decoded to "BB3B4787A*4*7B226A" instead of "BB3B47B87A*4*7B226A"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/BB3B47B87A*4*7B226A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/7*7A*00AB42.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/09B055.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/8A*46*AC9.wav
@@ -2111,7 +2111,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/149965721.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6#*555992B8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/06B60.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/518362#42158#1.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/518362#42158#1.wav" decoded to "18362#42158#1" instead of "518362#42158#1"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/5A04509*22302*7#0.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/4*35B95A92*C21913.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/46#8A#0CC79C998#2.wav
@@ -2123,7 +2123,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/29*7C3*797*B2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6483B562.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/AA3#239C#.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/21*C17#C129C0B4.wav" decoded to "21*C17#C12C0B4" instead of "21*C17#C129C0B4"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/21*C17#C129C0B4.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/01A254#98CABA49821.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/4AA227B3579.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/30#1365.wav
@@ -2135,7 +2135,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/961B8#11BA31C0#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1#23A8B2608.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/5*061*216.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/B*3B4B42924AC.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/B*3B4B42924AC.wav" decoded to "B*B4B42924AC" instead of "B*3B4B42924AC"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/6#C6BB900383.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/2331A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/*6#3A64.wav
@@ -2153,7 +2153,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/9B*7A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/9341#6664.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/02B*3A0C75*875.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1#B*35A6A6#43831.wav" decoded to "1#B*356A6#43831" instead of "1#B*35A6A6#43831"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/1#B*35A6A6#43831.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A*#83140C#46A*444.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/A5524C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/128635.wav
@@ -2494,7 +2494,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/612203AC95247*B2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/63A289B7A94484.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/425*#*378706*07.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/58C#15222C607#9.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/58C#15222C607#9.wav" decoded to "8C#15222C607#9" instead of "58C#15222C607#9"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/83416CC4B69*9A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/*006B05.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/87B04281A9A956.wav
@@ -2995,26 +2995,26 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/*93B9136.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-27dBm to -10dBm/BAB56257A615*A2*593.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/50C2180#.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/C2BC*C441BC9C855#32*A2**002*080.wav" decoded to "C2BC*441BC9C855#32*A2**002*080" instead of "C2BC*C441BC9C855#32*A2**002*080"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/C2BC*C441BC9C855#32*A2**002*080.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/B8BAA6.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/7125A2A088956A10A2*5A7679C2C1#A7*C605BB5C80CC.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/9A264A*762B8C55A98#*B4#4972.wav" decoded to "A264A*762B8C55A98#*B4#4972" instead of "9A264A*762B8C55A98#*B4#4972"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/4C5649*21*C02B30*A9A7*C.wav" decoded to "4C5649*21*C02B30*AA7*C" instead of "4C5649*21*C02B30*A9A7*C"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/9A264A*762B8C55A98#*B4#4972.wav" decoded to "9A26A*762B8C55A98#*B4#4972" instead of "9A264A*762B8C55A98#*B4#4972"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/4C5649*21*C02B30*A9A7*C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/A6638607609581345404.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/00A5C567A41BA2*82A9AB60A3172AC3A11780905AC3A227A*.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/9512*7*713.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/00A5C567A41BA2*82A9AB60A3172AC3A11780905AC3A227A*.wav" decoded to "00A5C567A41BA2*82A9AB60A372AC3A11780905AC3A227A*" instead of "00A5C567A41BA2*82A9AB60A3172AC3A11780905AC3A227A*"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/9512*7*713.wav" decoded to "912*7*71" instead of "9512*7*713"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/9#0A#81#A842384*5344#43#B5A1*772B1#B7#40.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/17*#ACC7C11*C36221#AA80*3176#90*.wav" decoded to "17*#ACC7C11*C3621#AA80*3176#90*" instead of "17*#ACC7C11*C36221#AA80*3176#90*"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/17*#ACC7C11*C36221#AA80*3176#90*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/C54A975.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/A135226A3914C2C0BA56.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/71BC5*0A6C287#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/*59104.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/754*B07176#B#*#9B4A783*8BB1A4B#7#B117*86B6861#2B.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/754*B07176#B#*#9B4A783*8BB1A4B#7#B117*86B6861#2B.wav" decoded to "754*B0776#B#*#9B4A783*8BB1A4B#7#B117*86B6861#2B" instead of "754*B07176#B#*#9B4A783*8BB1A4B#7#B117*86B6861#2B"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#B5AA6351417BA2C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/8A15A4.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#31#13A439#A0068630##.wav" decoded to "#31#13439#A0068630##" instead of "#31#13A439#A0068630##"
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/80BB8B36205C7989C22A3*#81*0C3*70257748596C7150452.wav" decoded to "80BB8B3625C7989C22A3*#81*0C3*7025774896C7150452" instead of "80BB8B36205C7989C22A3*#81*0C3*70257748596C7150452"
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/28A540#93*7206#05C49622#0C7529*A88.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#31#13A439#A0068630##.wav" decoded to "#31#13A439#A006830##" instead of "#31#13A439#A0068630##"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/80BB8B36205C7989C22A3*#81*0C3*70257748596C7150452.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/28A540#93*7206#05C49622#0C7529*A88.wav" decoded to "28A540#93*7206#05C496220C7529*A88" instead of "28A540#93*7206#05C49622#0C7529*A88"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/B3#68499B8.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/B1B2B73*8AAB3#5B7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/63B026962C059564A0ABA7#64#30338A9A#*9C428B3B.wav
@@ -3022,29 +3022,29 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/9119529#4A6C179B15B38B1#1A*4C10916C0B16#37917C0CA.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/0B1*3905A60##675135*39A#C*B*C641AA7.wav
 ** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/4437881CCC0900870*C*956086754C*A0B.wav" decoded to "4*09*" instead of "4437881CCC0900870*C*956086754C*A0B"
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/02AB7165A94B3*#A0*.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/06525*3041751*6#11C05789*B508B7A21A932091159A2.wav" decoded to "0525*3041751*6#11C05789*B508B7A21A932091159A2" instead of "06525*3041751*6#11C05789*B508B7A21A932091159A2"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/02AB7165A94B3*#A0*.wav" decoded to "02AB7165A943*#A0*" instead of "02AB7165A94B3*#A0*"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/06525*3041751*6#11C05789*B508B7A21A932091159A2.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/6213*B#9A5#830A27#A5C4474C7CA.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/6B909*888*1C78CA292.wav" decoded to "6B909*888*1C78CA92" instead of "6B909*888*1C78CA292"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/6B909*888*1C78CA292.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#8856#50C.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/505B6BBBB213090918548B3B2699708912BA4**5C0.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/505B6BBBB213090918548B3B2699708912BA4**5C0.wav" decoded to "505B6BBBB213090918548B3B269970892BA4**5C0" instead of "505B6BBBB213090918548B3B2699708912BA4**5C0"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/75*7CB11B9*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/2B*6A#1B04467*8C04377#4C#775C8*5B3#0#9#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/2*A16#668056632B9A369*11514C*9620.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/86B#C12A866187*343C4.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/86B#C12A866187*343C4.wav" decoded to "86B#C12A866187*33C4" instead of "86B#C12A866187*343C4"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/055*0175*130564*13C1B#50A4A*B.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/47*4A284*3BC4A413C60C1B2326A59CB7973*#*3406622.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/43424316*3B#0*C725A2#CB38B6CA79B055##0*3C#A.wav" decoded to "3424316*3B#0*C725A2#CB38B6CA79B055##0*3C#A" instead of "43424316*3B#0*C725A2#CB38B6CA79B055##0*3C#A"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/47*4A284*3BC4A413C60C1B2326A59CB7973*#*3406622.wav" decoded to "47*4A284*3BC4A413C60C1B232659CB7973*#*3406622" instead of "47*4A284*3BC4A413C60C1B2326A59CB7973*#*3406622"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/43424316*3B#0*C725A2#CB38B6CA79B055##0*3C#A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/27*658A*ABA9023000*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/A*152965*020A5#8483666AB45876C4*1A2A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/650C67.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/38*02323#394A882850A6A3*C97988#039#C14.wav" decoded to "38*02323#394A88850A6A3*C97988#039#C14" instead of "38*02323#394A882850A6A3*C97988#039#C14"
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/38*02323#394A882850A6A3*C97988#039#C14.wav" decoded to "38*02323#394A882850A6A3*C9788#039#C14" instead of "38*02323#394A882850A6A3*C97988#039#C14"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/10B#3425#71#61377A7*48006*C12057C##BB#5042C050.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#7**84659209786560#*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/B4*18A40A*51BA*7.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/971#B13*8555*C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/5B7064229#18*44C6#C6B71CBC76#6388C3BCC344.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/71814C950872**A8B2C436*A7AC6#ABCB*4C22138**A.wav" decoded to "71814C950872*A8B2C436*A7AC6#ABCB*4C22138**A" instead of "71814C950872**A8B2C436*A7AC6#ABCB*4C22138**A"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/71814C950872**A8B2C436*A7AC6#ABCB*4C22138**A.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/1317588*4C81AB3B1#B4B254A*154A14*285#.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#83ABC8B3C3C1AC4420B264CAACB7463B*549.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/54BBA1B318AA2913A70A0A512#77#71B.wav
@@ -3176,7 +3176,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/3ACA53A0920AAB.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/ABCB#0932637B2670419A5.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/0B1B8B47491*61##8CC6C6.wav
-~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/66071604#71B9528268**B87684B5A822A68#C#13C.wav
+** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/66071604#71B9528268**B87684B5A822A68#C#13C.wav" decoded to "66071604#71B9528268**B7684B5A822A68#C#13C" instead of "66071604#71B9528268**B87684B5A822A68#C#13C"
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/257136C33A699630B81923*CB#0614B1*244AC8#9424.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/5#1#51B9B5#4#55387766C72.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/583##0303B83#0C5A25*4882429#75B1.wav
@@ -3406,7 +3406,7 @@
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/29940AB1591.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/#B7640A6011424CB#57A*6*A8041737CCB6C066B666*.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/415C7CB72527C78B603126B7C*315*6883C4A*#.wav
-** FAIL : , The file "/home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/6355#8C1CC5256946C0##A188AC8C.wav" decoded to "6355#8C1CC5256946C0##A88AC8C" instead of "6355#8C1CC5256946C0##A188AC8C"
+~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/6355#8C1CC5256946C0##A188AC8C.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/*5A98.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/*39C1826B1#AAC0695AC98.wav
 ~~ pass : , /home/tino1b2be/workspace/DTMF-Decoder/Prototyping/Test Data/-1dBm to 0dBm/3BB09C485#2#14174928A21*00A23*4CA276C9#C3C44096C1.wav

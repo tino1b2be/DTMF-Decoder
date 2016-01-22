@@ -21,8 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-
 package com.tino1b2be.audio;
 
 import java.io.IOException;
@@ -33,6 +31,16 @@ import java.io.IOException;
  *
  */
 public interface AudioFile {
+	
+	/**
+	 * Enum for the types of audio files that are supported by the dtmf decoder.
+	 * 
+	 * @author tino1b2be
+	 */
+	public enum AudioType{
+		// More audio types can be added as they are implemented.
+		MP3, WAV;
+	}
 	
 	/**
 	 * Read samples from an audio file with 1 channel (mono)

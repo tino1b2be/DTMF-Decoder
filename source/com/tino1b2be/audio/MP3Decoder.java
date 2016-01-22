@@ -24,27 +24,28 @@ import javazoom.spi.mpeg.sampled.file.MpegEncoding;
 import javazoom.spi.mpeg.sampled.file.MpegFileFormatType;
 
 /**
- * Another mp3 decoder. I got a suspicion that the other one sucks a bit :/
+ * Class to open and read MP3 files.
+ * Modified by Tinotenda Chemvura for usage in the DTMF Decoder API
  * @author mzechner
  *
  */
 public class MP3Decoder
 {				
-	AudioInputStream in;
-	FloatSampleBuffer buffer;
-	byte[] bytes;
+	private AudioInputStream in;
+	private FloatSampleBuffer buffer;
+	private byte[] bytes;
 	
-	public MP3Decoder( InputStream stream ) throws Exception
+	public MP3Decoder( InputStream stream ) throws UnsupportedAudioFileException, IOException
 	{
 		InputStream in = new BufferedInputStream( stream, 1024*1024 );
-		this.in = new MP3AudioFileReader( ).getAudioInputStream( in );
-		AudioFormat baseFormat = this.in.getFormat();
+		this.setIn(new MP3AudioFileReader( ).getAudioInputStream( in ));
+		AudioFormat baseFormat = this.getIn().getFormat();
 		AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
 											baseFormat.getSampleRate(), 16,
 											baseFormat.getChannels(),
 											baseFormat.getChannels() * 2,
 											baseFormat.getSampleRate(), false);
-		this.in = AudioSystem.getAudioInputStream(format, this.in);
+		this.setIn(AudioSystem.getAudioInputStream(format, this.getIn()));
 		// TODO might need to close "in"
 	}
 
@@ -53,14 +54,14 @@ public class MP3Decoder
 	{
 		if( buffer == null || buffer.getSampleCount() < samples.length )
 		{
-			buffer = new FloatSampleBuffer( in.getFormat().getChannels(), samples.length, in.getFormat().getSampleRate() );
-			bytes = new byte[buffer.getByteArrayBufferSize( in.getFormat() )];
+			buffer = new FloatSampleBuffer( getIn().getFormat().getChannels(), samples.length, getIn().getFormat().getSampleRate() );
+			bytes = new byte[buffer.getByteArrayBufferSize( getIn().getFormat() )];
 		}
 			
 		int read = 0;			
 		int readBytes = 0;
 		try {
-			readBytes = in.read( bytes, read, bytes.length - read );
+			readBytes = getIn().read( bytes, read, bytes.length - read );
 		} catch (IOException e) {
 			return 0;
 		}
@@ -71,15 +72,15 @@ public class MP3Decoder
 		while( readBytes != -1 && read != bytes.length )
 		{
 			try {
-				readBytes = in.read( bytes, read, bytes.length - read );
+				readBytes = getIn().read( bytes, read, bytes.length - read );
 			} catch (IOException e) {
 				return 0;
 			}
 			read += readBytes;
 		}	
 		
-		int frameCount = bytes.length / in.getFormat().getFrameSize();
-		buffer.setSamplesFromBytes(bytes, 0, in.getFormat(), 0, frameCount);
+		int frameCount = bytes.length / getIn().getFormat().getFrameSize();
+		buffer.setSamplesFromBytes(bytes, 0, getIn().getFormat(), 0, frameCount);
 		
 		for( int i = 0; i <buffer.getSampleCount(); i++ )
 		{						
@@ -97,14 +98,14 @@ public class MP3Decoder
 	{
 		if( buffer == null || buffer.getSampleCount() < samples.length )
 		{
-			buffer = new FloatSampleBuffer( in.getFormat().getChannels(), samples[0].length, in.getFormat().getSampleRate() );
-			bytes = new byte[buffer.getByteArrayBufferSize( in.getFormat() )];
+			buffer = new FloatSampleBuffer( getIn().getFormat().getChannels(), samples[0].length, getIn().getFormat().getSampleRate() );
+			bytes = new byte[buffer.getByteArrayBufferSize( getIn().getFormat() )];
 		}
 			
 		int read = 0;			
 		int readBytes = 0;
 		try {
-			readBytes = in.read( bytes, read, bytes.length - read );
+			readBytes = getIn().read( bytes, read, bytes.length - read );
 		} catch (IOException e) {
 			return 0;
 		}
@@ -115,15 +116,15 @@ public class MP3Decoder
 		while( readBytes != -1 && read != bytes.length )
 		{
 			try {
-				readBytes = in.read( bytes, read, bytes.length - read );
+				readBytes = getIn().read( bytes, read, bytes.length - read );
 			} catch (IOException e) {
 				return 0;
 			}
 			read += readBytes;
 		}	
 		
-		int frameCount = bytes.length / in.getFormat().getFrameSize();
-		buffer.setSamplesFromBytes(bytes, 0, in.getFormat(), 0, frameCount);
+		int frameCount = bytes.length / getIn().getFormat().getFrameSize();
+		buffer.setSamplesFromBytes(bytes, 0, getIn().getFormat(), 0, frameCount);
 		
 		for (int i = 0; i < buffer.getSampleCount(); i++) {
 			samples[0][i] = buffer.getChannel(0)[i];
@@ -134,7 +135,16 @@ public class MP3Decoder
 	}
 	
 	public void close() throws IOException{
-		in.close();
+		getIn().close();
+	}
+
+	public AudioInputStream getIn() {
+		return in;
+	}
+
+
+	public void setIn(AudioInputStream in) {
+		this.in = in;
 	}
 
 	class MP3AudioFileReader extends TAudioFileReader

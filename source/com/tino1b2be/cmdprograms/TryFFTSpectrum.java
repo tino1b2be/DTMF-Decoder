@@ -5,8 +5,8 @@ import org.apache.commons.math3.transform.DftNormalization;
 import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
 
-import com.tino1b2be.DTMFDecoder.DecoderUtil;
-import com.tino1b2be.DTMFDecoder.Signals;
+import com.tino1b2be.dtmfdecoder.DecoderUtil;
+import com.tino1b2be.dtmfdecoder.Signals;
 
 public class TryFFTSpectrum {
 

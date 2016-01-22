@@ -1,11 +1,38 @@
+/* The MIT License (MIT)
+ * 
+ * Copyright (c) 2015 Tinotenda Chemvura
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.tino1b2be.cmdprograms;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import com.tino1b2be.DTMFDecoder.DTMFUtil;
 import com.tino1b2be.audio.AudioFileException;
+import com.tino1b2be.dtmfdecoder.DTMFUtil;
 
+/**
+ * Test test thread to run the dtmf decoder on test data.
+ * @author tino1b2be
+ *
+ */
 public class TestThread extends Thread {
 
 	private TestResult[] results; // results array
@@ -21,14 +48,22 @@ public class TestThread extends Thread {
 
 	public String parent;
 
-	public TestThread(ArrayList<File> files, TestResult[] results, int start, int stop) {
+	/**
+	 * Test thread to run the dtmf decoder on test files.
+	 * @param files list of files to be tested
+	 * @param results array to store the results in. This array can be shared amoungst several threads
+	 * @param start index to start writing the results to in the results array. 
+	 */
+	public TestThread(ArrayList<File> files, TestResult[] results, int start) {
 		this.files = files;
 		this.results = results;
 		this.start = start;
-//		this.stop = stop;
 		this.parent = files.get(0).getParentFile().getName();
 	}
 
+	/**
+	 * Start running the decoder on the audio files.
+	 */
 	public void run() {
 		// cylces through each wav file and test the decoder
 		// store the results in the results array

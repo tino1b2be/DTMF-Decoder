@@ -27,11 +27,12 @@ package com.tino1b2be.cmdprograms;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-import com.tino1b2be.DTMFDecoder.DTMFDecoderException;
-import com.tino1b2be.DTMFDecoder.DTMFUtil;
-import com.tino1b2be.DTMFDecoder.FileUtil;
 import com.tino1b2be.audio.WavFileException;
+import com.tino1b2be.dtmfdecoder.DTMFDecoderException;
+import com.tino1b2be.dtmfdecoder.DTMFUtil;
+import com.tino1b2be.dtmfdecoder.FileUtil;
 
 /**
  * Program to process audio recordings and listen for DTMF tones
@@ -39,11 +40,9 @@ import com.tino1b2be.audio.WavFileException;
  * @author tino1b2be
  *
  */
-
 public class AudioRecordingsTest {
 	private static String parent;
 	private static String resultsFilename;
-	private static int toneDuration;
 	
 	/**
 	 * Program to process audio recordings and listen for DTMF tones.
@@ -61,27 +60,30 @@ public class AudioRecordingsTest {
 	 * @throws DTMFDecoderException 
 	 */
 	public static void main(String[] args) throws IOException, WavFileException, InterruptedException, DTMFDecoderException {
-		double startT = System.currentTimeMillis();
-		DTMFUtil.setMinToneDuration(80);
+		
+		
 		if (args.length == 3){
 			parent = args[0];
 			resultsFilename = args[1];
-			toneDuration = Integer.parseInt(args[2]);
+			DTMFUtil.setMinToneDuration(Integer.parseInt(args[2]));
 		}
 		else{
 			getInputFromUser();
 		}
-			// create 8 threads
+		
+		System.out.println("Tests now running. This may take a while please be patient."
+				+ "\nFiles are assumed to be MONO mp3 files or wav files");
+		// create 8 threads
+		double startT = System.currentTimeMillis();
 		
 		ArrayList<ArrayList<File>> testThreadFiles = new ArrayList<>();
-		ArrayList<File> testFiles = FileUtil.getFiles(parent);
+		ArrayList<File> testFiles = FileUtil.getFiles(parent, ".wav");
 		setUpThreadFiles(testThreadFiles, testFiles);
 		AudioTestResult[] results = new AudioTestResult[testFiles.size()];
 		AudioTestThread[] testThreads = startThreads(testThreadFiles, results);
 		for (AudioTestThread thread : testThreads)
 			thread.join();
-		// FileUtil.writeToFile(results, "Audio Recordings results (60ms).txt");
-		FileUtil.writeToFileSuccessOnly(results, "Audio Recordings results (80ms) (Found).txt");
+		FileUtil.writeToFileSuccessOnly(results, resultsFilename);
 		double perc = AudioTestResult.filesWithTones.get() * 100.0 / testFiles.size();
 		System.out.println("done" + "\nFiles with tones = " + AudioTestResult.filesWithTones.get() + " = " + perc
 				+ "% of all files.");
@@ -97,12 +99,12 @@ public class AudioRecordingsTest {
 		int i = 0;
 		for (; i < testThreadFiles.size() - 1; i++){
 			stop = start + testThreadFiles.get(i).size();
-			testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start, stop);
+			testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start);
 			testThreads[i].start();
 			start = stop;
 		}
 		// start another thread inside this current thread
-		testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start, stop);
+		testThreads[i] = new AudioTestThread(testThreadFiles.get(i), results, start);
 		testThreads[i].run();
 		return testThreads;
 	}
@@ -123,9 +125,31 @@ public class AudioRecordingsTest {
 	}
 
 	private static void getInputFromUser() {
-		parent = "/media/tino1b2be/lin_2/wavs/converted/TestAPI2/";
-		resultsFilename = "Audio Test Results.txt";
-		toneDuration = 80;
-		// get input from user. TODO
+//		parent = "/media/tino1b2be/lin_2/wavs/converted/TestAPI2/";
+//		resultsFilename = "Audio Test Results.txt";
+		
+		System.out.print("Please enter the directory containing the test files: ");
+		Scanner sc = new Scanner(System.in);
+		parent = sc.nextLine();
+		
+		System.out.print("Please enter the minimum tone duration to be used for detection.: ");
+		double tone;
+		do {
+			try {
+				tone = Double.parseDouble(sc.nextLine());
+				DTMFUtil.setMinToneDuration((int) tone);
+				break;
+			} catch (NumberFormatException e){
+				System.err.println("Input not a number. Please enter a valid number, decimals accepted. (0 or negative number to use default tone duration.)");
+			} catch (NullPointerException e) {
+				System.err.println("Please enter a valid number, decimals accepted. (0 or negative number to use default tone duration.)");
+			} catch (DTMFDecoderException e) {
+				System.err.println(e.getMessage());
+			}
+		} while (true);
+		
+		System.out.print("Please enter the filename for the test results: ");
+		resultsFilename = sc.nextLine();
+		sc.close();
 	}
 }

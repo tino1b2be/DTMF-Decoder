@@ -1,6 +1,5 @@
 package com.tino1b2be.audio;
 
-
 // File format is based on the information from
 // http://www.sonicspot.com/guide/wavefiles.html
 // http://www.blitter.com/~russtopia/MIDI/~jglatt/tech/wave.htm
@@ -13,6 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+/**
+ * Class to open and read wav files
+ * Modified by Tinotenda Chemvura for usage in the DTMF Decoder.
+ * original source = http://www.labbookpages.co.uk/audio/javaWavFiles.html
+ * @author Dr. Andrew Greensted (?)
+ *
+ */
 public class WavFileUtil
 
 {

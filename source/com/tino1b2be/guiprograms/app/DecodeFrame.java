@@ -17,9 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.tino1b2be.DTMFDecoder.DTMFDecoderException;
-import com.tino1b2be.DTMFDecoder.DTMFUtil;
 import com.tino1b2be.audio.WavFileException;
+import com.tino1b2be.dtmfdecoder.DTMFDecoderException;
+import com.tino1b2be.dtmfdecoder.DTMFUtil;
 
 import javax.swing.JLabel;
 import java.awt.Font;
