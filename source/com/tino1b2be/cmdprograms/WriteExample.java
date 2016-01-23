@@ -10,14 +10,15 @@ public class WriteExample
 	{
 		try
 		{
-			int sampleRate = 44100;		// Samples per second
+			int sampleRate = 8000;		// Samples per second
 			double duration = 5.0;		// Seconds
 
 			// Calculate the number of frames required for specified duration
 			long numFrames = (long)(duration * sampleRate);
 
 			// Create a wav file with the name specified as the first argument
-			WavFile wavFile = (WavFile) WavFile.newWavFile(new File(args[0]), 2, numFrames, 16, sampleRate);
+			WavFile wavFile;
+			wavFile = new WavFile(new File("/home/tino1b2be/workspace/DTMF-Decoder/testing.wav"), 2, numFrames, 16, sampleRate);			
 
 			// Create a buffer of 100 frames
 			double[][] buffer = new double[2][100];

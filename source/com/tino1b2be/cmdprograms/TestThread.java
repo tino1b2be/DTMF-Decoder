@@ -84,7 +84,8 @@ public class TestThread extends Thread {
 		DTMFUtil dtmf;
 		for (File file : files) {
 			dtmf = new DTMFUtil(file);
-			String decoded = dtmf.decode()[0];
+			dtmf.decode();
+			String decoded = dtmf.getDecoded()[0];
 			results[i] = new TestResult(file, decoded);
 			tries += results[i].tries;
 			hits += results[i].hits;

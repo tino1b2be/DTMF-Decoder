@@ -166,7 +166,8 @@ public class DecodeFrame extends JFrame {
 					DTMFUtil dtmf;
 						 try {
 							dtmf = new DTMFUtil(file);
-							decodedSeq = dtmf.decode();
+							dtmf.decode();
+							decodedSeq = dtmf.getDecoded();
 						} catch (IOException | AudioFileException | DTMFDecoderException | UnsupportedAudioFileException | WavFileException e) {
 							JOptionPane.showMessageDialog(null, e.getMessage());
 							return;

@@ -60,7 +60,8 @@ public class DTMFDecoder {
 		}
 		
 		DTMFUtil dtmf = new DTMFUtil(filename);
-		String[] sequence = dtmf.decode();
+		dtmf.decode();
+		String[] sequence = dtmf.getDecoded();
 		
 		if (dtmf.getChannelCount() == 1) {
 			System.out.println("The DTMF tones found in the given file are: " + sequence[0]);

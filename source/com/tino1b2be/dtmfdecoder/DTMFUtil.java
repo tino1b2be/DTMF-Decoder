@@ -26,6 +26,7 @@ package com.tino1b2be.dtmfdecoder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -59,9 +60,13 @@ public class DTMFUtil {
 	private static boolean decode80 = false;
 	private static boolean decode100 = false;
 	
+	private boolean decoder = false;
+	private boolean generate = false;
+	
 	private String seq[];
 	private AudioFile audio;
 	private int frameSize;
+
 	private static int[] freqIndicies;
 	
 	/**
@@ -88,6 +93,18 @@ public class DTMFUtil {
 	 */
 	public static final int[] DTMF_FREQUENCIES = {697,770,852,941,1209,1336,1477,1633};
 	
+	public static final char[] DTMF_CHARACTERS = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D'};
+	
+	
+	//generation variables
+	private double[] generatedSeq;
+	private int outPauseDurr;
+	private int outToneDurr;
+	private double outFs;
+	private File outFile;
+	private char[] outChars;
+	private boolean generated;
+	
 	/**
 	 * Create DTMFUtil object for an audio file given the AudioFile object
 	 * 
@@ -96,6 +113,7 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException 
 	 */
 	public DTMFUtil(AudioFile data) throws DTMFDecoderException {
+		this.decoder = true;
 		this.audio = data;
 		setFrameSize();
 		setCentreIndicies();
@@ -118,6 +136,7 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException 
 	 */
 	public DTMFUtil(String filename) throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException, DTMFDecoderException{
+		this.decoder = true;
 		this.audio = FileUtil.readAudioFile(filename);
 		setFrameSize();
 		setCentreIndicies();
@@ -140,6 +159,7 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException 
 	 */
 	public DTMFUtil(File file) throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException, DTMFDecoderException{
+		this.decoder = true;
 		this.audio = FileUtil.readAudioFile(file);
 		setFrameSize();
 		setCentreIndicies();
@@ -149,6 +169,61 @@ public class DTMFUtil {
 		this.seq[1] = "";
 	}
 
+	/**
+	 * Constructor to be used to generate a sequence of DTMF tones.
+	 * @param file 
+	 * 
+	 * @param chars Array with the sequence of DTMF characters.
+	 * @param Fs Sampling Frequency 
+	 * @param toneDurr Duration of a tone.
+	 * @param pauseDurr Duration of a pause
+	 * @throws DTMFDecoderException If the given characters are not valid DTMF characters
+	 */
+	public DTMFUtil(File file, char[] chars, int fs, int toneDurr, int pauseDurr) throws DTMFDecoderException {
+		this.generate = true;
+		setChars(chars);
+		this.outFs = fs;
+		this.outToneDurr = toneDurr;
+		this.outPauseDurr = pauseDurr;
+		this.outFile = file;
+	}
+	
+	/**
+	 * Constructor to be used to generate a sequence of DTMF tones.
+	 * @param file 
+	 * 
+	 * @param chars Array with the sequence of DTMF characters.
+	 * @param Fs Sampling Frequency 
+	 * @param toneDurr Duration of a tone.
+	 * @param pauseDurr Duration of a pause
+	 * @throws DTMFDecoderException If the given characters are not valid DTMF characters
+	 */
+	public DTMFUtil(String filename, char[] chars, int fs, int toneDurr, int pauseDurr) throws DTMFDecoderException {
+		this.generate = true;
+		setChars(chars);
+		this.outFs = fs;
+		this.outToneDurr = toneDurr;
+		this.outPauseDurr = pauseDurr;
+		this.outFile = new File(filename);
+	}
+
+	/**
+	 * Check if the characters are valid and set the characters
+	 * @param chars Characters to be generated
+	 * @throws DTMFDecoderException 
+	 */
+	private void setChars(char[] chars) throws DTMFDecoderException {
+		outChars = new char[chars.length];
+		char[] cc = Arrays.copyOf(DTMF_CHARACTERS, DTMF_CHARACTERS.length);
+		Arrays.sort(DTMF_CHARACTERS);
+		for (int c = 0; c < chars.length;c++){
+			if (Arrays.binarySearch(cc, chars[c]) < 0)
+				throw new DTMFDecoderException("The character \"" + chars[c] + "\" is not a DTMF character.");
+			else
+				outChars[c] = chars[c];
+		}
+	}
+	
 	/**
 	 * Method to precalculate the indices to be used to locate the DTMF frequencies in the power spectrum
 	 */
@@ -276,7 +351,7 @@ public class DTMFUtil {
 	 * @throws DTMFDecoderException
 	 *             Throws excepion when the file has not been decoded yet.
 	 */
-	public String[] getSequence() throws DTMFDecoderException {
+	public String[] getDecoded() throws DTMFDecoderException {
 		if (!decoded)
 			throw new DTMFDecoderException("File has not been decoded yet. Please run the method decode() first!");
 		return seq;
@@ -982,14 +1057,16 @@ public class DTMFUtil {
 	 * Method to decode the wav file and return the sequence of DTMF tones
 	 * represented.
 	 * 
-	 * @return String array with the sequence of tones for each channel. Mono files will have the sequence stored in the first position of the array.
+	 * @return True if decoding process was successful
 	 * @throws IOException
 	 * @throws WavFileException
 	 * @throws DTMFDecoderException
 	 */
-	public String[] decode() throws IOException, AudioFileException , DTMFDecoderException {
+	public boolean decode() throws IOException, AudioFileException , DTMFDecoderException {
+		if (!decoder)
+			throw new DTMFDecoderException("The object was not instantiated in decoding mode. Please use the correct constructor.");
 		if (decoded) {
-			return seq;
+			return true;
 		}
 		if (audio.getNumChannels() == 1) {
 			if (decode60)
@@ -1013,7 +1090,7 @@ public class DTMFUtil {
 			decoded = true;
 		} else
 			throw new DTMFDecoderException("Can only decode mono and stereo files.");
-		return seq;
+		return true;
 	}
 	
 	/**
@@ -1051,5 +1128,149 @@ public class DTMFUtil {
 	 */
 	public int getChannelCount() {
 		return audio.getNumChannels();
+	}
+	
+	/**
+	 * Method to generate the DTMF tone. 
+	 * @return True if generation was successful
+	 * @throws DTMFDecoderException 
+	 */
+	public boolean generate() throws DTMFDecoderException {
+		if (!generate)
+			throw new DTMFDecoderException("The object was not instantiated in the generation mode. Plese use the correct constructor.");
+		
+		ArrayList<Double> outSamples = new  ArrayList<Double>();
+		
+		// calculate length (number of samples) of the tones and pauses
+		int toneLen = (int) Math.floor((outToneDurr*outFs)/1000.0);
+		int pauseLen = (int) Math.floor((outPauseDurr*outFs)/1000.0);
+		
+		// Add a pause at beginning of the file
+		addPause(outSamples,pauseLen);
+		
+		// add the tones
+		for (int i = 0; i < outChars.length; i++){
+			// add tone samples
+			addTone(outSamples, outChars[i], toneLen);
+			// add pause samples
+			addPause(outSamples, pauseLen);
+		}
+		// Add a pause at the end of the file
+		addPause(outSamples,pauseLen);
+		
+		generatedSeq = new double[outSamples.size()];
+		for (int i = 0; i < generatedSeq.length; i++)
+			generatedSeq[i] = outSamples.get(i);
+		generated = true;
+		return true;
+	}
+
+	/**
+	 * Method to generate samples representing a dtmf tone
+	 * 
+	 * @param samples array of samples to add the generated samples to.
+	 * @param c DTMF character to generate.
+	 * @param toneLen Number of samples to generate.
+	 * @throws DTMFDecoderException If the given character is not a dtmf character.
+	 */
+	private void addTone(ArrayList<Double> samples, char c, int toneLen) throws DTMFDecoderException {
+		double[] f = getFreqs(c);
+		for (double s = 0; s < toneLen; s++){
+			double lo = Math.sin(2.0 * Math.PI * f[0] * s / outFs);
+			double hi = Math.sin(2.0 * Math.PI * f[1] * s / outFs);
+			samples.add(hi+lo);
+		}
+	}
+
+	/**
+	 * Method get the DTMF lower and upper frequencies.
+	 * 
+	 * @param c DTMF character
+	 * @return DTMF Frequencies to use to generate the tone.
+	 * @throws DTMFDecoderException If the given character is not a DTMF character.
+	 */
+	private double[] getFreqs(char c) throws DTMFDecoderException {
+		double[] out = new double[2];
+		
+		if (c == '0'){
+			out[0] = 941;
+			out[1] = 1336;
+		} else if (c == '1'){
+			out[0] = 697;
+			out[1] = 1209;
+		} else if (c == '2'){
+			out[0] = 697;
+			out[1] = 1336;
+		} else if (c == '3'){
+			out[0] = 697;
+			out[1] = 1477;
+		} else if (c == '4'){
+			out[0] = 770;
+			out[1] = 1209;
+		} else if (c == '5'){
+			out[0] = 770;
+			out[1] = 1336;
+		} else if (c == '6'){
+			out[0] = 770;
+			out[1] = 1477;
+		} else if (c == '7'){
+			out[0] = 852;
+			out[1] = 1209;
+		} else if (c == '8'){
+			out[0] = 852;
+			out[1] = 1336;
+		} else if (c == '9'){
+			out[0] = 852;
+			out[1] = 1477;
+		} else if (c == 'A' || c == 'a'){
+			out[0] = 697;
+			out[1] = 1633;
+		} else if (c == 'B' || c == 'b'){
+			out[0] = 770;
+			out[1] = 1633;
+		} else if (c == 'C' || c == 'c'){
+			out[0] = 852;
+			out[1] = 1633;
+		} else if (c == 'D' || c == 'd'){
+			out[0] = 941;
+			out[1] = 1633;
+		} else 
+			throw new DTMFDecoderException("\"" + c + "\" is not a DTMF Character.");
+		
+		return out;
+	}
+
+	/**
+	 * Method to add samples that represent a pause to the output
+	 * 
+	 * @param samples Array of samples to add to.
+	 * @param pauseLen Number of samples to add.
+	 */
+	private void addPause(ArrayList<Double> samples, int pauseLen) {
+		for (int s = 0; s < pauseLen; s++)
+			samples.add(0.0);
+	}
+
+	/**
+	 * Write the generated sequenec to a wav file.
+	 * @throws WavFileException 
+	 * @throws IOException 
+	 */
+	public void export() throws IOException, WavFileException {
+		FileUtil.writeWavFile(outFile, generatedSeq, outFs);
+	}
+	
+	/**
+	 * Get the samples array of the DTMF sequence of tones.
+	 * 
+	 * @return array with the samples of the dtmf sequence that has been generated.
+	 * @throws DTMFDecoderException If the samples have no been generated yet.
+	 */
+	public double[] getGeneratedSequence() throws DTMFDecoderException{
+		
+		if (generated)
+			return generatedSeq;
+		else 
+			throw new DTMFDecoderException("Samples have not been generated yet. Please run generate() first.");
 	}
 }

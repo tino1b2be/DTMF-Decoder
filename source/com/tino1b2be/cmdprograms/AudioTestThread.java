@@ -82,7 +82,8 @@ public class AudioTestThread extends Thread {
 		int i = start;
 		for (File file : files) {
 			DTMFUtil dtmf = new DTMFUtil(file);
-			String decoded = dtmf.decode()[0];
+			dtmf.decode();
+			String decoded = dtmf.getDecoded()[0];
 			results[i++] = new AudioTestResult(file, decoded);
 		}
 	}

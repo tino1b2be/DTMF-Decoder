@@ -100,8 +100,10 @@ public class FileUtil {
 	/**
 	 * Write test results to a file
 	 * 
-	 * @param dataOut Array of results to be exported
-	 * @param filename Filename of the text file to be exported
+	 * @param dataOut
+	 *            Array of results to be exported
+	 * @param filename
+	 *            Filename of the text file to be exported
 	 * @throws IOException
 	 */
 	public static <T> void writeToFile(ArrayBlockingQueue<T> dataOut, String filename) throws IOException {
@@ -122,8 +124,10 @@ public class FileUtil {
 	/**
 	 * Write test results to a file
 	 * 
-	 * @param dataOut Array of results to be exported
-	 * @param filename Filename of the text file to be exported
+	 * @param dataOut
+	 *            Array of results to be exported
+	 * @param filename
+	 *            Filename of the text file to be exported
 	 * @throws IOException
 	 */
 	public static void writeToFile(TestResult[] dataOut, String filename) throws IOException {
@@ -139,20 +143,26 @@ public class FileUtil {
 		}
 		pw.close();
 	}
-	
+
 	/**
-	 * Method to file objects of all the directories found in the given parent directory.
-	 * @param parent path of parent directory
-	 * @return An array with file objects of the directories found in the parent directory.
-	 * @throws DTMFDecoderException If the given file path is not a directory of if it is empty.
-	 * @throws FileNotFoundException If the directory does not exist
+	 * Method to file objects of all the directories found in the given parent
+	 * directory.
+	 * 
+	 * @param parent
+	 *            path of parent directory
+	 * @return An array with file objects of the directories found in the parent
+	 *         directory.
+	 * @throws DTMFDecoderException
+	 *             If the given file path is not a directory of if it is empty.
+	 * @throws FileNotFoundException
+	 *             If the directory does not exist
 	 */
-	public static ArrayList<File> getDirs(String parent)throws DTMFDecoderException, FileNotFoundException {
+	public static ArrayList<File> getDirs(String parent) throws DTMFDecoderException, FileNotFoundException {
 		if (!(new File(parent).exists()))
-				throw new FileNotFoundException("The given file path does not exist.");
+			throw new FileNotFoundException("The given file path does not exist.");
 		if (!(new File(parent).isDirectory()))
 			throw new DTMFDecoderException("The given filepath does not represent a directory.");
-		
+
 		ArrayList<File> files = new ArrayList<>(); // output array of files
 		File dir = new File(parent); // file directory for test files
 		File[] directoryListing = dir.listFiles(); // files inside directory
@@ -347,5 +357,14 @@ public class FileUtil {
 			return readWavFileBuffer(filename);
 		} else
 			throw new AudioFileException("File type not supported.");
+	}
+
+	public static void writeWavFile(File outFile, double[] samples, double outFs) throws IOException, WavFileException {
+		int fs = (int)outFs;
+		WavFile wavFile = new WavFile(outFile, 1, samples.length, 16, fs);
+		// Initialise a local frame counter
+		wavFile.writeFrames(samples, samples.length);
+		// Close the wavFile
+		wavFile.close();
 	}
 }
