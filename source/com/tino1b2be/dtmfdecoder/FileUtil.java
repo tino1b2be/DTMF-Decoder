@@ -288,12 +288,13 @@ public class FileUtil {
 	}
 
 	private static WavFile readWavFileBuffer(String filename) throws IOException, WavFileException {
-
-		return new WavFile(WavFile.openWavFile(new File(filename)));
+		WavFile f = new WavFile(WavFile.openWavFile(new File(filename)));
+		return f;
 	}
 
 	private static WavFile readWavFileBuffer(File file) throws IOException, WavFileException {
-		return readWavFileBuffer(file.getPath());
+		WavFile f = readWavFileBuffer(file.getPath());
+		return f;
 	}
 
 	/**
@@ -310,7 +311,8 @@ public class FileUtil {
 	 */
 	public static AudioFile readAudioFile(String filename)
 			throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException {
-		return readAudioFile(new File(filename));
+		AudioFile f = readAudioFile(new File(filename));
+		return f;
 	}
 
 	/**
@@ -329,7 +331,8 @@ public class FileUtil {
 		if (file.getName().toLowerCase().endsWith(".mp3")) {
 			return readMp3File(file.getAbsolutePath());
 		} else if (file.getName().toLowerCase().endsWith(".wav")) {
-			return readWavFileBuffer(file);
+			WavFile f = readWavFileBuffer(file);
+			return f;
 		} else {
 			throw new AudioFileException("File type not supported.");
 		}
