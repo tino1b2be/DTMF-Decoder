@@ -131,6 +131,8 @@ public class FileUtil {
 	 * @throws IOException
 	 */
 	public static void writeToFile(TestResult[] dataOut, String filename) throws IOException {
+//		File f = new File(filename);
+//		f.getParentFile().mkdirs();
 		PrintWriter pw = new PrintWriter(new FileWriter(filename));
 		if (dataOut == null)
 			pw.print("");
@@ -270,6 +272,8 @@ public class FileUtil {
 	 * @throws IOException
 	 */
 	public static void writeToFileSuccessOnly(AudioTestResult[] dataOut, String filename) throws IOException {
+		File f = new File(filename);
+		f.getParentFile().mkdirs();
 		PrintWriter pw = new PrintWriter(new FileWriter(filename));
 		if (dataOut == null)
 			pw.print("");
@@ -364,10 +368,24 @@ public class FileUtil {
 
 	public static void writeWavFile(File outFile, double[] samples, double outFs) throws IOException, WavFileException {
 		int fs = (int)outFs;
+		if (!outFile.toString().endsWith(".wav")) outFile = new File(outFile.getAbsolutePath() + ".wav");
 		WavFile wavFile = new WavFile(outFile, 1, samples.length, 16, fs);
 		// Initialise a local frame counter
 		wavFile.writeFrames(samples, samples.length);
 		// Close the wavFile
 		wavFile.close();
+	}
+
+	public static void writeToFile(double[] dataOut, String filename) throws IOException {
+		PrintWriter pw = new PrintWriter(new FileWriter(filename));
+		if (dataOut == null)
+			pw.print("");
+		else {
+			for (int i = 0; i < dataOut.length; i++) {
+				pw.print(dataOut[i] + ", ");
+			}
+		}
+		pw.close();
+		
 	}
 }

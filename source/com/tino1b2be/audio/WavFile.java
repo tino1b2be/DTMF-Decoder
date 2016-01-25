@@ -28,50 +28,62 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class to represent an audio wav file
+ * Class to represent an audio wav file. Objects of this class are to e created
+ * using the functions in com.tino1b2be.dtmfdecoder.FileUtil
  * 
  * @author Tinotenda Chemvura
  *
  */
 public class WavFile extends WavFileUtil implements AudioFile {
-	
-	private WavFileUtil wavFile;
-
-	public WavFile(){
-		super();
-	}
 
 	public WavFile(WavFileUtil other) {
-		wavFile = new WavFileUtil();
-		wavFile.setFile(other.getFile());
-		wavFile.setIoState(other.getIoState());
-		wavFile.setBytesPerSample(other.getBytesPerSample());
-		wavFile.setNumFrames(other.getNumFrames());
-		wavFile.setoStream(other.getoStream());
-		wavFile.setiStream(other.getiStream());
-		wavFile.setFloatScale(other.getFloatScale());
-		wavFile.setFloatOffset(other.getFloatOffset());
-		wavFile.setWordAlignAdjust(other.isWordAlignAdjust());
-		wavFile.setNumChannels(other.getNumChannels());
-		wavFile.setSampleRate(other.getSampleRate());
-		wavFile.setBlockAlign(other.getBlockAlign());
-		wavFile.setValidBits(other.getValidBits());
-		wavFile.setBuffer(other.getBuffer());
-		wavFile.setBufferPointer(other.getBufferPointer());
-		wavFile.setBytesRead(other.getBytesRead());
-		wavFile.setFrameCounter(other.getFrameCounter());
-		
+		setFile(other.getFile());
+		setIoState(other.getIoState());
+		setBytesPerSample(other.getBytesPerSample());
+		setNumFrames(other.getNumFrames());
+		setoStream(other.getoStream());
+		setiStream(other.getiStream());
+		setFloatScale(other.getFloatScale());
+		setFloatOffset(other.getFloatOffset());
+		setWordAlignAdjust(other.isWordAlignAdjust());
+		setNumChannels(other.getNumChannels());
+		setSampleRate(other.getSampleRate());
+		setBlockAlign(other.getBlockAlign());
+		setValidBits(other.getValidBits());
+		setBuffer(other.getBuffer());
+		setBufferPointer(other.getBufferPointer());
+		setBytesRead(other.getBytesRead());
+		setFrameCounter(other.getFrameCounter());
+
 	}
 
-	public WavFile(File exportFile, int numChannels, long numFrames, int resolution, int Fs) throws IOException, WavFileException {
-		wavFile = WavFileUtil.newWavFile(exportFile, numChannels, numFrames, 16, Fs);
+	public WavFile(File exportFile, int numChannels, long numFrames, int resolution, int Fs)
+			throws IOException, WavFileException {
+		WavFileUtil other = WavFileUtil.newWavFile(exportFile, numChannels, numFrames, 16, Fs);
+		setFile(other.getFile());
+		setIoState(other.getIoState());
+		setBytesPerSample(other.getBytesPerSample());
+		setNumFrames(other.getNumFrames());
+		setoStream(other.getoStream());
+		setiStream(other.getiStream());
+		setFloatScale(other.getFloatScale());
+		setFloatOffset(other.getFloatOffset());
+		setWordAlignAdjust(other.isWordAlignAdjust());
+		setNumChannels(other.getNumChannels());
+		setSampleRate(other.getSampleRate());
+		setBlockAlign(other.getBlockAlign());
+		setValidBits(other.getValidBits());
+		setBuffer(other.getBuffer());
+		setBufferPointer(other.getBufferPointer());
+		setBytesRead(other.getBytesRead());
+		setFrameCounter(other.getFrameCounter());
 		
 	}
 
 	@Override
 	public int read(double[] buffer) throws AudioFileException {
 		try {
-			return this.readFrames(buffer, buffer.length);
+			return super.readFrames(buffer, buffer.length);
 		} catch (IOException | WavFileException e) {
 			throw new AudioFileException(e.getMessage());
 		}
@@ -80,7 +92,7 @@ public class WavFile extends WavFileUtil implements AudioFile {
 	@Override
 	public int read(double[][] buffer) throws AudioFileException {
 		try {
-			return this.readFrames(buffer, buffer[0].length);
+			return super.readFrames(buffer, buffer[0].length);
 		} catch (IOException | WavFileException e) {
 			throw new AudioFileException(e.getMessage());
 		}
@@ -91,33 +103,29 @@ public class WavFile extends WavFileUtil implements AudioFile {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public int writeFrames(double[][] sampleBuffer, int numFramesToWrite) throws IOException, WavFileException
-	{
-		return wavFile.writeFrames(sampleBuffer, numFramesToWrite);
-	}
-	
-	public int writeFrames(double[] sampleBuffer, int numFramesToWrite) throws IOException, WavFileException
-	{
-		return wavFile.writeFrames(sampleBuffer, numFramesToWrite);
-	}
-	
-	public long getFramesRemaining(){
-		return wavFile.getFramesRemaining();
-	}
-	
-	public void close() throws IOException
-	{
-		wavFile.close();
+
+	public int writeFrames(double[][] sampleBuffer, int numFramesToWrite) throws IOException, WavFileException {
+		return super.writeFrames(sampleBuffer, numFramesToWrite);
 	}
 
-	public int writeFrames(int[][] sampleBuffer, int offset, int numFramesToWrite) throws IOException, WavFileException
-	{
-		return wavFile.writeFrames(sampleBuffer, offset, numFramesToWrite);
+	public int writeFrames(double[] sampleBuffer, int numFramesToWrite) throws IOException, WavFileException {
+		return super.writeFrames(sampleBuffer, numFramesToWrite);
 	}
-	
-	public int writeFrames(int[] sampleBuffer, int offset, int numFramesToWrite) throws IOException, WavFileException
-	{
-		return wavFile.writeFrames(sampleBuffer, offset, numFramesToWrite);
+
+	public long getFramesRemaining() {
+		return super.getFramesRemaining();
+	}
+
+	public void close() throws IOException {
+		super.close();
+	}
+
+	public int writeFrames(int[][] sampleBuffer, int offset, int numFramesToWrite)
+			throws IOException, WavFileException {
+		return super.writeFrames(sampleBuffer, offset, numFramesToWrite);
+	}
+
+	public int writeFrames(int[] sampleBuffer, int offset, int numFramesToWrite) throws IOException, WavFileException {
+		return super.writeFrames(sampleBuffer, offset, numFramesToWrite);
 	}
 }

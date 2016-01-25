@@ -93,7 +93,7 @@ public class DTMFUtil {
 	 */
 	public static final int[] DTMF_FREQUENCIES = {697,770,852,941,1209,1336,1477,1633};
 	
-	public static final char[] DTMF_CHARACTERS = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'A', 'B', 'C', 'D'};
+	public static final char[] DTMF_CHARACTERS = {'0','1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'A', 'B', 'C', 'D'};
 	
 	
 	//generation variables
@@ -182,8 +182,11 @@ public class DTMFUtil {
 	public DTMFUtil(File file, char[] chars, int fs, int toneDurr, int pauseDurr) throws DTMFDecoderException {
 		this.generate = true;
 		setChars(chars);
+		if (fs < 8000) throw new DTMFDecoderException("Sampling frequency must be at least 8kHz.");
 		this.outFs = fs;
+		if (toneDurr < 40) throw new DTMFDecoderException("Tone duration should be greater than 40ms.");
 		this.outToneDurr = toneDurr;
+		if (toneDurr < 30) throw new DTMFDecoderException("Pause duration should be greater than 30ms.");
 		this.outPauseDurr = pauseDurr;
 		this.outFile = file;
 	}
@@ -215,7 +218,7 @@ public class DTMFUtil {
 	private void setChars(char[] chars) throws DTMFDecoderException {
 		outChars = new char[chars.length];
 		char[] cc = Arrays.copyOf(DTMF_CHARACTERS, DTMF_CHARACTERS.length);
-		Arrays.sort(DTMF_CHARACTERS);
+		Arrays.sort(cc);
 		for (int c = 0; c < chars.length;c++){
 			if (Arrays.binarySearch(cc, chars[c]) < 0)
 				throw new DTMFDecoderException("The character \"" + chars[c] + "\" is not a DTMF character.");
@@ -327,13 +330,6 @@ public class DTMFUtil {
 		if (freqIndicies[18] != freqIndicies[20] && freqIndicies[19] != freqIndicies[20])
 			out[6] += frame[freqIndicies[20]];
 		
-//		1609, 1633, 1647, 1657 					// 1633 21,22,23,24
-//		out[7] = frame[freqIndicies[21]];
-//		if (freqIndicies[21] != freqIndicies[22])
-//			out[7] += frame[freqIndicies[22]];
-//		if (freqIndicies[21] != freqIndicies[23] && freqIndicies[22] != freqIndicies[23])
-//			out[7] += frame[freqIndicies[23]];
-
 		out[7] = frame[freqIndicies[21]];
 		if (frame[freqIndicies[22]] != frame[freqIndicies[21]])
 			out[7] += frame[freqIndicies[22]];
@@ -1178,7 +1174,8 @@ public class DTMFUtil {
 		for (double s = 0; s < toneLen; s++){
 			double lo = Math.sin(2.0 * Math.PI * f[0] * s / outFs);
 			double hi = Math.sin(2.0 * Math.PI * f[1] * s / outFs);
-			samples.add(hi+lo);
+			samples.add((hi+lo)/2.0);
+//			samples.add(hi);
 		}
 	}
 

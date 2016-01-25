@@ -149,6 +149,5 @@ public class TestDTMFDecoder {
 		System.out.print("Please enter the filename for the test results: ");
 		resultsFilename = sc.nextLine();
 		sc.close();
-		// get input from user. TODO
 	}
 }

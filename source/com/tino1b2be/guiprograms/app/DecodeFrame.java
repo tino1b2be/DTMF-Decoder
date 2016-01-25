@@ -28,6 +28,7 @@ import com.tino1b2be.audio.AudioFileException;
 import com.tino1b2be.audio.WavFileException;
 import com.tino1b2be.dtmfdecoder.DTMFDecoderException;
 import com.tino1b2be.dtmfdecoder.DTMFUtil;
+import java.awt.Toolkit;
 
 public class DecodeFrame extends JFrame {
 
@@ -41,11 +42,13 @@ public class DecodeFrame extends JFrame {
 	private JComboBox durationOption;
 	private JTextArea channelTwoField;
 	private JTextArea channelOneField;
-	JFrame temp = this;
+	private JFrame temp = this;
 	/**
 	 * Create the frame.
 	 */
 	public DecodeFrame() {
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tino1b2be/workspace/DTMF-Decoder/media/computing22.png"));
 		setTitle("DTMF Decoder");
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -131,6 +134,7 @@ public class DecodeFrame extends JFrame {
 		contentPane.add(btnChooseFile);
 		
 		fileNameField = new JTextField();
+		fileNameField.setEditable(false);
 		fileNameField.setBounds(166, 163, 451, 25);
 		contentPane.add(fileNameField);
 		fileNameField.setColumns(10);
@@ -190,6 +194,7 @@ public class DecodeFrame extends JFrame {
 					} else {
 						channelTwoField.setText("There is no 2nd channel. A mono file has been used.");
 					}
+					JOptionPane.showMessageDialog(null, "Done Decoding");
 				}
 			}
 		});
