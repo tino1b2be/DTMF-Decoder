@@ -38,6 +38,7 @@ import org.apache.commons.math3.transform.TransformType;
 
 import com.tino1b2be.audio.AudioFile;
 import com.tino1b2be.audio.AudioFileException;
+import com.tino1b2be.audio.TempAudio;
 import com.tino1b2be.audio.WavFileException;
 
 /**
@@ -106,7 +107,49 @@ public class DTMFUtil {
 	private boolean generated;
 	
 	/**
-	 * Create DTMFUtil object for an audio file given the AudioFile object
+	 * Constructor to decode an array of samples
+	 * 
+	 * @param samples array of samples (Mono channel)
+	 * @param Fs Sampling Frequency
+	 * @throws AudioFileException
+	 * @throws DTMFDecoderException 
+	 */
+	public DTMFUtil(double[] samples, int Fs) throws AudioFileException, DTMFDecoderException {
+		// create an audio file object and export to a temp location
+		// load the temp audio file and decode
+		this.decoder = true;
+		audio = new TempAudio(samples,Fs);
+		setFrameSize();
+		setCentreIndicies();
+		this.decoded = false;
+		seq = new String[2];
+		this.seq[0] = "";
+		this.seq[1] = "";	
+	}
+	
+	/**
+	 * Constructor to decode an array of samples
+	 * 
+	 * @param samples array of samples (Stereo channel)
+	 * @param Fs Sampling Frequency
+	 * @throws AudioFileException
+	 * @throws DTMFDecoderException 
+	 */
+	public DTMFUtil(double[][] samples, int Fs) throws AudioFileException, DTMFDecoderException {
+		// create an audio file object and export to a temp location
+		// load the temp audio file and decode
+		this.decoder = true;
+		audio = new TempAudio(samples,Fs);
+		setFrameSize();
+		setCentreIndicies();
+		this.decoded = false;
+		seq = new String[2];
+		this.seq[0] = "";
+		this.seq[1] = "";	
+	}
+	
+	/**
+	 * Constructor used to Decode an audio file
 	 * 
 	 * @param data
 	 *            AudioFile object to be processed.
@@ -124,7 +167,7 @@ public class DTMFUtil {
 	}
 
 	/**
-	 * Create DTMFUtil object for an audio file given the filename
+	 * Constructor used to Decode an audio file
 	 * 
 	 * @param filename
 	 *            Filename of the audio file to be processed
@@ -147,7 +190,7 @@ public class DTMFUtil {
 	}
 
 	/**
-	 * Create DTMFUtil object for an audio file given the file object
+	 * Constructor used to Decode an audio file
 	 * 
 	 * @param file
 	 *            File object for the audio file
@@ -209,6 +252,7 @@ public class DTMFUtil {
 		this.outPauseDurr = pauseDurr;
 		this.outFile = new File(filename);
 	}
+	
 
 	/**
 	 * Check if the characters are valid and set the characters

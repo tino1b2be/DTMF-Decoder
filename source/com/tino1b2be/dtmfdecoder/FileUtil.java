@@ -272,8 +272,6 @@ public class FileUtil {
 	 * @throws IOException
 	 */
 	public static void writeToFileSuccessOnly(AudioTestResult[] dataOut, String filename) throws IOException {
-		File f = new File(filename);
-		f.getParentFile().mkdirs();
 		PrintWriter pw = new PrintWriter(new FileWriter(filename));
 		if (dataOut == null)
 			pw.print("");
