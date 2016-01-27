@@ -94,6 +94,11 @@ public class DTMFUtil {
 	 */
 	public static final int[] DTMF_FREQUENCIES = {697,770,852,941,1209,1336,1477,1633};
 	
+	/**
+	 * The list of valid DTMF characters. See the <a href=
+	 * "http://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling" >
+	 * WikiPedia article on DTMF</a>.
+	 */
 	public static final char[] DTMF_CHARACTERS = {'0','1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'A', 'B', 'C', 'D'};
 	
 	
