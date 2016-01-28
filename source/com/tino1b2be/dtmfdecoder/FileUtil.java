@@ -312,7 +312,7 @@ public class FileUtil {
 	 * @throws WavFileException
 	 */
 	public static AudioFile readAudioFile(String filename)
-			throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException {
+			throws AudioFileException, IOException {
 		AudioFile f = readAudioFile(new File(filename));
 		return f;
 	}
@@ -329,11 +329,20 @@ public class FileUtil {
 	 * @throws WavFileException
 	 */
 	public static AudioFile readAudioFile(File file)
-			throws AudioFileException, UnsupportedAudioFileException, IOException, WavFileException {
+			throws AudioFileException, IOException {
 		if (file.getName().toLowerCase().endsWith(".mp3")) {
-			return readMp3File(file.getAbsolutePath());
+			try {
+				return readMp3File(file.getAbsolutePath());
+			} catch (UnsupportedAudioFileException e) {
+				throw new AudioFileException(e.getMessage());
+			}
 		} else if (file.getName().toLowerCase().endsWith(".wav")) {
-			WavFile f = readWavFileBuffer(file);
+			WavFile f;
+			try {
+				f = readWavFileBuffer(file);
+			} catch (WavFileException e) {
+				throw new AudioFileException(e.getMessage());
+			}
 			return f;
 		} else {
 			throw new AudioFileException("File type not supported.");

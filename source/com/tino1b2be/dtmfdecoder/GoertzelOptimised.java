@@ -40,6 +40,7 @@ public class GoertzelOptimised {
 	private double[] coeffs;
 	private double[] samples;
 	private double[] magSquared;
+	private boolean computed = false;
 
 	/**
 	 * Instantiate the object by initialising the coefficients to be used in the
@@ -100,9 +101,9 @@ public class GoertzelOptimised {
 	 *             constructor. The constructor to use for this method to be
 	 *             usable is GoertzelOptimised(Fs, samples, fbin)
 	 */
-	public double[] getDFTMag() throws GoertzelException {
+	public boolean compute() throws DTMFDecoderException {
 		if (samples == null) {
-			throw new GoertzelException(
+			throw new DTMFDecoderException(
 					"No samples have been provided. To use this method please instantiate the Goertzel object with the constructor GoertzelOptimised()");
 		}
 		double[] magSquared = new double[fbin.length];
@@ -127,7 +128,8 @@ public class GoertzelOptimised {
 			magSquared[f] = (q1 * q1) + (q2 * q2) - (q1 * q2 * coeffs[f]);
 		}
 		this.magSquared = magSquared;
-		return magSquared;
+		computed = true;
+		return true;
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class GoertzelOptimised {
 	 *            The samples to be used in the calculations.
 	 * @return Return an array of square of the magnitudes as a double[].
 	 */
-	public double[] getDFTData(double[] samples) {
+	public boolean compute(double[] samples) {
 
 		double[] magSquared = new double[fbin.length];
 
@@ -161,11 +163,23 @@ public class GoertzelOptimised {
 
 			magSquared[f] = (q1 * q1) + (q2 * q2) - (q1 * q2 * coeffs[f]);
 		}
-		return magSquared;
+		this.magSquared = magSquared;
+		computed = true;
+		return true;
 	}
 
-	public double[] getMagSquared() {
-		return magSquared;
+	/**
+	 * Method to get the power data for the transformed samples
+	 * 
+	 * @return Array with the magnitude squared of the powers
+	 * @throws DTMFDecoderException
+	 *             If compute has not been run yet or if decoding failed.
+	 */
+	public double[] getMagnitudeSquared() throws DTMFDecoderException {
+		if (computed)
+			return magSquared;
+		else
+			throw new DTMFDecoderException("Not yet decoded.");
 	}
 
 }

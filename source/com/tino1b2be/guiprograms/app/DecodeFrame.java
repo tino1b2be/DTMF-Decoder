@@ -1,12 +1,12 @@
 package com.tino1b2be.guiprograms.app;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,10 +25,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.tino1b2be.audio.AudioFileException;
-import com.tino1b2be.audio.WavFileException;
 import com.tino1b2be.dtmfdecoder.DTMFDecoderException;
 import com.tino1b2be.dtmfdecoder.DTMFUtil;
-import java.awt.Toolkit;
 
 public class DecodeFrame extends JFrame {
 
@@ -47,6 +45,7 @@ public class DecodeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public DecodeFrame() {
+//		DTMFUtil.goertzel = true;	
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tino1b2be/workspace/DTMF-Decoder/media/computing22.png"));
 		setTitle("DTMF Decoder");
@@ -172,7 +171,7 @@ public class DecodeFrame extends JFrame {
 							dtmf = new DTMFUtil(file);
 							dtmf.decode();
 							decodedSeq = dtmf.getDecoded();
-						} catch (IOException | AudioFileException | DTMFDecoderException | UnsupportedAudioFileException | WavFileException e) {
+						} catch (IOException | AudioFileException | DTMFDecoderException e) {
 							JOptionPane.showMessageDialog(null, e.getMessage());
 							return;
 						}

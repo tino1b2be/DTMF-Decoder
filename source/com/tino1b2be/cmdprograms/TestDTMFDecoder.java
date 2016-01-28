@@ -60,8 +60,9 @@ public class TestDTMFDecoder {
 	 * @throws DTMFDecoderException
 	 */
 	public static void main(String[] args)
-			throws IOException, WavFileException, InterruptedException, DTMFDecoderException {
+			throws IOException, InterruptedException, DTMFDecoderException {
 
+//		DTMFUtil.goertzel = true;
 		if (args.length == 2) {
 			parent = args[0];
 			resultsFilename = args[1];

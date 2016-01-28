@@ -62,6 +62,7 @@ public class AudioRecordingsTest {
 	public static void main(String[] args)
 			throws IOException, WavFileException, InterruptedException, DTMFDecoderException {
 
+//		DTMFUtil.goertzel = true;
 		if (args.length == 3) {
 			parent = args[0];
 			resultsFilename = args[1];
