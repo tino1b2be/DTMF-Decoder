@@ -1,0 +1,620 @@
+<p align="center">
+    <img width="149" height="79" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png"/>
+</p>
+<div>
+    <p align="center">
+        DTMF-Decoder
+    </p>
+</div>
+<p align="center">
+    A report on a project to design and implement a DTMF Decoder
+</p>
+<table cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td width="772" height="66">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<img width="80" height="51" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png"/>
+<br clear="all"/>
+<p>
+    Contents
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955797">Introduction. 2</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955798">Research and Background. 4</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955799">Fast Fourier Transform.. 4</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955800">Goertzel's Algorithm.. 4</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955801">Software Implementation. 5</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955802">Test Data. 5</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955803">Prototyping. 6</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955804">Java Implementation. 8</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955805">Testing. 11</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955806">Noise and Speech. 11</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955807">Goertzel vs FFT. 12</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955808">Conclusion. 15</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955809">DTMF-Decoder API Specifications. 15</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955810">Possible Improvements. 15</a>
+</p>
+<p>
+    <a href="file:///C:/Users/user/Workspace/DTMF-Decoder/Documentation/DTMF%20Decoder%20Report.docx#_Toc441955811">References. 16</a>
+</p>
+<br clear="all"/>
+<h2>
+    <a name="_Toc441955797">Introduction</a>
+</h2>
+<p>
+    <br/>
+    DTMF stands for Dual Tone Multi Frequency. This is an in-band telecommunication signalling system using voice-frequency band over telephone lines between
+    telephone equipment and other communications devices and switching centres. DTMF was first developed in the Bell System in the USA, and became known under
+    the trademark Touch-Tone for use in the pushbutton telephones supplied to telephone customers, starting in 1963.[1] DTMF replaced the clockwork dial made
+    of moving parts which was getting more and more impractical to use as the number of telephone users increased exponentially.
+</p>
+<p>
+    DTMF is used to represent up to 16 keys (most telephones only use 12 of these). Each key is represented by two different frequencies. The first bin (lower
+    frequencies) consist of frequencies under 1kHz and the second bin (Upper bin) consists of frequencies above 1.2kHz. The combination of the two tones will
+    be distinctive and different from tones of other keys and these tones cannot be mimicked by voice or random signals [2]. The DTMF Frequencies are shown in
+    the figure below:
+</p>
+<p align="center">
+    <img width="463" height="389" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image006.jpg"/>
+    <br/>
+    <em>Illustration 1: Picture showing the DTMF Frequencies used to represent each key.</em>
+</p>
+<p>
+    DTMF detection is used to detect DTMF signals in the presence of speech and dialling tones pulses. Other applications of DTMF include, but not limited to,
+    computer applications such as voice and electronic mail, call forwarding [3], controlling robots, automated locking and unlocking systems, displaying
+    dialled numbers on a screen and sharing information consisting of numbers across various network systems. [2]
+</p>
+<p>
+    The intent of this project is to design a DTMF Decoder and implement it in Java. I decided to choose this project because it dives into important concepts
+    in both "sides" of my degree, that is Signal Processing and Software Design.
+</p>
+<br clear="all"/>
+<h2>
+    <a name="_Toc441955798">Research and Background</a>
+</h2>
+<p>
+    Although I did an introductory course to Signals and Systems in first semester of my second year, there was still a lot of concepts I had not grasped yet.
+    Most of the knowledge needed to tackle this project was only going to be covered in my third year courses therefore after a long talk with my mentor who
+    shed some much needed light on the project, I spent the whole first week researching on signal processing techniques by reading articles [4] and lectures
+    on MIT OpenCourseWare [5]. All these helped build my understanding of signal processing and detection.
+</p>
+<h3>
+    <a name="_Toc441955799">Fast Fourier Transform</a>
+</h3>
+<p>
+    This is a DFT algorithm(s) which can compute the DFT of a sequence in less computations for the same number of sample points. Cooley and Turkey and usually
+    credited for inventing the algorithm in 1965 although the development of fast algorithms of FFTs can be traced back to Gauss's unpublished work in 1805.
+    [8]
+</p>
+<p>
+    A possible path to take could be using the FFT to get the whole frequency spectrum. This is definitely a cumbersome computation but it will allow me to
+    detect other frequencies in the signal and decide where certain signals should be rejected or not.
+</p>
+<p>
+    After looking at previous similar projects, most of which were implemented in Assembly and C for micro-controller projects, I noticed most of them used the
+    Goertzel Algorithm to detect the DTMF frequencies. I decided to do more research on reasons why and it turns out it is a much faster method for computing
+    DFTs (Direct Fourier Transform) for specific frequencies.
+</p>
+<h3>
+    <a name="_Toc441955800">Goertzel's Algorithm</a>
+</h3>
+<p>
+    Created by Gerald Goertzel in 1958, the Goertzel Algorithm is a Digital Signal Processing technique that is used to efficiently compute individual terms of
+    a DFT. It returns the real and imaginary frequency components that a regular DFT or Fast Fourier Transform (FFT) would.
+</p>
+<p>
+Like the DFT, the Goertzel algorithm analyses one selectable frequency component from a discrete signal.    <a href="https://en.wikipedia.org/wiki/Goertzel_algorithm#cite_note-2">[</a>6][7] Unlike direct DFT calculations, the Goertzel algorithm applies a single
+    real-valued coefficient at each iteration, using real-valued arithmetic for real-valued input sequences. For covering a full spectrum, the Goertzel
+    algorithm has a higher order of complexity than (FFT) algorithms; but for computing a small number of selected frequency components, it is more numerically
+    efficient.
+</p>
+<p>
+    The Goertzel Algorithm may be used to directly obtain DFT data about the 8 DTMF frequencies and compare their magnitudes to determine which tone is being
+    represented.
+</p>
+<br clear="all"/>
+<h2>
+    <a name="_Toc441955801">Software Implementation</a>
+</h2>
+<p>
+    After the research I was advised to start by prototyping the solution in MatLab before implementing it in Java. MatLab is a high-performance language for
+    technical computing. It integrates computation, visualization, and programming in an easy-to-use environment where problems and solutions are expressed in
+    familiar mathematical notation. [9] Because I was new to signal processing, it was important for me to use a tool like MatLab to visualise the data and
+    focus on developing the algorithms instead of spending a lot of time trying to code functions which I had easy access to in MatLab.
+</p>
+<h3>
+    <a name="_Toc441955802">Test Data</a>
+</h3>
+<p>
+    The first step was to generate test data that I would use to test the decoder. My mentor gave me a guideline of how a good DTMF decoder should perform and
+    told me to look up ITU-T recommendations on DTMF tones. The decoder had to meet the ITU Recommendation as stated in ITU-I Recommendation Q.23 [10] and
+    ITU-I Recommendation Q.24 [11]. Each administration has its own specifications but most of them overlap each other. A summary of the recommendations is
+    shown below (taken from ITU-T Q.24 [11]):
+</p>
+<p>
+    Signal Frequencies:
+</p>
+<ul>
+    <li>
+        Low Band (Hz): 697, 770, 852, 941
+    </li>
+    <li>
+        High Band (Hz): 1209, 1336, 1477, 1633
+    </li>
+</ul>
+<p>
+    Frequency Tolerances:
+</p>
+<p>
+    &#183; Max. accepted frequency offset: &lt;=1.5% to 1.8% (depending on Administration)
+</p>
+<p>
+    &#183; Min. rejected frequency offset: &gt;= 3.5% to 7.5% (depending on Administration)
+</p>
+<p>
+    Power Levels per Frequency:
+</p>
+<ul>
+    <li>
+        Power range: -27dBm to 0dBm
+    </li>
+</ul>
+<p>
+    &#183; Maximum twist (Power difference between the two frequencies): 5 to 10 dBm (depends on Administration)
+</p>
+<p>
+    Signal Timing:
+</p>
+<ul>
+    <li>
+        Min. accepted tone duration: 40ms
+    </li>
+</ul>
+<p>
+    &#183; Min. pause (silence between tones): 30ms to 70ms (depending on Administration)
+</p>
+<ul>
+    <li>
+        Max. rejected tone duration: 20ms
+    </li>
+    <li>
+        Max. signal interruption: 10ms
+    </li>
+</ul>
+<p>
+    I had to generate Test Data to test all the conditions above. My Test Data was generated as follows:
+</p>
+<p>
+    &#183; The sequence of tones will be randomly determined (choosing from the 16 available DTMF characters) and the length of the sequence will also vary
+    randomly from 5 to 50 tones per file.
+</p>
+<p>
+    &#183; The duration of each DTMF tone will be varied randomly between 40ms and 100ms.
+</p>
+<p>
+    &#183; The duration of the pause between DTMF tones will be randomly varied between 30ms and 100ms.
+</p>
+<p>
+    &#183; To vary the power of the signal between 0dBm and -27dBm, the amplitude of the signal will be varied from 0.045 (-27dBm) to 1.0 (0dBm).
+</p>
+<p>
+    Random duration of pauses and tones will ensure that the frames used in the decoding process do not have the same alignment.
+</p>
+<h3>
+    <a name="_Toc441955803">Prototyping</a>
+</h3>
+<p>
+    This was done in MatLab. I decided to use the Goertzel's Algorithm approach because of its performance advantages over the FFT. After some brain storming
+    with my mentor, I came up with the following outline of the decoder:
+</p>
+<p>
+    &#183; The array of samples will be split into short frames (each frame will be a short period of about 40ms but this duration will be optimized later).
+    Because the Goertzel Algorithm's performance did not depend on a specific bin size (as with the FFT where the bin size has to be a power of 2), I could
+    vary the bin size to make the decoder more accurate. The frames overlap each other by 50% which means more frames are processed, hence decreasing
+    performance, but this will make sure the frames cover the shortest tones properly. The longer these frames were, the better the resolution will be in the
+    frequency spectrum but the poorer it would be in the time domain. An example of how the samples will be divided is shown below.
+</p>
+<p align="center">
+    <br/>
+    <img border="0" width="624" height="185" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image008.jpg"/>
+    <br/>
+    <em>Illustration 2: An example of how the samples may be split to create frames which can be processed separately.</em>
+    <br/>
+    <br/>
+</p>
+<p>
+    &#183; The frames will each be transformed using the Goertzel Algorithm to obtain the magnitudes of the 8 DTMF frequencies in the frame. One of the ITU-T
+    recommendations is that the frequencies can have an offset of up to 1.5%. This offset could be accounted for by using 3 or 4 frequencies for each DTMF
+    frequency when transforming the frames and then summing up these 2 or 3 magnitudes. So instead of passing 8 frequencies into the Goertzel Algorithm, I used
+    about 25 different frequencies. The two illustrations below show how the plots of the magnitudes from a frame in the "tone" region and in the "pause"
+    region:
+</p>
+<p align="center">
+    <br/>
+    <img border="0" width="569" height="357" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg"/>
+    <br/>
+    <em>Illustration 3: Plot of the DFT Magnitudes of the 8 DTMF frequencies for a frame in the "tone" region. This particular tone represents a "1".</em>
+    <br/>
+    <img border="0" width="567" height="327" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image012.jpg"/>
+    <br/>
+    <em>Illustration 4: Plot of the DFT Magnitudes of the 8 DTMF frequencies for a frame in the "pause" region.</em>
+    <br/>
+    <br/>
+</p>
+<p>
+    &#183; After transforming the frames, I used the DFT data to distinguish between frames in the "tone" region and frames in the "pause" region. From the
+    pictures above, it can be seen that the average of the magnitudes for the "tone" region are much larger than those in the "pause" region. To distinguish
+    the "pause" frames from the "tone" ones, I decided that the "silent" frames will be those with a mean DFT magnitude less than 70% of the average of the top
+    3 frames. An illustration of this is shown below:
+</p>
+<p align="center">
+    <br/>
+    <br/>
+    <img
+        border="0"
+        width="582"
+        height="257"
+        src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image014.png"
+        alt="Title:  Plot of the DFT Magnitudes of the 8 DTMF frequencies for a frame in the &quot;pause&quot; region."
+    />
+    <br/>
+    Illustration 5: <em>Plot of the DFT Magnitudes of the 8 DTMF frequencies for a frame in the "pause" region.</em>
+    <br/>
+    <br/>
+    <br/>
+</p>
+<p>
+    &#183; After filtering out the frames with the tones, I pass the data into a function which will determine the character represented by the frame by
+    looking at the frequencies present in the frame.
+</p>
+<p>
+    After implementing this algorithm in MatLab I ran the decoder on test data and after tweaks and changed, the decoder had a success rate of 98% on 40,000
+    test files. A success is recorded when the whole sequence has been successfully and accurately decoded. The changes I made include having the frames
+    overlap by 33 % instead of 50% and increasing the frame size to 46ms. This increased my frequency resolution and because there were more frames now, the
+    time domain resolution was not affected much.
+</p>
+<h3>
+    <a name="_Toc441955804">Java Implementation</a>
+</h3>
+<p>
+    Implementing the MatLab code in java was a challenge because Java does not have libraries with most of the functions I used in MatLab. After some research
+    I found a <a href="http://www.embedded.com/">webpage</a> that gave a good explanation of the Goertzel Algorithm and used this to implement my own Goertzel
+    Class in Java.
+</p>
+<p>
+    Just like the FFT, the algorithm works with blocks of sample points. For each frequency to be calculated, the following are needed:
+</p>
+<ul>
+    <li>
+        the sampling frequency (<strong>Fs</strong>).
+    </li>
+    <li>
+        block size (<strong>N</strong>) i.e number of samples being used.
+    </li>
+    <li>
+        Precomputed one sine and one cosine term. (<strong>s</strong> and <strong>c</strong>)
+    </li>
+    <li>
+        Precomputed coefficient (<strong>coeff</strong>)
+    </li>
+</ul>
+<p>
+    The usual Nyquist Rules apply which means that <strong>Fs</strong> will have to be at least twice that of the highest frequency in question. The frequency
+    of interest has to be an integer factor of the sampling frequency.
+</p>
+<p>
+    N has the same properties as that of the block size in a regular FFT. <strong>N</strong> controls the frequency resolution in the frequency spectrum of the
+    signal which is given as Fs/N. <strong>N</strong> can be chosen such that the frequency resolution covers enough of the DTMF frequencies within their
+    tolerances but it must also be small enough to cover the minimum tone duration. One of the biggest advantages of the Goertzel Algorithm is that unlike the
+    FFT, <strong>N</strong> does not have to be a power of 2 for it to work efficiently.
+</p>
+<p>
+    The following is the pseudocode I used
+</p>
+<p>
+    Samples defined here
+    <br/>
+    target = target frequency
+    <br/>
+    Fs = sampling frequency
+</p>
+<p>
+    N = number of samples
+    <br/>
+    k = (int)(0.5*N*target*1/Fs)
+    <br/>
+    &#969; = 2 * &#960; * k / N;
+    <br/>
+    c = cos(&#969;);
+    <br/>
+    coeff = 2 * c;
+    <br/>
+    <br/>
+    Q0 = Q1 = Q2 = 0;
+    <br/>
+    <strong>for each</strong>
+    sample s in samples:
+    <br/>
+    Q0 = coeff * Q1 - Q2 + s
+    <br/>
+    Q2 = Q1
+    <br/>
+    Q1 = Q0
+    <br/>
+    <strong>
+        end
+        <br/>
+    </strong>
+    <br/>
+    magnitude<sup>2</sup> = Q<sub>1</sub><sup>2</sup> + Q<sub>2</sub><sup>2</sup>-Q<sub>1</sub>*Q<sub>2</sub>*coeff
+</p>
+<p>
+    After some consultation with my Mentor Albert, I realised that my algorithm was slow and used up a lot of RAM because I was loading the whole .wav file
+    before decoding. This would be a problem when decoding thousands of files in parallel. The PC would quickly run out of memory. To combat this I had to use
+    an input stream and process the wav files frame-by-frame instead of loading the whole file. This proved to be much faster and also more efficient in terms
+    of resource usage.
+</p>
+<p>
+    The basic outline of the algorithm is as follows:
+</p>
+<p>
+    &#183; Open an input stream for the audio file
+</p>
+<p>
+    &#183; determine the frame size for the Goertzel transform
+</p>
+<p>
+    &#183; Read a frame and check if the signal's power is not too low (not lower than the -27dBm as per ITU-T recommendations.) If the power is too low, the
+    frame will be rejected and treated as a pause.
+</p>
+<p>
+    &#183; The frame is transformed using Goertzel function to return the powers of the 8 DTMF Frequencies.
+</p>
+<p>
+    &#183; To check for noise, the ratio of the sum of the two highest peaks from the lower and upper frequency bin to the sum of all the 8 frequencies is
+    compared to a predetermined value. If the ratio is too low then the frame is noisy thus rejected and treated as a pause.
+</p>
+<p>
+    &#183; The two DTMF peaks from each bin are then used to identify the character.
+</p>
+<p>
+    &#183; The character for this frame is stored for later usage. If the same character appears 2 or more times consecutively then this will be recorded as a
+    hit.
+</p>
+<p>
+    The number of consecutive characters to flag a hit depends on the minimum tone duration being used in the decoding process. If we use the ITU-T
+    recommendation of 40ms, there must be at least 2 consecutive characters, is 60ms is used, there must be 3, if 80ms is used, there must be 4, and so forth.
+</p>
+<br clear="all"/>
+<h1>
+    <a name="_Toc441955805">Testing</a>
+</h1>
+<p>
+    <br/>
+    The decoder performed very well using the Goertzel function. It reported the same results as the MatLab code. That is, a success rate of 98% and a hit rate
+    of 99.7% for 40,000 test files.
+</p>
+<h2>
+    <a name="_Toc441955806">Noise and Speech</a>
+</h2>
+<p>
+MatLab has a function called "Add White Gaussian Noise" <strong>y = awgn(x,snr)</strong> which allows the user to add white Gaussian noise to a signal, <strong>x</strong>, to produce another signal, <strong>y,</strong> with a <strong>SNR </strong>given specified by the user in decibels. I used this
+    function to noise to the existing test data to produce test data with SNR ranging from 0db to 30db.
+</p>
+<p>
+    The noise performance of the Goertzel DTMF decoder was impressive. The test results show that the decoder can handle signals with a SNR of XXDB perfectly
+    well. A plot of the success rate vs SNR is shown below:
+</p>
+<p align="center">
+    <img border="0" width="605" height="341" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image016.png"/>
+    <br/>
+    <em>Illustration 6: Plot of the success rates of the Goertzel DTMF Decoder vs SNR.</em>
+</p>
+<p>
+    The decoder was run on random audio recordings with human speech and the performance was very poor, with the duration of these recordings varying from 10s
+    to 60s. Out of the 15,000 files that were tested, it reported that DTMF tones were found in 68% of the files but in fact very few of the files had any DTMF
+    tones in them (less than 3%). This poor performance could easily be attributed to background music and the speech itself within the recordings. I tweaked
+    the parameters as much as possible but there was no improvement at all and this is when my mentor advised me to try out the FFT approach instead of
+    Goertzel one. By using the FFT approach, I will have access to the complete frequency spectrum of the signal allow me to detect other frequency peaks
+    caused by speech and music that would not appear within the DTMF frequency bins. I also realized that the longer my "minimum tone duration" is, the better
+    the filtering out of the audio files it. The disadvantage of this is that the decoder does not follow ITU-T recommendations anymore and thus might actually
+    miss some DTMF tones shorter than the extended durations.
+</p>
+<p>
+    I modified the code to use the FFT instead of the Goertzel's Algorithm. The only difference in the algorithm is when checking for noise. Instead of
+    calculating the detection ratio over just 8 frequencies, the detection ratio will be now calculated using all points in the power spectrum of the signal.
+    This will make sure that other peaks that aren't DTMF will be filtered out. I ran the decoder again on the same audio recordings and plotted the percentage
+    of files found to have DTMF tones vs the minimum tone duration used to decode the files:
+</p>
+<p align="center">
+    <img border="0" width="624" height="406" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image018.png"/>
+</p>
+<p align="center">
+    <em>Illustration 7: Plot showing the number of files found to have DTMF vs the minimum tone duration used</em>
+</p>
+<h2>
+    <a name="_Toc441955807">Goertzel vs FFT</a>
+</h2>
+<p>
+    I ran noise tests on the decoder with the new FFT implementation and the performance was almost the same with the Goertzel implementation although the FFT
+    method seems to have a better hit-rate at lower SNR. The plots to compare the two are shown below:
+</p>
+<p align="center">
+    <img border="0" width="582" height="304" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image020.png"/>
+    <br/>
+    <em>Illustration 8: Plot of the Success rate vs SNR</em>
+</p>
+<p align="center">
+    <img border="0" width="589" height="295" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image022.png"/>
+</p>
+<p align="center">
+    <em>Illustration 9: Plot of the Success rate vs SNR</em>
+</p>
+<p>
+    During the project I had expected the Goertzel's Algorithm approach to be much faster than the FFT approach based on the fact that despite Goertzel's
+    Algorithm having a higher complexity, it should still have been faster for a handle number of frequencies compared to the FFT approach. I ran some tests to
+    test this hypothesis and got interesting, unexpected results. I ran the decoder on sets of data ranging from 10,000 files to 100,000 files and timed the
+    time it took for both types of decoders to decode the files. I plotted the time taken vs the number of files:
+</p>
+<p align="center">
+    <img border="0" width="624" height="394" src="file:///C:/Users/user/AppData/Local/Temp/msohtmlclip1/01/clip_image024.png"/>
+    <br/>
+    <em>Illustration 9: Plot of the time taken to decode the files vs number of files decoded</em>
+</p>
+<p>
+    From the plot it can be deduced that my previous assumption was incorrect. In fact, the FFT approach proved to be much faster than the Goertzel's
+    Algorithm. A simple explanation of this is that although, theoretically, the Goertzel's algorithm should have been faster than the FFT, the function I used
+    (from Apache Commons Math library) to perform the FFTs was fully optimized but the Goertzel's Class I created had no optimization at all hence it performed
+    badly vs the FFT.
+</p>
+<br clear="all"/>
+<h1>
+    <a name="_Toc441955808">Conclusion</a>
+</h1>
+<p>
+    I had only 6 weeks to design, implement and test this DTMF decoder. The main goal was reached but there is still more work to do if there was more time.
+    The project, together with all the source code is on <a href="https://github.com/tino1b2be/DTMF-Decoder">github</a> under the MIT License. I created a Java
+    API for the DTMF-Decoder and it has the following specifications:
+</p>
+<h2>
+    <a name="_Toc441955809">DTMF-Decoder API Specifications</a>
+    <br/>
+    <br/>
+</h2>
+<p>
+    &#183; DTMF Decoder for .wav and .mp3 files or when given an array of sample points.
+</p>
+<p>
+    &#183; Has an audio file interface which can be implemented for more audio file types (ogg, wma, etc...)
+</p>
+<p>
+    &#183; DTMF Tone/Sequence Generator that can export to .wav files.
+</p>
+<p>
+    &#183; Goertzel Class which can be used independently with arrays of sample points representing a signal.
+</p>
+<p>
+    &#183; The API includes a GUI App which is a DTMF Decoder/Generator.
+    <br/>
+    <br/>
+</p>
+<h2>
+    <a name="_Toc441955810">Possible Improvements</a>
+</h2>
+<p>
+    &#183; Optimising the Goertzel Class to improve on speed and performance.
+</p>
+<p>
+    &#183; Coming up with a more efficient way to detect noise and human speech to improve rejection and minimise false hits when decoding random noise files.
+</p>
+<p>
+    &#183; Decoder could give location of detected tones within the audio file.
+</p>
+<br clear="all"/>
+<h1>
+    <a name="_Toc441955811">References</a>
+</h1>
+<p>
+    <em>1) </em>
+    Dodd, A. (2002). <em>The essential guide to telecommunications</em>. Upper Saddle River, NJ: Prentice Hall PTR.<em>2) (picture) </em>
+    <a href="http://www.engineersgarage.com/tutorials/dtmf-dual-tone-multiple-frequency">
+        <em>http://www.engineersgarage.com/tutorials/dtmf-dual-tone-multiple-frequency</em>
+    </a>
+</p>
+<p>
+    <em>3) G. L. Smith, Dual-Tone Multi-frequency Receiver Using the WE DSP16 Digital Signal Processor, AT&amp;T Application Note.</em>
+</p>
+<p>
+    <em>4) 2010 4th International Symposium on Communications, Control and Signal Processing (ISCCSP 2010) p1-5</em>
+</p>
+<p>
+    <em>5) Alan Oppenheim. 6.341 Discrete-Time Signal Processing, Fall 2005. (Massachusetts Institute of Technology: MIT OpenCourseWare), </em>
+    <a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-341-discrete-time-signal-processing-fall-2005">
+        <em>http://ocw.mit.edu</em>
+    </a>
+    <em> (Accessed 26 Jan, 2016). License: </em>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><em>Creative Commons BY-NC-SA</em></a>
+</p>
+<p>
+    <em>6) Mock, P. (March 21, 1985), </em>
+    <a href="http://focus.ti.com/lit/an/spra168/spra168.pdf"><em>"Add DTMF Generation and Decoding to DSP-&#956;P Designs"</em></a>
+    <em> (PDF), EDN, </em>
+    <a href="https://en.wikipedia.org/wiki/International_Standard_Serial_Number"><em>ISSN</em></a>
+    <em> </em>
+    <a href="https://www.worldcat.org/issn/0012-7515"><em>0012-7515</em></a>
+    <em>; also found in DSP Applications with the TMS320 Family, Vol. 1, Texas Instruments, 1989.</em>
+</p>
+<p>
+    <em>7) Chen, Chiouguey J. (June 1996), </em>
+    <a href="http://focus.ti.com/lit/an/spra066/spra066.pdf"><em>Modified Goertzel Algorithm in DTMF Detection Using the TMS320C80 DSP</em></a>
+    <em> (PDF), Application Report, SPRA066, Texas Instruments</em>
+</p>
+<p>
+    <em>8) Heideman, Michael T.; Johnson, Don H.; Burrus, C. Sidney (1985-09-01). </em>
+    <a href="http://link.springer.com/article/10.1007/BF00348431"><em>"Gauss and the history of the fast Fourier transform"</em></a>
+    <em>. Archive for History of Exact Sciences </em>
+    <em>34 (3): 265-277. </em>
+    <a href="https://en.wikipedia.org/wiki/Digital_object_identifier"><em>doi</em></a>
+    <em>:</em>
+    <a href="https://dx.doi.org/10.1007%2FBF00348431"><em>10.1007/BF00348431</em></a>
+    <em>. </em>
+    <a href="https://en.wikipedia.org/wiki/International_Standard_Serial_Number"><em>ISSN</em></a>
+    <em> </em>
+    <a href="https://www.worldcat.org/issn/0003-9519"><em>0003-9519</em></a>
+    <em>.</em>
+</p>
+<p>
+    <em>9) </em>
+    Cimss.ssec.wisc.edu, (2016). <em>What is Matlab</em>. [online] Available at: http://cimss.ssec.wisc.edu/wxwise/class/aos340/spr00/whatismatlab.htm
+    [Accessed 4 Dec. 2015].
+</p>
+<p>
+    <em>10) </em>
+    ITU-T Recommendation Q.23 - Technical Features of Push-Button Telephone Sets. (1988). 1st ed. [ebook] INTERNATIONAL TELECOMMUNICATION UNION. Available at:
+    https://www.itu.int/rec/dologin_pub.asp?lang=e&amp;id=T-REC-Q.23-198811-I!!PDF-E&amp;type=items [Accessed 9 Dec. 2015].
+</p>
+<p>
+    <em>11) </em>
+    ITU-T Recommendations Q.24 - Multifrequency Push-Button Reception. (1988). 1st ed. [ebook] INTERNATIONAL TELECOMMUNICATION UNION. Available at:
+    https://www.itu.int/rec/dologin_pub.asp?lang=e&amp;id=T-REC-Q.24-198811-I!!PDF-E&amp;type=items [Accessed 7 Dec. 2015].
+</p>
