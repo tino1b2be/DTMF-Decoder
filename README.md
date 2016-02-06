@@ -1,4 +1,5 @@
-# DTMF Decoder
+# [DTMF Decoder](http://tino1b2be.github.io/DTMF-Decoder/)
+For the project page click [here](http://tino1b2be.github.io/DTMF-Decoder/).
 
 ## What is DTMF?
 **[DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling)** stands for **Dual Tone Multi Frequency**. This is an in-band telecommunication signalling system using voice-frequency band over telephone lines between telephone equipment and other communications devices and switching centres. DTMF is used to represent up to 16 keys (most telephones only use 12 of these). Each key is represented by two different frequencies. The first bin (lower frequencies) consist of frequencies under 1kHz and the second bin (Upper bin) consists of frequencies above 1.2kHz. The combination of the two tones will be distinctive and different from tones of other keys and these tones cannot be mimicked by voice or random signals.
