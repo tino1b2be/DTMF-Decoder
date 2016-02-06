@@ -1,7 +1,9 @@
-### What is DTMF?
+# DTMF Decoder
+
+## What is DTMF?
 **[DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling)** stands for **Dual Tone Multi Frequency**. This is an in-band telecommunication signalling system using voice-frequency band over telephone lines between telephone equipment and other communications devices and switching centres. DTMF is used to represent up to 16 keys (most telephones only use 12 of these). Each key is represented by two different frequencies. The first bin (lower frequencies) consist of frequencies under 1kHz and the second bin (Upper bin) consists of frequencies above 1.2kHz. The combination of the two tones will be distinctive and different from tones of other keys and these tones cannot be mimicked by voice or random signals.
 
-### DTMF-Decoder
+## DTMF-Decoder
 The intent of this project is to design a DTMF Decoder and create a Java API for a it. I started this project while I was on a short internship at **[VASTech](http://www.vastech.co.za/)** during the December 2015-January 2016 UCT vacation break. My mentor for this project was Albert Visagie (@avisagie).
 
 ### DTMF-Decoder API Specifications
@@ -19,8 +21,8 @@ The API is designed for use in programs where a DTMF signal needs to be decoded 
 * Coming up with a more efficient way to detect noise and human speech to improve rejection and minimise false hits when decoding random noise files.
 * Decoder could give a precise location (time) of detected tones within the audio file.
 
-### Support or Contact
-A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the pseudo code and algorithms used along with the motivations for using them, testing and much more. You can contact me for more information on my [email](ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
+## Support or Contact
+A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the pseudo code and algorithms used along with the motivations for using them, testing and much more. You can contact me for more information on my email (ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
 
-### Licence
+## Licence
 The project is licensed under the [MIT License](https://github.com/tino1b2be/DTMF-Decoder/raw/master/LICENSE).
