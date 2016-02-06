@@ -20,7 +20,7 @@ The API is designed for use in programs where a DTMF signal needs to be decoded 
 * Decoder could give a precise location (time) of detected tones within the audio file.
 
 ### Support or Contact
-A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the algorithms used for decoding the DTMF, the motivations for using them, testing and much more. You can contact me for more information on my [email](ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
+A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the pseudo code and algorithms used along with the motivations for using them, testing and much more. You can contact me for more information on my [email](ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
 
 ### Licence
-The project is licensed under the [MIT License](https://github.com/tino1b2be/DTMF-Decoder/blob/master/LICENSE).
+The project is licensed under the [MIT License](https://github.com/tino1b2be/DTMF-Decoder/raw/master/LICENSE).
