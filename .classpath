@@ -2,13 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="source"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/commons-math3-3.6.jar" sourcepath="/root/.gradle/caches/artifacts-23/filestore/org.apache.commons/commons-math3/3.6/source/9a5078b5165713c2ac463def01701b13cfba1b5e/commons-math3-3.6-sources.jar">
+	<classpathentry kind="lib" path="C:/Users/user/Workspace/DTMF-Decoder/libs/commons-math3-3.6.jar" sourcepath="/root/.gradle/caches/artifacts-23/filestore/org.apache.commons/commons-math3/3.6/source/9a5078b5165713c2ac463def01701b13cfba1b5e/commons-math3-3.6-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/DTMF-Decoder/libs/commons-math3-3.6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/jl1.0.jar"/>
-	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/mp3spi1.9.4.jar"/>
-	<classpathentry kind="lib" path="/home/tino1b2be/workspace/DTMF-Decoder/libs/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace/DTMF-Decoder/libs/jl1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace/DTMF-Decoder/libs/mp3spi1.9.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace/DTMF-Decoder/libs/tritonus_share.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

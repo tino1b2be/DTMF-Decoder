@@ -38,7 +38,7 @@ import com.tino1b2be.dtmfdecoder.DTMFUtil;
 public class DTMFDecoder {
 	
 	/**
-	 * File name for the audio fie to be decoded
+	 * File name for the audio file to be decoded
 	 */
 	private static String filename;
 	

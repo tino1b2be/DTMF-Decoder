@@ -201,7 +201,7 @@ public class FileUtil {
 	 * Method to cycle through a folder and get all files that match the given
 	 * extension.
 	 * 
-	 * @param path
+	 * @param directory
 	 *            File path of the parent directory
 	 * @param extension
 	 *            Extension of the files being searched for

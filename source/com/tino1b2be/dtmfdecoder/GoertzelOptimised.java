@@ -96,7 +96,7 @@ public class GoertzelOptimised {
 	 * 
 	 * @return Return an array of magnitude^s as a double[].
 	 * 
-	 * @throws GoertzelException
+	 * @throws DTMFDecoderException
 	 *             When the object was not instantiated using the correct
 	 *             constructor. The constructor to use for this method to be
 	 *             usable is GoertzelOptimised(Fs, samples, fbin)
