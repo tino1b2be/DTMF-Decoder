@@ -47,7 +47,7 @@ This is particularly useful if you are decoding an audio (or any signal) stream.
 #### For 1 channel signal (mono)
 ```java
 int Fs = 8000;
-double[] samples = {\* array of samples *\}
+double[] samples = {/* array of samples */}
 DTMFUtil dtmf = new DTMFUtil(samples, Fs);
 dtmf.decode();
 String sequence = dtmf.getDecoded()[0];
@@ -56,7 +56,7 @@ String sequence = dtmf.getDecoded()[0];
 #### For 2 channel signal (stereo)
 ```java
 int Fs = 8000;
-double[][] samples = {{\* array of samples from first channel *\},{\* array of samples from second channel *\}}
+double[][] samples = {{/* array of samples from first channel */},{/* array of samples from second channel */}}
 DTMFUtil dtmf = new DTMFUtil(samples, Fs);
 dtmf.decode();
 String[] sequence = dtmf.getDecoded();
