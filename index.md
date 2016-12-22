@@ -31,7 +31,7 @@ The API is designed for use in programs where a DTMF signal needs to be decoded 
 ## Usage
 To use this decoder in your code, import `com.tino1b2be.dtmfdecoder.DTMFUtil;`
 
-* ### For `.mp3` or `.wav` files
+### For `.mp3` or `.wav` files
 
 If you have a signal you want to decoded that is saved as a `.mp3` or `.wav` , it can be decoded this way:
 
