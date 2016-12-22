@@ -1,0 +1,8 @@
+title: DTMF-Decoder
+description: Java API for a DTMF-Decoder/Generator
+google_analytics: UA-73370980-1
+show_downloads: true
+theme: jekyll-theme-tactile
+
+gems:
+  - jekyll-mentions
