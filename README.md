@@ -21,6 +21,46 @@ The API is designed for use in programs where a DTMF signal needs to be decoded 
 * Optimising the Goertzel Class to improve on speed and performance.
 * Coming up with a more efficient way to detect noise and human speech to improve rejection and minimise false hits when decoding random noise files.
 * Decoder could give a precise location (time) of detected tones within the audio file.
+* Implement signal processing techniques that improve detection like correlation to boost the SNR, window functions to reduce spectral leakage, etc... (I hadn't studied these at the time of this project)
+
+## Usage
+To use this decoder in your code, import `com.tino1b2be.dtmfdecoder.DTMFUtil;`
+
+### * For `.mp3` or `.wav` files
+
+If you have a signal you want to decoded that is saved as a `.mp3` or `.wav` , it can be decoded this way:
+
+```java
+DTMFUtil dtmf = new DTMFUtil(filename);
+dtmf.decode();
+String sequence = dtmf.getDecoded()[0];
+```
+
+Where `filename` is the path to the `.mp3` or `.wav` file. More file types can be implemented using the AudioFile interface but only these two are implemented so far.
+
+### * For a given array of samples
+
+This is particularly useful if you are decoding an audio (or any signal) stream. If you have an array of samples of the signal ( from `-1` to `1` with a mean of `0`) and where `Fs` is the sampling frequency of the signal, the decoder can be used this way:
+
+#### * For 1 channel signal (mono)
+```java
+int Fs = 8000;
+double[] samples = {\* array of samples *\}
+DTMFUtil dtmf = new DTMFUtil(samples, Fs);
+dtmf.decode();
+String sequence = dtmf.getDecoded()[0];
+```
+
+#### * For 2 channel signal (stereo)
+```java
+int Fs = 8000;
+double[][] samples = {{\* array of samples from first channel *\},{\* array of samples from second channel *\}}
+DTMFUtil dtmf = new DTMFUtil(samples, Fs);
+dtmf.decode();
+String[] sequence = dtmf.getDecoded();
+String first_channel = sequence[0];
+String second_channel = sequence[1];
+```
 
 ## Support or Contact
 A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the pseudo code and algorithms used along with the motivations for using them, testing and much more. You can contact me for more information on my email (ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
