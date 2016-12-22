@@ -29,6 +29,7 @@ The API is designed for use in programs where a DTMF signal needs to be decoded 
 * Implement signal processing techniques that improve detection like correlation to boost the SNR, window functions to reduce spectral leakage, etc... (I hadn't studied these at the time of this project)
 
 ## Usage
+Check out this [small CMD program](https://github.com/tino1b2be/DTMF-Decoder/blob/master/source/com/tino1b2be/cmdprograms/DTMFDecoder.java) that uses the decoder.
 To use this decoder in your code, import `com.tino1b2be.dtmfdecoder.DTMFUtil;`
 
 ### For `.mp3` or `.wav` files
@@ -38,7 +39,8 @@ If you have a signal you want to decoded that is saved as a `.mp3` or `.wav` , i
 ```java
 DTMFUtil dtmf = new DTMFUtil(filename);
 dtmf.decode();
-String sequence = dtmf.getDecoded()[0];
+String left_channel = dtmf.getDecoded()[0];
+String right_channel = dtmf.getDecoded()[1]; // only works if it exists else it throws an indexing error
 ```
 
 Where `filename` is the path to the `.mp3` or `.wav` file. More file types can be implemented using the AudioFile interface but only these two are implemented so far.
@@ -66,6 +68,7 @@ String[] sequence = dtmf.getDecoded();
 String first_channel = sequence[0];
 String second_channel = sequence[1];
 ```
+
 ## Support or Contact
 A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the pseudo code and algorithms used along with the motivations for using them, testing and much more. You can contact me for more information on my email (ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
 
