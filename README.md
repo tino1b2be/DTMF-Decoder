@@ -24,25 +24,27 @@ The API is designed for use in programs where a DTMF signal needs to be decoded 
 * Implement signal processing techniques that improve detection like correlation to boost the SNR, window functions to reduce spectral leakage, etc... (I hadn't studied these at the time of this project)
 
 ## Usage
+Check out this [small CMD program](https://github.com/tino1b2be/DTMF-Decoder/blob/master/source/com/tino1b2be/cmdprograms/DTMFDecoder.java) that uses the decoder.
 To use this decoder in your code, import `com.tino1b2be.dtmfdecoder.DTMFUtil;`
 
-### * For `.mp3` or `.wav` files
+### For `.mp3` or `.wav` files
 
 If you have a signal you want to decoded that is saved as a `.mp3` or `.wav` , it can be decoded this way:
 
 ```java
 DTMFUtil dtmf = new DTMFUtil(filename);
 dtmf.decode();
-String sequence = dtmf.getDecoded()[0];
+String left_channel = dtmf.getDecoded()[0];
+String right_channel = dtmf.getDecoded()[1]; // only works if it exists else it throws an indexing error
 ```
 
 Where `filename` is the path to the `.mp3` or `.wav` file. More file types can be implemented using the AudioFile interface but only these two are implemented so far.
 
-### * For a given array of samples
+### For a given array of samples
 
 This is particularly useful if you are decoding an audio (or any signal) stream. If you have an array of samples of the signal ( from `-1` to `1` with a mean of `0`) and where `Fs` is the sampling frequency of the signal, the decoder can be used this way:
 
-#### * For 1 channel signal (mono)
+#### For 1 channel signal (mono)
 ```java
 int Fs = 8000;
 double[] samples = {\* array of samples *\}
@@ -51,7 +53,7 @@ dtmf.decode();
 String sequence = dtmf.getDecoded()[0];
 ```
 
-#### * For 2 channel signal (stereo)
+#### For 2 channel signal (stereo)
 ```java
 int Fs = 8000;
 double[][] samples = {{\* array of samples from first channel *\},{\* array of samples from second channel *\}}
