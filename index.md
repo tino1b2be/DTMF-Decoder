@@ -61,7 +61,7 @@ String sequence = dtmf.getDecoded()[0];
 #### For 2 channel signal (stereo)
 ```java
 int Fs = 8000;
-double[][] samples = {{\* array of samples from first channel *\},{\* array of samples from second channel *\}}
+double[][] samples = [[\* array of samples from first channel *\],[\* array of samples from second channel *\]]
 DTMFUtil dtmf = new DTMFUtil(samples, Fs);
 dtmf.decode();
 String[] sequence = dtmf.getDecoded();
