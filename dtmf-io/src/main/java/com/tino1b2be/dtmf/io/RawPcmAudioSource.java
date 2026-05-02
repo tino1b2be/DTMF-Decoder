@@ -70,7 +70,7 @@ import java.util.Objects;
  * underlying {@code byte[]} (which is safe provided no one mutates the
  * bytes).
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see AudioSource
  * @see PcmEncoding
  * @see com.tino1b2be.dtmf.io.internal.SampleConversion

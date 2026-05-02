@@ -42,7 +42,7 @@ import java.util.Objects;
  * @param priority the value of {@link AudioSourceProvider#priority()} at
  *                 the time of scoring, used as the tie-breaker when two
  *                 providers return the same {@code score}
- * @since 2.0.0
+ * @since 2.1.0
  */
 public record ProviderScore(AudioSourceProvider provider, int score, int priority) {
 

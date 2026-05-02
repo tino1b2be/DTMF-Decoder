@@ -92,7 +92,7 @@ import java.util.Objects;
  * are safe to invoke concurrently from multiple threads on different
  * inputs.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see AudioSources
  * @see DtmfDecoder
  * @see DtmfConfig

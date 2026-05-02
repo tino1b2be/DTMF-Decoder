@@ -70,11 +70,11 @@ import org.junit.jupiter.api.Test;
  *       published coordinates.</b> Parse
  *       {@code dtmf-bom/build.gradle.kts} and assert its constraints
  *       block contains {@code api} entries for
- *       {@code com.tino1b2be:goertzel:2.0.0},
- *       {@code com.tino1b2be:dtmf-core:2.0.0},
- *       {@code com.tino1b2be:dtmf-io:2.0.0},
- *       {@code com.tino1b2be:dtmf-io-wav:2.0.0}, and
- *       {@code com.tino1b2be:dtmf-io-mp3:2.0.0}.</li>
+ *       {@code com.tino1b2be:goertzel:2.1.0},
+ *       {@code com.tino1b2be:dtmf-core:2.1.0},
+ *       {@code com.tino1b2be:dtmf-io:2.1.0},
+ *       {@code com.tino1b2be:dtmf-io-wav:2.1.0}, and
+ *       {@code com.tino1b2be:dtmf-io-mp3:2.1.0}.</li>
  * </ol>
  *
  * <h2>Working-directory resolution</h2>
@@ -180,7 +180,7 @@ class ModuleStructureTest {
     private static final String MP3SPI_COORDINATE = "com.googlecode.soundlibs:mp3spi:1.9.5.4";
 
     private static final String GROUP = "com.tino1b2be";
-    private static final String VERSION = "2.0.0";
+    private static final String VERSION = "2.1.0";
 
     private static final List<String> EXPECTED_BOM_COORDINATES = List.of(
             GROUP + ":goertzel:" + VERSION,

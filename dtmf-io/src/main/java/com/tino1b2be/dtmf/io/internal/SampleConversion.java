@@ -70,7 +70,7 @@ import java.util.Objects;
  * their inputs before asking for a decoder, so this dispatcher's rejection
  * is the second line of defence.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 public final class SampleConversion {
 
@@ -118,7 +118,7 @@ public final class SampleConversion {
      * <p>Decoders are stateless and may be cached or shared across
      * threads.
      *
-     * @since 2.0.0
+     * @since 2.1.0
      */
     @FunctionalInterface
     public interface SampleDecoder {

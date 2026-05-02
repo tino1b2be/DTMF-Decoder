@@ -98,7 +98,7 @@ import java.util.Objects;
  * {@code dtmf-io-wav} jar. External consumers MUST NOT depend on it, at
  * any version, via any mechanism.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 final class WavEncoder {
 

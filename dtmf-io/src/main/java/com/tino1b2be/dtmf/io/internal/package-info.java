@@ -18,6 +18,6 @@
  * those names are internal detail — the public contract for each
  * behaviour lives on the public types in the parent package.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 package com.tino1b2be.dtmf.io.internal;

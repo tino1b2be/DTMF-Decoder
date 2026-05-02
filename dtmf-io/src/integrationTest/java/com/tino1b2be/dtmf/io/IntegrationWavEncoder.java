@@ -27,7 +27,7 @@ import java.util.Objects;
  * <p>Not part of the published API. Used only by
  * {@code OpenWavIT} / {@code UnrecognizedInputIT} helpers.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 final class IntegrationWavEncoder {
 

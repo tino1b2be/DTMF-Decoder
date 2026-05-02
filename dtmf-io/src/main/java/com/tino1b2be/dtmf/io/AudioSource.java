@@ -91,7 +91,7 @@ import java.util.Objects;
  * as closed (Requirement 3.14). {@link #close()} itself remains callable
  * and is a no-op on subsequent invocations.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see AudioSourceProvider
  * @see AudioSources
  * @see RawPcmAudioSource

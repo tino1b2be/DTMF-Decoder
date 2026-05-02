@@ -138,7 +138,7 @@ import java.util.Objects;
  * their own lifecycle and are <em>not</em> thread-safe &mdash; see
  * {@link Mp3AudioSource}.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see Mp3AudioSource
  * @see Mp3HeaderScanner
  * @see AudioSourceProvider

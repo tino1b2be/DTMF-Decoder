@@ -88,7 +88,7 @@ import java.util.Objects;
  * identifying the source as closed (Requirement 3.14).
  * {@link #close()} itself is idempotent.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see AudioSource
  * @see WavAudioSourceProvider
  * @see WavSampleReader
