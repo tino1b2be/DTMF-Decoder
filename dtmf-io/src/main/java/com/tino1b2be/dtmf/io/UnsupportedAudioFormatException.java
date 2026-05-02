@@ -51,7 +51,7 @@ import java.util.Map;
  * caught exception to multiple consumers is safe; attempting to mutate
  * the returned collections throws {@link UnsupportedOperationException}.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see AudioSources
  * @see AudioSourceProvider
  */

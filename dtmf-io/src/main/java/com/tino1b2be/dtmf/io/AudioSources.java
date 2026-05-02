@@ -92,7 +92,7 @@ import java.util.logging.Logger;
  * call. Provider instances themselves may be called concurrently from
  * multiple threads; see {@link AudioSourceProvider} for that contract.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see AudioSource
  * @see AudioSourceProvider
  * @see UnsupportedAudioFormatException

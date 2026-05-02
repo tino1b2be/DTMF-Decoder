@@ -91,7 +91,7 @@ import org.junit.jupiter.api.io.TempDir;
  * pathological case (e.g. LAME producing a degenerate frame) does not
  * fail the suite as long as the corpus average stays above 99%.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 @Tag("slow")
 @EnabledIfSystemProperty(

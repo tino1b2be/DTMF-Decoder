@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  * {@code dtmf-io-mp3} — what matters for callers is that both names are
  * present.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 final class RegisteredFormatsIT {
 

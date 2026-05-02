@@ -91,7 +91,7 @@ import java.util.Objects;
  * entirely to whether the caller-supplied stream is safe to read from
  * concurrently &mdash; a question outside this scanner's scope.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 public final class Mp3HeaderScanner {
 

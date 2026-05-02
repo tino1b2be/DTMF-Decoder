@@ -120,7 +120,7 @@ import java.util.Objects;
  * classes in the parent {@code com.tino1b2be.dtmf.io.wav} package can
  * reach it; external callers MUST NOT depend on it.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 public final class WavSampleReader {
 

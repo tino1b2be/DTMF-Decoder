@@ -18,6 +18,6 @@
  * lives on {@code WavAudioSourceProvider} and {@code WavAudioSource} in the
  * parent package.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 package com.tino1b2be.dtmf.io.wav.internal;

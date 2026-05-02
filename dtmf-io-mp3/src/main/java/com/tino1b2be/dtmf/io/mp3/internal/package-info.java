@@ -17,6 +17,6 @@
  * {@code Mp3AudioSourceProvider} and {@code Mp3AudioSource} in the parent
  * package.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 package com.tino1b2be.dtmf.io.mp3.internal;

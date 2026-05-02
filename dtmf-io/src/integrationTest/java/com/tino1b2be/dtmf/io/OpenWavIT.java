@@ -32,7 +32,7 @@ import org.junit.jupiter.api.io.TempDir;
  * package, and feed the same file through {@code DtmfFileDecoder} to
  * recover the original keys.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 final class OpenWavIT {
 

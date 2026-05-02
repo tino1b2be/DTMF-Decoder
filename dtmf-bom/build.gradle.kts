@@ -11,8 +11,9 @@
 //
 // Group and version are stamped by the root `build.gradle.kts` via
 // `allprojects` — this BOM therefore publishes as
-// `com.tino1b2be:dtmf-bom:2.0.0` and pins the two shipping libraries at the
-// same coordinate. Maven Central publishing is intentionally out of scope
+// `com.tino1b2be:dtmf-bom:2.1.0` and pins the five shipping libraries
+// (goertzel, dtmf-core, dtmf-io, dtmf-io-wav, dtmf-io-mp3) at the same
+// coordinate. Maven Central publishing is intentionally out of scope
 // for the foundation spec (Requirement 16.6); this module only wires the
 // publication so `publishToMavenLocal` works for local smoke-testing.
 
@@ -27,11 +28,11 @@ javaPlatform {
 
 dependencies {
     constraints {
-        api("com.tino1b2be:goertzel:2.0.0")
-        api("com.tino1b2be:dtmf-core:2.0.0")
-        api("com.tino1b2be:dtmf-io:2.0.0")
-        api("com.tino1b2be:dtmf-io-wav:2.0.0")
-        api("com.tino1b2be:dtmf-io-mp3:2.0.0")
+        api("com.tino1b2be:goertzel:2.1.0")
+        api("com.tino1b2be:dtmf-core:2.1.0")
+        api("com.tino1b2be:dtmf-io:2.1.0")
+        api("com.tino1b2be:dtmf-io-wav:2.1.0")
+        api("com.tino1b2be:dtmf-io-mp3:2.1.0")
     }
 }
 

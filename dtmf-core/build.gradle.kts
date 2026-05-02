@@ -8,7 +8,7 @@
 // and the bare `maven-publish` publication all come from
 // `dtmf.published-library-conventions` (layered on top of
 // `dtmf.java-library-conventions`). Maven coordinates
-// (`com.tino1b2be:dtmf-core:2.0.0`) are inherited from the root
+// (`com.tino1b2be:dtmf-core:2.1.0`) are inherited from the root
 // `build.gradle.kts` via `allprojects`.
 
 plugins {

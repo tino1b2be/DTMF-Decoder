@@ -40,7 +40,7 @@ package com.tino1b2be.dtmf.io;
  * decode to signed 16-bit PCM and bypass the raw-PCM constructor path
  * entirely.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see RawPcmAudioSource
  */
 public enum PcmEncoding {

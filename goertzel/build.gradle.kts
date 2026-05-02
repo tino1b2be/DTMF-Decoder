@@ -5,7 +5,7 @@
 // `dtmf.java-library-conventions` plugin that is layered in underneath
 // `dtmf.published-library-conventions`.
 //
-// Maven coordinates (`com.tino1b2be:goertzel:2.0.0`) are inherited from the
+// Maven coordinates (`com.tino1b2be:goertzel:2.1.0`) are inherited from the
 // root `build.gradle.kts` via `allprojects`. The published-library convention
 // attaches a bare `maven-publish` publication; no signing or remote repository
 // is configured because Maven Central publishing is out of scope for the

@@ -99,7 +99,7 @@ import java.util.Objects;
  * whose {@link AudioSource#close()} transitions the source into the
  * closed state but leaves the caller's {@link InputStream} untouched.
  *
- * @since 2.0.0
+ * @since 2.1.0
  * @see WavAudioSource
  * @see AudioSourceProvider
  * @see AudioSource

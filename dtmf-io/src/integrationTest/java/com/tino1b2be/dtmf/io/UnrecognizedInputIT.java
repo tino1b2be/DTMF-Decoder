@@ -34,7 +34,7 @@ import org.junit.jupiter.api.io.TempDir;
  * is negligible but non-zero for truly random bytes, so pinning the seed
  * is strictly more robust than calling {@code new Random()} here.
  *
- * @since 2.0.0
+ * @since 2.1.0
  */
 final class UnrecognizedInputIT {
 

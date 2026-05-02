@@ -58,7 +58,7 @@ import java.util.Objects;
  * @param dataStartOffset absolute byte position of the first payload
  *                        byte within the enclosing source; must be
  *                        non-negative
- * @since 2.0.0
+ * @since 2.1.0
  */
 public record RiffChunk(String id, long size, long dataStartOffset) {
 
