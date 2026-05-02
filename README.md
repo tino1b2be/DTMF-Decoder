@@ -21,6 +21,11 @@ The project is a Gradle multi-module build. Four modules ship as artifacts; a fi
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for JDK install instructions on macOS, Linux, and Windows.
 
+For the behavioural contract and architectural rationale:
+
+- [`docs/requirements.md`](docs/requirements.md) — EARS-format requirements, the normative behavioural contract
+- [`docs/design.md`](docs/design.md) — architectural decisions and the 21 property tests that validate them
+
 ## Build
 
 ```bash
