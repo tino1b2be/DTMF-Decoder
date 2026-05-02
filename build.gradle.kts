@@ -2,7 +2,7 @@
 //
 // Per Task 1.6 of the dtmf-v2-foundation spec: the root applies no plugins
 // itself. Its sole responsibility is to stamp consistent Maven coordinates
-// — group `com.tino1b2be` and version `2.0.0` — onto every subproject
+// — group `com.tino1b2be` and version `2.1.0` — onto every subproject
 // (Requirements 2.1, 2.2, 2.3).
 //
 // `allprojects` (rather than `subprojects`) is used deliberately. The root
@@ -14,7 +14,7 @@
 
 allprojects {
     group = "com.tino1b2be"
-    version = "2.0.0"
+    version = "2.1.0"
 }
 
 // -------------------------------------------------------------------------
@@ -31,10 +31,19 @@ allprojects {
 //     index.html                  ← landing page listing the modules
 //     goertzel/                   ← :goertzel javadoc
 //     dtmf-core/                  ← :dtmf-core javadoc
+//     dtmf-io/                    ← :dtmf-io javadoc
+//     dtmf-io-wav/                ← :dtmf-io-wav javadoc
+//     dtmf-io-mp3/                ← :dtmf-io-mp3 javadoc
 //
 // Consumers can browse the full API at tino1b2be.github.io/DTMF-Decoder.
 
-val publishedModuleNames = setOf("goertzel", "dtmf-core")
+val publishedModuleNames = setOf(
+    "goertzel",
+    "dtmf-core",
+    "dtmf-io",
+    "dtmf-io-wav",
+    "dtmf-io-mp3",
+)
 
 tasks.register("aggregateJavadoc") {
     group = "documentation"

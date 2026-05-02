@@ -2,18 +2,21 @@
 
 A Java 17 library for detecting and generating [DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling) (Dual-Tone Multi-Frequency) signalling tones per ITU-T Q.23 and Q.24. Ships a Goertzel-based detection backend with both batch and streaming APIs.
 
-> **Status:** v2 foundation. File I/O (WAV/MP3/OGG), CLI, GUI, microphone capture, Android support, and Maven Central publishing are explicitly out of scope for this spec and planned for follow-on releases. See [Out of scope](#out-of-scope) below.
+> **Status:** v2.1.0. File I/O ships as a separate layer in the `dtmf-io`, `dtmf-io-wav`, and `dtmf-io-mp3` modules (added in this release). CLI, GUI, microphone capture, Android support, FLAC/OGG/Opus/AAC codecs, and Maven Central publishing remain out of scope. See [Out of scope](#out-of-scope) below.
 
 ## Modules
 
-The project is a Gradle multi-module build. Four modules ship as artifacts; a fifth root aggregator coordinates the build.
+The project is a Gradle multi-module build. Five modules ship as artifacts; a sixth root aggregator coordinates the build, and a seventh (`dtmf-benchmarks`) hosts JMH benchmarks and is not published.
 
 | Module | Coordinates | Depends on | Purpose |
 |---|---|---|---|
-| `goertzel` | `com.tino1b2be:goertzel:2.0.0` | JDK 17 only | General-purpose Goertzel filter + filter bank |
-| `dtmf-core` | `com.tino1b2be:dtmf-core:2.0.0` | `goertzel` | DTMF detection, generation, streaming |
+| `goertzel` | `com.tino1b2be:goertzel:2.1.0` | JDK 17 only | General-purpose Goertzel filter + filter bank |
+| `dtmf-core` | `com.tino1b2be:dtmf-core:2.1.0` | `goertzel` | DTMF detection, generation, streaming |
+| `dtmf-io` | `com.tino1b2be:dtmf-io:2.1.0` | `dtmf-core` | Pull-based `AudioSource` SPI + `DtmfFileDecoder` |
+| `dtmf-io-wav` | `com.tino1b2be:dtmf-io-wav:2.1.0` | `dtmf-io` | WAV `AudioSourceProvider` (clean-room RIFF parser) |
+| `dtmf-io-mp3` | `com.tino1b2be:dtmf-io-mp3:2.1.0` | `dtmf-io`, JLayer, mp3spi | MP3 `AudioSourceProvider` |
 | `dtmf-benchmarks` | *(not published)* | `dtmf-core`, `goertzel` | JMH benchmarks |
-| `dtmf-bom` | `com.tino1b2be:dtmf-bom:2.0.0` | *(BOM only)* | Pins `goertzel` and `dtmf-core` at a coordinated version |
+| `dtmf-bom` | `com.tino1b2be:dtmf-bom:2.1.0` | *(BOM only)* | Pins the five shipping libraries at a coordinated version |
 
 ## Prerequisites
 
@@ -138,9 +141,10 @@ The standard factories accept exactly `{8000, 16000, 44100, 48000}` Hz. The adva
 
 ## Out of scope
 
-The following are explicitly **not** part of v2 foundation:
+The following are explicitly **not** part of the current release:
 
-- **File I/O** — no WAV, MP3, or OGG readers. Callers supply PCM samples as `double[]`, `short[]`, `float[]`, or `int[]`.
+- **Additional audio codecs** — beyond WAV and MP3. FLAC, OGG Vorbis, Opus, and AAC are future spec candidates.
+- **Production WAV/MP3 encoding** — `dtmf-io-wav` includes only a test-only encoder for round-trip tests; no public encoding API ships.
 - **CLI** — no command-line interface module.
 - **GUI** — no Swing, AWT, JavaFX, or applet code.
 - **Microphone capture** — no real-time audio input.
