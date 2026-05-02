@@ -1,7 +1,4 @@
-/bin/
-/Prototyping/Test Data/
-
-# Gradle build artifacts (v2)
+# Gradle build artifacts
 .gradle/
 build/
 **/build/
@@ -12,3 +9,18 @@ out/
 # jqwik property-test shrinking/failure database (runtime, not source)
 .jqwik-database
 **/.jqwik-database
+
+# IDE and OS
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+
+# Kiro agent spec/planning workspace — not intended for public consumption
+.kiro/
