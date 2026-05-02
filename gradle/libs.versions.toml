@@ -1,0 +1,41 @@
+# Gradle version catalog for the DTMF-Decoder v2 foundation build.
+#
+# Referenced by:
+#   - settings.gradle.kts (auto-loaded via the `gradle/libs.versions.toml` convention)
+#   - buildSrc precompiled script plugins (`dtmf.java-library-conventions`,
+#     `dtmf.published-library-conventions`) for JUnit 5 and jqwik wiring
+#   - `dtmf-benchmarks/build.gradle.kts` for the JMH plugin, JMH core, and the
+#     optional `commons-math3` FFT comparison benchmark
+#
+# Version pins (Task 1.4, Requirement 1.9):
+#   junit-jupiter  = 5.10.2   — JUnit 5 platform for unit tests
+#   jqwik          = 1.9.0    — property-based testing (21 correctness properties)
+#   jmh            = 1.37     — JMH core + annotation processor for benchmarks
+#   jmh-plugin     = 0.7.2    — `me.champeau.jmh` Gradle plugin
+#   commons-math3  = 3.6.1    — FFT baseline for `FftComparisonBenchmark` only
+
+[versions]
+junit-jupiter = "5.10.2"
+jqwik = "1.9.0"
+jmh = "1.37"
+jmh-plugin = "0.7.2"
+commons-math3 = "3.6.1"
+
+[libraries]
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
+jqwik = { module = "net.jqwik:jqwik", version.ref = "jqwik" }
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version.ref = "jmh" }
+jmh-generator-annprocess = { module = "org.openjdk.jmh:jmh-generator-annprocess", version.ref = "jmh" }
+commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
+
+[bundles]
+junit = [
+    "junit-jupiter-api",
+    "junit-jupiter-engine",
+    "junit-jupiter-params",
+]
+
+[plugins]
+jmh = { id = "me.champeau.jmh", version.ref = "jmh-plugin" }

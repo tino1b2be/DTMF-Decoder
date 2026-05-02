@@ -1,71 +1,163 @@
-# [DTMF Decoder](http://tino1b2be.github.io/DTMF-Decoder/)
-For the project page click [here](http://tino1b2be.github.io/DTMF-Decoder/).
+# DTMF-Decoder v2
 
-## What is DTMF?
-**[DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling)** stands for **Dual Tone Multi Frequency**. This is an in-band telecommunication signalling system using voice-frequency band over telephone lines between telephone equipment and other communications devices and switching centres. DTMF is used to represent up to 16 keys (most telephones only use 12 of these). Each key is represented by two different frequencies. The first bin (lower frequencies) consist of frequencies under 1kHz and the second bin (Upper bin) consists of frequencies above 1.2kHz. The combination of the two tones will be distinctive and different from tones of other keys and these tones cannot be mimicked by voice or random signals.
+A Java 17 library for detecting and generating [DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling) (Dual-Tone Multi-Frequency) signalling tones per ITU-T Q.23 and Q.24. Ships a Goertzel-based detection backend with both batch and streaming APIs.
 
-## DTMF-Decoder
-The intent of this project is to design a DTMF Decoder and create a Java API for a it. I started this project while I was on a short internship at **[VASTech](http://www.vastech.co.za/)** during the December 2015-January 2016 UCT vacation break. My mentor for this project was Albert Visagie (@avisagie).
+> **Status:** v2 foundation. File I/O (WAV/MP3/OGG), CLI, GUI, microphone capture, Android support, and Maven Central publishing are explicitly out of scope for this spec and planned for follow-on releases. See [Out of scope](#out-of-scope) below.
 
-### DTMF-Decoder API Specifications
-The API is designed for use in programs where a DTMF signal needs to be decoded (given it is in a valid form of .mp3 file, .wav file or as an array of sample points; either as `double[]` (mono) or as `double[2][]` (stereo)).
+## Modules
 
-* DTMF Decoder for **_.wav_** and **_.mp3_** files or when given an array of sample points. (`double[]` / `double[2][]`).
-* The API can decode only mono and stereo channeled audio signals. It separately decodes and returns the DTMF tones found in each channel.
-* Has an audio file interface which can be implemented for more audio file types (ogg, wma, etc...)
-* DTMF Tone/Sequence **_Generator_** that can export to **_.wav_** files.
-* Goertzel Class which can be used independently with arrays of sample points representing a signal.
-* The API includes a GUI Application (_Java Swing_) which can decode DTMF .mp3 and .wav files and also generate DTMF tone sequences.
+The project is a Gradle multi-module build. Four modules ship as artifacts; a fifth root aggregator coordinates the build.
 
-### Possible Improvements
-* Optimising the Goertzel Class to improve on speed and performance.
-* Coming up with a more efficient way to detect noise and human speech to improve rejection and minimise false hits when decoding random noise files.
-* Decoder could give a precise location (time) of detected tones within the audio file.
-* Implement signal processing techniques that improve detection like correlation to boost the SNR, window functions to reduce spectral leakage, etc... (I hadn't studied these at the time of this project)
+| Module | Coordinates | Depends on | Purpose |
+|---|---|---|---|
+| `goertzel` | `com.tino1b2be:goertzel:2.0.0` | JDK 17 only | General-purpose Goertzel filter + filter bank |
+| `dtmf-core` | `com.tino1b2be:dtmf-core:2.0.0` | `goertzel` | DTMF detection, generation, streaming |
+| `dtmf-benchmarks` | *(not published)* | `dtmf-core`, `goertzel` | JMH benchmarks |
+| `dtmf-bom` | `com.tino1b2be:dtmf-bom:2.0.0` | *(BOM only)* | Pins `goertzel` and `dtmf-core` at a coordinated version |
 
-## Usage
-Check out this [small CMD program](https://github.com/tino1b2be/DTMF-Decoder/blob/master/source/com/tino1b2be/cmdprograms/DTMFDecoder.java) that uses the decoder.
-To use this decoder in your code, import `com.tino1b2be.dtmfdecoder.DTMFUtil;`
+## Prerequisites
 
-### For `.mp3` or `.wav` files
+- **JDK 17** — the only thing you need to install locally. The Gradle wrapper (`./gradlew`) handles Gradle itself.
 
-If you have a signal you want to decoded that is saved as a `.mp3` or `.wav` , it can be decoded this way:
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for JDK install instructions on macOS, Linux, and Windows.
 
-```java
-DTMFUtil dtmf = new DTMFUtil(filename);
-dtmf.decode();
-String left_channel = dtmf.getDecoded()[0];
-String right_channel = dtmf.getDecoded()[1]; // only works if it exists else it throws an indexing error
+For the behavioural contract and architectural rationale:
+
+- [`docs/requirements.md`](docs/requirements.md) — EARS-format requirements, the normative behavioural contract
+- [`docs/design.md`](docs/design.md) — architectural decisions and the 21 property tests that validate them
+
+## Build
+
+```bash
+./gradlew build
 ```
 
-Where `filename` is the path to the `.mp3` or `.wav` file. More file types can be implemented using the AudioFile interface but only these two are implemented so far.
+Runs compilation and every module's tests on a clean checkout. Integration tests (99.5% detection-rate corpus, 60-second silence, noise false-positive) live in a separate source set and run via:
 
-### For a given array of samples
-
-This is particularly useful if you are decoding an audio (or any signal) stream. If you have an array of samples of the signal ( from `-1` to `1` with a mean of `0`) and where `Fs` is the sampling frequency of the signal, the decoder can be used this way:
-
-#### For 1 channel signal (mono)
-```java
-int Fs = 8000;
-double[] samples = {/* array of samples */}
-DTMFUtil dtmf = new DTMFUtil(samples, Fs);
-dtmf.decode();
-String sequence = dtmf.getDecoded()[0];
+```bash
+./gradlew :dtmf-core:integrationTest
 ```
 
-#### For 2 channel signal (stereo)
+## Quickstart
+
+### Batch decode
+
 ```java
-int Fs = 8000;
-double[][] samples = {{/* array of samples from first channel */},{/* array of samples from second channel */}}
-DTMFUtil dtmf = new DTMFUtil(samples, Fs);
-dtmf.decode();
-String[] sequence = dtmf.getDecoded();
-String first_channel = sequence[0];
-String second_channel = sequence[1];
+import com.tino1b2be.dtmf.*;
+import java.util.List;
+
+double[] samples = /* your normalised PCM in [-1.0, 1.0] */;
+DtmfConfig cfg = DtmfConfig.forTelephony();
+List<DtmfTone> tones = DtmfDecoder.decode(samples, cfg);
+for (DtmfTone t : tones) {
+    System.out.printf("%c at %s (%.2f)%n",
+        t.key(), t.startTime(), t.confidence());
+}
 ```
 
-## Support or Contact
-A PDF version of the full report on this project can be viewed [here](https://github.com/tino1b2be/DTMF-Decoder/blob/master/Documentation/DTMF%20Decoder%20Report.pdf). This report covers everything from the research made in the project, the pseudo code and algorithms used along with the motivations for using them, testing and much more. You can contact me for more information on my email (ttchemvura@gmail.com). To find out more about me please visit my [website](http://tino1b2be.com).
+Other sample formats work identically: `decode(short[], cfg)`, `decode(float[], cfg)`, `decode(int[], cfg)`, `decodePcm24(int[], cfg)`.
 
-## Licence
-The project is licensed under the [MIT License](https://github.com/tino1b2be/DTMF-Decoder/raw/master/LICENSE).
+### Push-based streaming detector
+
+```java
+DtmfDetector detector = new DtmfDetector(DtmfConfig.forTelephony());
+detector.onTone(tone -> System.out.println("Got " + tone.key()));
+
+while (/* more audio */) {
+    double[] chunk = /* read next chunk */;
+    detector.process(chunk);
+}
+detector.flush();
+```
+
+The callback fires exactly once per confirmed tone, at tone-end, synchronously before the corresponding `process` or `flush` call returns. Chunking does not affect the emitted sequence: feeding a buffer in one call or in any number of chunks produces the same tones with the same cumulative sample indices.
+
+### Pull-based streaming iterator
+
+```java
+try (DtmfStream stream = DtmfStream.fromSamples(samples, cfg)) {
+    while (stream.hasNext()) {
+        DtmfTone t = stream.next();
+        // ...
+    }
+}
+```
+
+Or with a custom source:
+
+```java
+DtmfStream.SampleSource source = (buffer, offset, length) -> {
+    // Read up to `length` samples into buffer[offset .. offset+length).
+    // Return the number read, or -1 at end-of-stream.
+};
+try (DtmfStream stream = DtmfStream.fromSource(source, cfg)) { /* ... */ }
+```
+
+### Generating DTMF audio
+
+```java
+double[] audio = DtmfGenerator.generate("123A", DtmfConfig.forTelephony());
+```
+
+Each character produces a tone of `minimumToneDuration` samples at the ITU-T Q.23 frequency pair for that key, separated by `minimumGapDuration` samples of silence.
+
+## Configuration
+
+`DtmfConfig` has four preset factories covering the common scenarios:
+
+| Factory | Use case | Differences |
+|---|---|---|
+| `DtmfConfig.defaults()` | Same as `forTelephony` | — |
+| `DtmfConfig.forTelephony()` | ITU-T Q.24 telephony | 40 ms tone, 40 ms gap, threshold 0.25, 2 confirmation frames |
+| `DtmfConfig.forVoip()` | VoIP (packet-loss concealment) | 3 confirmation frames |
+| `DtmfConfig.forNoisyAudio()` | Noisy environments | 50 ms tone, threshold 0.35, 4 confirmation frames |
+
+For anything the presets do not cover — non-standard sample rates (`[4000, 192000]` Hz), custom twist tolerances, window functions, block size — use the advanced builder:
+
+```java
+DtmfConfig cfg = DtmfConfig.advanced()
+    .sampleRate(16000)
+    .minimumToneDuration(Duration.ofMillis(60))
+    .channelMode(ChannelMode.STEREO_INDEPENDENT)
+    .windowFunction(WindowFunction.HAMMING)
+    .forwardTwistDb(3.0)
+    .reverseTwistDb(-6.0)
+    .confirmationFrames(3)
+    .build();
+```
+
+## Supported sample rates
+
+The standard factories accept exactly `{8000, 16000, 44100, 48000}` Hz. The advanced builder accepts any integer sample rate in `[4000, 192000]` Hz. The library automatically sizes each analysis block so the Goertzel bin width lands in `[40, 60]` Hz at every supported rate.
+
+## Channel modes
+
+- `MONO` — single-channel input; every tone tagged `channel = 0`
+- `STEREO_INDEPENDENT` — interleaved stereo decoded as two independent channels; emissions tagged `channel = 0` (left) or `channel = 1` (right)
+- `STEREO_DOWNMIX` — interleaved stereo averaged into one mono stream before detection; every tone tagged `channel = 0`
+
+## Out of scope
+
+The following are explicitly **not** part of v2 foundation:
+
+- **File I/O** — no WAV, MP3, or OGG readers. Callers supply PCM samples as `double[]`, `short[]`, `float[]`, or `int[]`.
+- **CLI** — no command-line interface module.
+- **GUI** — no Swing, AWT, JavaFX, or applet code.
+- **Microphone capture** — no real-time audio input.
+- **Android** — no Android-specific code or dependencies.
+- **Maven Central publishing** — no signing, no release workflows.
+- **v1 compatibility** — the v1 API under `com.tino1b2be.dtmfdecoder` has been removed. There is no binary or source compatibility shim.
+
+These will land in follow-on specs.
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for dev-environment setup and the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) for community standards.
+
+## Security
+
+To report a vulnerability, see [`SECURITY.md`](SECURITY.md).
+
+## License
+
+[MIT](LICENSE).

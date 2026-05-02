@@ -1,2 +1,34 @@
-/bin/
-/Prototyping/Test Data/
+# Gradle build artifacts
+.gradle/
+build/
+**/build/
+*.class
+bin/
+out/
+
+# jqwik property-test shrinking/failure database (runtime, not source)
+.jqwik-database
+**/.jqwik-database
+
+# IDE and OS
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+
+# Logs and JVM crash reports
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
+# Kiro agent spec/planning workspace — not intended for public consumption
+.kiro/
+
+# Keep empty directories only when a .gitkeep opts them in
+!.gitkeep
