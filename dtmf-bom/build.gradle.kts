@@ -29,6 +29,9 @@ dependencies {
     constraints {
         api("com.tino1b2be:goertzel:2.0.0")
         api("com.tino1b2be:dtmf-core:2.0.0")
+        api("com.tino1b2be:dtmf-io:2.0.0")
+        api("com.tino1b2be:dtmf-io-wav:2.0.0")
+        api("com.tino1b2be:dtmf-io-mp3:2.0.0")
     }
 }
 
