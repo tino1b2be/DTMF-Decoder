@@ -150,6 +150,14 @@ The following are explicitly **not** part of v2 foundation:
 
 These will land in follow-on specs.
 
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for dev-environment setup and the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) for community standards.
+
+## Security
+
+To report a vulnerability, see [`SECURITY.md`](SECURITY.md).
+
 ## License
 
 [MIT](LICENSE).

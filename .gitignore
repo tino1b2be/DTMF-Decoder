@@ -22,5 +22,13 @@ out/
 .DS_Store
 Thumbs.db
 
+# Logs and JVM crash reports
+*.log
+hs_err_pid*.log
+replay_pid*.log
+
 # Kiro agent spec/planning workspace — not intended for public consumption
 .kiro/
+
+# Keep empty directories only when a .gitkeep opts them in
+!.gitkeep

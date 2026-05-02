@@ -35,8 +35,12 @@ dependencies {
 
 sourceSets {
     create("integrationTest") {
-        java.srcDir("src/integrationTest/java")
-        resources.srcDir("src/integrationTest/resources")
+        // java.srcDir and resources.srcDir are implicit for a source set named
+        // `integrationTest` — they default to src/integrationTest/java and
+        // src/integrationTest/resources respectively. Re-adding them
+        // explicitly was a defensive mistake that registered each directory
+        // twice and broke processIntegrationTestResources once files
+        // actually landed under resources/.
         compileClasspath += sourceSets["main"].output + sourceSets["test"].output
         runtimeClasspath += output + compileClasspath
     }

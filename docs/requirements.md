@@ -2,7 +2,7 @@
 
 This document is the normative behavioural contract for the DTMF-Decoder library. Every requirement is testable and has at least one unit or property test validating it. Where a requirement is backed by a property test, the test file carries a tag comment of the form `// Feature: dtmf-v2-foundation, Property N: <title>` and the property's Javadoc names the requirement it validates.
 
-The reference standards are **[ITU-T Q.23](../Documentation/T-REC-Q.23-198811-I!!PDF-E.pdf)** (tone generation) and **[ITU-T Q.24](../Documentation/T-REC-Q.24-198811-I!!PDF-E.pdf)** (detector behaviour, including standard twist). Copies of both standards sit in [`Documentation/`](../Documentation) so the library can be read and understood offline.
+The reference standards are **[ITU-T Q.23](standards/T-REC-Q.23-198811-I!!PDF-E.pdf)** (tone generation) and **[ITU-T Q.24](standards/T-REC-Q.24-198811-I!!PDF-E.pdf)** (detector behaviour, including standard twist). Copies of both standards sit in [`docs/standards/`](standards/) so the library can be read and understood offline.
 
 Requirements use [EARS](https://alistairmavin.com/ears/) phrasing — each acceptance criterion is of the form *WHEN / WHILE / IF / WHERE / THE &lt;system&gt; SHALL …*. This keeps conditions unambiguous and makes criteria directly machine-checkable.
 
