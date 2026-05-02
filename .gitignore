@@ -1,2 +1,14 @@
 /bin/
 /Prototyping/Test Data/
+
+# Gradle build artifacts (v2)
+.gradle/
+build/
+**/build/
+*.class
+bin/
+out/
+
+# jqwik property-test shrinking/failure database (runtime, not source)
+.jqwik-database
+**/.jqwik-database
