@@ -1,0 +1,71 @@
+name: Pages
+
+# Builds and deploys the Javadoc site to GitHub Pages on every push to master.
+#
+# The aggregate-javadoc task at the root of the build (see build.gradle.kts)
+# combines :goertzel and :dtmf-core javadoc into build/javadoc-site/ with a
+# small landing page at the root. That directory is the Pages deployment
+# artifact.
+#
+# Pages is deployed via the official actions/deploy-pages@v4 flow; the repo
+# needs Settings -> Pages -> Source = "GitHub Actions" for this to work.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent Pages deployment; cancel any in-progress run when
+# a newer commit lands on master.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Javadoc site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Cache Gradle caches and wrapper dists
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Aggregate Javadoc
+        run: ./gradlew aggregateJavadoc --no-daemon
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/javadoc-site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
