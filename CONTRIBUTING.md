@@ -83,3 +83,13 @@ Once JDK 17 is installed and verified, from the repository root:
 ```
 
 This compiles every module and runs every module's tests. No other local setup is required — dependencies are fetched via the Gradle wrapper from Maven Central.
+
+## Shared test fixtures (MP3)
+
+The `dtmf-io-mp3` module's unit tests reuse the MP3 fixtures committed in `dtmf-core/src/integrationTest/resources/samples/` rather than duplicating the binary blobs under `dtmf-io-mp3`. The mechanism is a `processTestResources` alias in `dtmf-io-mp3/build.gradle.kts` (wired in Task 1.5 of the `dtmf-io` spec, Requirement 15.4) that copies the following three files onto the `dtmf-io-mp3` test classpath under `shared-samples/`:
+
+- `shared-samples/12345678.mp3` — a generated "12345678" DTMF sequence
+- `shared-samples/jazz.mp3` — non-DTMF audio, used as a negative anchor
+- `shared-samples/stereo.mp3` — stereo MP3 to exercise the 2-channel path
+
+Unit tests load them with, e.g., `getClass().getResourceAsStream("/shared-samples/12345678.mp3")`. Renaming or removing any of the three files in `dtmf-core` will fail the `:dtmf-io-mp3:processTestResources` task with a missing-input error — that is the intended behaviour; the task's inputs are named explicitly so a rename surfaces at the build level rather than silently dropping coverage.
